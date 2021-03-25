@@ -1,0 +1,7 @@
+clang
+%c 
+%h --include=Global.h
+-I=./mlx
+-Wall
+-Wextra
+-Werror
