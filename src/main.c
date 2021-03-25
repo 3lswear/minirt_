@@ -1,11 +1,24 @@
-#include <mlx.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
+/*   Updated: 2021/03/25 22:23:22 by sunderle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int     main(void)
+#include "../mlx/mlx.h"
+#include "../includes/minirt.h"
+
+int	main(void)
 {
-    void    *mlx;
-    void    *mlx_win;
+	t_win window;
 
-    mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 1920, 1080, "jopa");
-    mlx_loop(mlx);
+    window.mlx = mlx_init();
+    window.win = mlx_new_window(window.mlx, 1366, 768, "jopa");
+    mlx_loop(window.mlx);
+	return (0);
 }      
