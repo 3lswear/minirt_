@@ -10,15 +10,31 @@ OBJ = $(SRC:.c=.o)
 
 INCLUDES = ./includes/
 
-MLX = ./mlx/libmlx.a
+MLXFLAGS = -Lmlx-linux -lmlx -lXext -lX11
+
+# MLX = ./mlx/libmlx.a
+MLX = ./mlx-linux/libmlx.a
 
 all: $(NAME)
 
 $(OBJS): %.o %.c 
-	$(CC) $(CFLAGS) -c $< -I ./mlx  -I $(INCLUDES)-o $@
+	$(CC) $(CFLAGS) -c $< -I ./mlx-linux  -I $(INCLUDES)-o $@
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(MLX) $(OBJ)
+	$(CC) $(OBJ) $(MLXFLAGS) -o $(NAME)
+
+$(MLX):
+	cd mlx-linux
+	sudo ./configure
+
+clean:
+	$(RM) $(OBJ)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
 
 run: $(NAME)
 	./$(NAME)
