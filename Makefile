@@ -21,7 +21,7 @@ $(OBJS): %.o %.c
 	$(CC) $(CFLAGS) -c $< -I ./mlx-linux  -I $(INCLUDES)-o $@
 
 $(NAME): $(MLX) $(OBJ)
-	$(CC) $(OBJ) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(MLXFLAGS) -lm -o $(NAME)
 
 $(MLX):
 	cd mlx-linux
