@@ -4,11 +4,13 @@ CC = clang
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRC = $(wildcard ./src/*c )
+SRC = $(wildcard ./src/*/*c )
 
 OBJ = $(SRC:.c=.o)
 
-INCLUDES = ./includes/
+INCLUDES = ./includes
+
+HEADER = $(INCLUDES)/minirt.h
 
 MLXFLAGS = -Lmlx-linux -lmlx -lXext -lX11
 
@@ -17,10 +19,10 @@ MLX = ./mlx-linux/libmlx.a
 
 all: $(NAME)
 
-$(OBJS): %.o %.c 
-	$(CC) $(CFLAGS) -c $< -I ./mlx-linux  -I $(INCLUDES)-o $@
+$(OBJ): %.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -I ./mlx-linux -I $(INCLUDES) -o $@
 
-$(NAME): $(MLX) $(OBJ)
+$(NAME): $(OBJ) $(MLX) 
 	$(CC) $(OBJ) $(MLXFLAGS) -lm -o $(NAME)
 
 $(MLX):
