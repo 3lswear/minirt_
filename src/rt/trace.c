@@ -13,11 +13,12 @@ void trace(t_win *window, t_scene *scene)
 	float x_ray;
 	float y_ray;
 	
-	mlx_y = 0;
 
 	viewport = get_viewport(scene->width, scene->height, scene->cams->fov);
-	y_ang = (scene->width / 2);
-	while (y_ang >= (scene->height / 2) * -1)
+	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
+	y_ang = (scene->height / 2);
+	mlx_y = 0;
+	while (y_ang >= -(scene->height / 2))
 	{
 		y_ray = y_ang * viewport->y_pixel;
 		x_ang = -(scene->width / 2);
@@ -31,16 +32,17 @@ void trace(t_win *window, t_scene *scene)
 				color = WHITE;
 			else
 				color = BLACK;
-			/* pixel_put(window, mlx_x, mlx_y, color); */
-			mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color);
-			/* free(ray); */
+			pixel_put(window, mlx_x, mlx_y, color);
+			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
+			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
+			/* mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color); */
+			free(ray);
 			x_ang++;
 			mlx_x++;
 		}
 		y_ang--;
 		mlx_y++;
 	}
-
 }
 
 t_view *get_viewport(float width, float height, float fov)
@@ -48,8 +50,6 @@ t_view *get_viewport(float width, float height, float fov)
 	t_view *viewport;
 	float aspect_ratio;
 
-	/* (void)width; */
-	/* (void)height; */
 	(void)fov;
 
 	viewport = malloc(sizeof(t_view));
@@ -60,5 +60,8 @@ t_view *get_viewport(float width, float height, float fov)
 	viewport->height = viewport->width  / aspect_ratio;
 	viewport->x_pixel = viewport->width / width;
 	viewport->y_pixel = viewport->height / height;
+	printf("viewport->x_pixel = %f\n", viewport->x_pixel);
+	printf("viewport->y_pixel = %f\n", viewport->y_pixel);
+	printf("viewport->height = %f\n", viewport->height);
 	return (viewport);
 }
