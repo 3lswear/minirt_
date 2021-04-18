@@ -1,8 +1,7 @@
 clang
-%c 
-%h --include=Global.h
--I=./mlx-linux
--I=./includes
+-Iincludes
+%c
+%h --include=./includes/minirt.h
 -Wall
 -Wextra
 -Werror
