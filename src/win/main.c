@@ -6,18 +6,18 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/18 01:32:43 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/18 05:15:51 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
+#include "minirt.h"
 
 void            pixel_put(t_win *win, int x, int y, int color)
 {
     char    *dst;
 
     dst = win->addr + (y * win->line_l + x * (win->bpp / 8));
-    *(unsigned int*)dst = color;
+    *(unsigned int *)dst = color;
 }
 
 int	main(void)
