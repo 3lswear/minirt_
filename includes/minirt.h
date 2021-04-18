@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/18 01:20:11 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/18 05:13:05 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 # define BLUE 0x000000FF
 
+     #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+
 #include "../mlx-linux/mlx.h"
+#include "../src/geom/vector.h"
 
 typedef struct s_win
 {
@@ -28,7 +32,5 @@ typedef struct s_win
 	int			bpp;
 	int			en;
 }				t_win;
-
-
 
 #endif
