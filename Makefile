@@ -22,12 +22,12 @@ all: $(NAME)
 $(OBJ): %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -I ./mlx-linux -I $(INCLUDES) -o $@
 
-$(NAME): $(OBJ) $(MLX) 
-	$(CC) $(OBJ) $(MLXFLAGS) -lm -o $(NAME)
-
 $(MLX):
 	cd mlx-linux
 	sudo ./configure
+
+$(NAME): $(OBJ) $(MLX) 
+	$(CC) $(OBJ) $(MLXFLAGS) -lm -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)
@@ -35,8 +35,9 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: fclean all
-
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 run: $(NAME)
 	./$(NAME)
