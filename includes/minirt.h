@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/18 23:55:53 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:03:22 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
+#include "../mlx-linux/mlx.h"
+#include "../ext/gnl/get_next_line.h"
      #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
-#include "../mlx-linux/mlx.h"
-#include "vector.h"
+#include "geom.h"
 #include "sphere.h"
 #include "camera.h"
 #include "scene.h"
@@ -41,20 +44,10 @@ typedef struct s_win
 	int			en;
 }				t_win;
 
-/* PROTOTYPES */
-
-void handle_error(int value);
-
-void     pixel_put(t_win *window, int x, int y, int color);
-void trace(t_win *window, t_scene *scene);
-
-/* GEOMETRY */
+#define RAD (M_PI / 180)
 
 
-t_vec *new_vec(float x, float y, float z);
-t_vec *v_sub(t_vec *v1, t_vec *v2);
-float v_len(t_vec *vec);
-void v_norm(t_vec *v);
-float v_dot_product(t_vec *v1, t_vec *v2);
+void	pixel_put(t_win *window, int x, int y, int color);
+void	trace(t_win *window, t_scene *scene);
 
 #endif
