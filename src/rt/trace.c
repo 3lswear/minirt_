@@ -26,7 +26,7 @@ void trace(t_win *window, t_scene *scene)
 		while (x_ang <= scene->width / 2)
 		{
 			x_ray = x_ang * viewport->x_pixel;
-			ray = new_vec(x_ray, y_ray, -1);
+			ray = v_new(x_ray, y_ray, -1);
 			v_norm(ray);
 			if (inter_sphere(scene->cams, ray, scene->sphere))
 				color = WHITE;
@@ -50,13 +50,11 @@ t_view *get_viewport(float width, float height, float fov)
 	t_view *viewport;
 	float aspect_ratio;
 
-	(void)fov;
-
 	viewport = malloc(sizeof(t_view));
 	if (!viewport)
 		handle_error(-1);
 	aspect_ratio = width / height;
-	viewport->width = 1;
+	viewport->width = 2 * tan((fov / 2) * RAD);
 	viewport->height = viewport->width  / aspect_ratio;
 	viewport->x_pixel = viewport->width / width;
 	viewport->y_pixel = viewport->height / height;
