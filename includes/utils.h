@@ -3,7 +3,7 @@
 
 float idiv(int a, int b);
 void handle_error(int value);
-void parse_input(char *file);
+void parse_input(char *file, t_scene *scene);
 
 
 typedef struct	s_list
@@ -21,5 +21,10 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstadd_back(t_list **head, t_list *new);
 void	ft_lstadd_front(t_list **head, t_list *new);
 size_t	ft_lstsize(t_list *list);
+
+
+int	iswhitespace(const char *chr);
+char	**split_ws(char const *s);
+char	*strchr_ws(const char *s);
 
 #endif
