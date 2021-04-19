@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/19 18:37:18 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:25:52 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define BLUE 0x000000FF
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
+
+# define ERR_ALLOC -1
+# define ERR_LIST -2
+
 
 #include "../mlx-linux/mlx.h"
 #include "../ext/gnl/get_next_line.h"
