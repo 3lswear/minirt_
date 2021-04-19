@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/19 02:13:27 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/19 16:06:06 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void     pixel_put(t_win *window, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-int close(int keycode, t_win *win)
+int win_close(int keycode, t_win *win)
 {
 	(void)keycode;
 	mlx_destroy_window(win->mlx, win->win);
@@ -66,19 +66,23 @@ int	main(void)
 			&window.en);
 
 	/* draw_circle(window, width, height); */
-	t_vec *sph_center;
 	t_sphere *sph;
-	t_vec *cam_origin;
-	t_vec *cam_dir;
+	t_vec *sph_center;
+
 	t_cam *cam;
+	t_vec *cam_dir;
+	t_vec *cam_origin;
+	float cam_fov;
+
 	t_scene *scene;
 
-	sph_center = new_vec(3, 2, -20);
+	sph_center = v_new(3, 2, -20);
 	sph = new_sphere(sph_center, 4);
 
-	cam_dir = new_vec(0, 0, -1);
-	cam_origin = new_vec(0, 0, 0);
-	cam = new_cam(cam_origin, cam_dir, 70);
+	cam_dir = v_new(0, 0, -1);
+	cam_origin = v_new(0, 0, 0);
+	cam_fov = 90;
+	cam = new_cam(cam_origin, cam_dir, cam_fov);
 
 	scene = new_scene(cam, sph);
 	scene->width = width;
@@ -86,11 +90,12 @@ int	main(void)
 
 	trace(&window, scene);
 	//TODO: free scene
+	parse_input("/home/roman/work/2_ecole/github/minirt/ext/gnl/texts/among.txt");
 
 	/* mlx_pixel_put(window.mlx, window.win, 100, 100, BLUE); */
 	/* pixel_put(&window, 100, 100, BLUE); */
 	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
-	mlx_hook(window.win, 2, 1L<<0, close , &window);
+	mlx_hook(window.win, 2, 1L<<0, win_close , &window);
 
     mlx_loop(window.mlx);
 	return (0);
