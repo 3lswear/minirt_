@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_vec *new_vec(float x, float y, float z)
+t_vec *v_new(float x, float y, float z)
 {
 	t_vec *vec;
 
@@ -17,7 +17,7 @@ t_vec *v_sub(t_vec *v1, t_vec *v2)
 {
 	t_vec *result;
 
-	result = new_vec(v1->x - v2->x, v1->y - v2->y, v1->z - v2->z);
+	result = v_new(v1->x - v2->x, v1->y - v2->y, v1->z - v2->z);
 	return (result);
 }
 
@@ -29,15 +29,15 @@ float v_len(t_vec *vec)
 	return (result);
 }
 
-void v_norm(t_vec *v)
+void v_norm(t_vec *vec)
 {
 	float len;
 
-	len = v_len(v);
+	len = v_len(vec);
 
-	v->x /= len;
-	v->y /= len;
-	v->z /= len;
+	vec->x /= len;
+	vec->y /= len;
+	vec->z /= len;
 
 }
 
