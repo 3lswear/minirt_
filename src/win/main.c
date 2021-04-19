@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/19 16:06:06 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/20 02:42:34 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,9 @@ int	main(void)
 
 	trace(&window, scene);
 	//TODO: free scene
-	parse_input("/home/roman/work/2_ecole/github/minirt/ext/gnl/texts/among.txt");
+	parse_input("maps/test.rt", scene);
+	/* ft_putstr_fd("JOPA TEst!!!!", 1); */
 
-	/* mlx_pixel_put(window.mlx, window.win, 100, 100, BLUE); */
-	/* pixel_put(&window, 100, 100, BLUE); */
 	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
 	mlx_hook(window.win, 2, 1L<<0, win_close , &window);
 
