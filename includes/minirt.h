@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/19 16:03:22 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:37:18 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 #include "../mlx-linux/mlx.h"
 #include "../ext/gnl/get_next_line.h"
+#include "../ext/libft/libft.h"
      #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
