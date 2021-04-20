@@ -9,6 +9,8 @@ void handle_error(int code)
 		msg = "Allocation error!";
 	else if (code == ERR_LIST)
 		msg = "List error";
+	else if (code == ERR_ARG)
+		msg = "Wrong amount of arguments!";
 	else
 		msg = "idk 🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔";
 
