@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-int inter_sphere(t_cam *cam, t_vec *ray, t_sphere *sphere)
+int inter_sphere(t_cam *cam, t_vec *ray, t_list *objs)
 {
 	float b;
 	float c;
@@ -8,9 +8,34 @@ int inter_sphere(t_cam *cam, t_vec *ray, t_sphere *sphere)
 	float hit1;
 	float hit2;
 	t_vec *cam2sphere;
+	t_sphere *sphere;
+	char **data;
+	char *id;
+	char *center;
+	char *radius;
 
 	hit1 = 0;
 	hit2 = 0;
+
+	while (objs)
+	{
+		id = ((char **)(objs->data))[0];
+		/* printf("id =>%s\n", id); */
+		if (!ft_strncmp(id, "sp", ft_strlen(id)))
+		{
+			center = ((char **)(objs->data))[1];
+			data = ft_split(center, ',');
+			radius = ((char **)(objs->data))[2];
+			sphere = new_sphere(
+					v_new(ft_atoi(data[0]),
+						ft_atoi(data[1]),
+						ft_atoi(data[2])),
+					ft_atoi(radius));
+
+		}
+		objs = objs->next;
+	}
+	/* printf("sphere->radius = %f\n", sphere->radius); */
 	cam2sphere = v_sub(cam->origin, sphere->center);
 	b = 2 * v_dot_product(cam2sphere, ray);
 	c = v_dot_product(cam2sphere, cam2sphere) - (pow(sphere->radius, 2));
