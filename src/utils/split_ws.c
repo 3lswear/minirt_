@@ -34,7 +34,7 @@ static void	*liberator(char **array)
 	return (NULL);
 }
 
-char 	**checks(const char *s)
+static char 	**checks(const char *s)
 {
 	char	**result;
 
