@@ -7,7 +7,10 @@ void	ft_lstadd_back(t_list **head, t_list *new)
 	if (!new || !head)
 		handle_error(ERR_LIST);
 	if (!(*head))
+	{
 		*head = new;
+		new->next = NULL;
+	}
 	else
 	{
 		last = ft_lstlast(*head);
