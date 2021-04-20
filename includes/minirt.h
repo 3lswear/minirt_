@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/19 22:25:52 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/20 14:40:52 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define ERR_ALLOC -1
 # define ERR_LIST -2
+# define ERR_ARG -3
 
 
 #include "../mlx-linux/mlx.h"
@@ -30,13 +31,6 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-#include "geom.h"
-#include "sphere.h"
-#include "camera.h"
-#include "scene.h"
-#include "utils.h"
-#include "rt.h"
-#include "inter.h"
 
 typedef struct s_win
 {
@@ -48,6 +42,14 @@ typedef struct s_win
 	int			bpp;
 	int			en;
 }				t_win;
+
+#include "geom.h"
+#include "sphere.h"
+#include "camera.h"
+#include "scene.h"
+#include "utils.h"
+#include "rt.h"
+#include "inter.h"
 
 #define RAD (M_PI / 180)
 
