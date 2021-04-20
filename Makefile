@@ -5,7 +5,6 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 
 INCLUDES = ./includes
-
 HEADER = $(INCLUDES)/minirt.h
 SRC = $(wildcard ./src/*/*c )
 OBJ = $(SRC:.c=.o)
@@ -55,7 +54,10 @@ re:
 	$(MAKE) all
 
 run: $(NAME)
-	./$(NAME)
+	./$(NAME) $(filter-out $@,$(MAKECMDGOALS))
+
+test: $(NAME)
+	./$(NAME) maps/test.rt
 
 norm:
 	norminette $(SRC) | grep "Error"
