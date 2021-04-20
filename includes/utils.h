@@ -3,7 +3,8 @@
 
 float idiv(int a, int b);
 void handle_error(int value);
-void parse_input(char *file, t_scene *scene);
+void parse_input(char *file, t_scene *scene, t_win *window);
+void	parse_res(char **line, t_scene *scene);
 
 
 typedef struct	s_list

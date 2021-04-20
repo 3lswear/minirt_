@@ -17,19 +17,32 @@ void lst_print(t_list *lst)
 
 }
 
-void parse_input(char *file, t_scene *scene)
+void parse_input(char *file, t_scene *scene, t_win *window)
 {
 	int fd;
 	char *line;
+	char *temp;
 	int ret;
 	char **data;
-	fd = open(file, O_RDONLY);
-	(void)scene;
+	const char *whitespace;
 
-	while ((ret = get_next_line(fd, &line)) == 1)
+	whitespace = " \v\f\r\t";
+	fd = open(file, O_RDONLY);
+	(void)window;
+
+	while (1)
 	{
+		ret = get_next_line(fd, &line);
+		if (ret != 1)
+			break;
 		printf("line from gnl => %s\n", line);
+		temp = line;
+		line = ft_strtrim(line, whitespace);
+		free(temp);
 		data = split_ws(line);
+		if (!ft_strncmp(data[0], "R", 2))
+			parse_res(data, scene);
+
 		int splt_i = 0;
 		while (data[splt_i])
 		{
@@ -41,21 +54,6 @@ void parse_input(char *file, t_scene *scene)
 	}
 	if (!ret)
 		free(line);
-
-
-	printf("testing lists!!!!!\n");
-
-	/* t_list *pog =  ft_lstnew("pogchamp"); */
-	/* t_list *pepega =  ft_lstnew("pepega"); */
-	/* t_list *lul =  ft_lstnew("lul"); */
-	/* ft_lstadd_back(&pog, pepega); */
-	/* ft_lstadd_back(&pog, lul); */
-
-	/* lst_print(pog); */
-	/* handle_error(ERR_ALLOC); */
-
-	
-	/* printf("gnl returned -> [%d]\n", ret); */
 
 	close(fd);
 }
