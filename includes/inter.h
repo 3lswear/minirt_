@@ -2,5 +2,6 @@
 # define INTER_H
 
 
-int inter_sphere(t_cam *cam, t_vec *ray, t_list *objs);
+int inter_objects(t_cam *cam, t_vec *ray, t_list *objs);
+int inter_sphere(t_cam *cam, t_vec *ray, t_sphere *sphere);
 #endif
