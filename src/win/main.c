@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/20 17:51:19 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/21 14:40:56 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ void     pixel_put(t_win *window, int x, int y, int color)
 
 int win_close(int keycode, t_win *win)
 {
-	(void)keycode;
-	mlx_destroy_window(win->mlx, win->win);
-	exit(0);
+	if (keycode == KEY_Q)
+	{
+		mlx_destroy_window(win->mlx, win->win);
+		exit(0);
+	}
+	else
+		return (0);
 }
 
 void draw_circle(t_win window, int width, int height)
