@@ -12,6 +12,7 @@ void trace(t_win *window, t_scene *scene)
 
 	float x_ray;
 	float y_ray;
+
 	
 
 	viewport = get_viewport(scene->width, scene->height, scene->cams->fov);
@@ -28,9 +29,8 @@ void trace(t_win *window, t_scene *scene)
 			x_ray = x_ang * viewport->x_pixel;
 			ray = v_new(x_ray, y_ray, -1);
 			v_norm(ray);
-			if (inter_sphere(scene->cams, ray, scene->objs))
-				color = WHITE;
-			else
+			color = inter_objects(scene->cams, ray, scene->objs);
+			if (color < 0)
 				color = BLACK;
 			pixel_put(window, mlx_x, mlx_y, color);
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
