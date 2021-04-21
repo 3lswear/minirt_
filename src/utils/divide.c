@@ -2,5 +2,5 @@
 
 float idiv(int a, int b)
 {
-	return (pow(a, -1) * b);
+	return (pow(b, -1) * a);
 }
