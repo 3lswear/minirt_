@@ -61,10 +61,7 @@ char *parse_args(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	/* int offset; */
-
 	t_win window;
-
-
 	t_scene *scene;
 
 	char *arg;
