@@ -10,4 +10,5 @@ int	iswhitespace(const char *chr);
 char	**split_ws(char const *s);
 char	*strchr_ws(const char *s);
 
+float	ft_strtof(const char *str);
 #endif
