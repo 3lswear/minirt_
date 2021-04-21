@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/20 18:38:32 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/21 14:40:43 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define ERR_ALLOC -1
 # define ERR_LIST -2
 # define ERR_ARG -3
+
+# define KEY_Q 113
 
 
 #include "../mlx-linux/mlx.h"
