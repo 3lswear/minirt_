@@ -6,10 +6,12 @@ typedef struct	s_scene
 {
 	t_cam 		*cams;
 	//TODO: add generic type that holds all types of figures
-	/* t_sphere	*sphere; */
 	t_list		*objs;
+	t_list 		*spheres;
+	t_list		*planes;
 	float		width;
 	float 		height;
+	int			ambient;
 
 }				t_scene;
 
