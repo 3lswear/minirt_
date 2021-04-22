@@ -25,11 +25,11 @@ MLX = ./mlx-linux/libmlx.a
 
 all: $(NAME)
 
-$(GNL_OBJ): %.o: %.c $(GNL_HEADER)
-	$(CC) $(CFLAGS) -c $< -include $(GNL_HEADER) -o $@
-
 $(OBJ): %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -I ./mlx-linux -I $(INCLUDES) -o $@
+
+$(GNL_OBJ): %.o: %.c $(GNL_HEADER)
+	$(CC) $(CFLAGS) -c $< -include $(GNL_HEADER) -o $@
 
 $(MLX):
 	cd mlx-linux
