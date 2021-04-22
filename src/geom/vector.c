@@ -48,3 +48,21 @@ float v_dot_product(t_vec *v1, t_vec *v2)
 	result = ((v1->x * v2->x) + (v1->y * v2->y) + (v1->z * v2->z));
 	return (result);
 }
+
+t_vec *v_mult(t_vec *vec, float mult)
+{
+	t_vec *result;
+	result = v_new(vec->x * mult, vec->y * mult, vec->z * mult);
+	return (result);
+}
+
+int v_equal(t_vec *v1, t_vec *v2)
+{
+	if (v1->x == v2->x && v1->y == v2->y && v1->z == v2->z)
+		return (1);
+	else
+		return (0);
+}
+
+
+
