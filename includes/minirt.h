@@ -6,12 +6,17 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/21 14:40:43 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/22 23:23:32 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+
+#define R_MASK 0x00FF0000
+#define G_MASK 0x0000FF00
+#define B_MASK 0x000000FF
 
 # define BLUE 0x000000FF
 # define WHITE 0x00FFFFFF
