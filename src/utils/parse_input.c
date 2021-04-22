@@ -73,7 +73,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	char **data;
 	char **split;
 	float amb_mult;
-	t_list *obj_list = NULL;
+	t_light *light;
 
 	// const char *whitespace;
 	// whitespace = " \v\f\r\t";
@@ -84,10 +84,11 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	t_cam *cam;
 
 	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
-	*scene = new_scene(cam, obj_list);
+	*scene = new_scene(cam, NULL);
 	(*scene)->spheres = NULL;
-	printf("obj_list => %p\n", obj_list);
-	printf("scene->spheres => %p\n", (*scene)->spheres);
+
+	light = l_new(v_new(3, 0, -3), 0.7, WHITE);
+	(*scene)->light = light;
 
 	while (1)
 	{
@@ -98,6 +99,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		data = split_ws(line);
 		if (!ft_strncmp(data[0], "R", ft_strlen(data[0])))
 			parse_res(data, *scene);
+		/* move to separate func */
 		else if (!ft_strncmp(data[0], "A", ft_strlen(data[0])))
 		{
 			split = ft_split(data[2], ',');
@@ -119,10 +121,10 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		/* free(line); */
 	}
 
-	(*scene)->objs = obj_list;
+	/* (*scene)->objs = obj_list; */
 	printf("scene->width = %f\n", (*scene)->width);
 	printf("scene->height = %f\n", (*scene)->height);
-	obj_lst_print(obj_list);
+	/* obj_lst_print(obj_list); */
 	if (!ret)
 		free(line);
 	close(fd);
