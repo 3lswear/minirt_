@@ -6,6 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 INCLUDES = ./includes
 HEADER = $(INCLUDES)/minirt.h
+HEADERS = $(wildcard $(INCLUDES)/*.h)
 SRC = $(wildcard ./src/*/*c )
 OBJ = $(SRC:.c=.o)
 
@@ -27,7 +28,7 @@ all: $(NAME)
 $(GNL_OBJ): %.o: %.c $(GNL_HEADER)
 	$(CC) $(CFLAGS) -c $< -include $(GNL_HEADER) -o $@
 
-$(OBJ): %.o: %.c $(HEADER)
+$(OBJ): %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -I ./mlx-linux -I $(INCLUDES) -o $@
 
 $(MLX):
