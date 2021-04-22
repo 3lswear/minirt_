@@ -11,5 +11,7 @@ t_scene *new_scene(t_cam *cam, t_list *obj_list)
 	result->objs = obj_list;
 	result->height = 0;
 	result->width = 0;
+	result->spheres = NULL;
+	result->planes = NULL;
 	return (result);
 }

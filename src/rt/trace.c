@@ -29,9 +29,9 @@ void trace(t_win *window, t_scene *scene)
 			x_ray = x_ang * viewport->x_pixel;
 			ray = v_new(x_ray, y_ray, -1);
 			v_norm(ray);
-			color = inter_objects(scene->cams, ray, scene->objs);
+			color = inter_objects(scene->cams, ray, scene);
 			if (color < 0)
-				color = BLACK;
+				color = scene->ambient;
 			pixel_put(window, mlx_x, mlx_y, color);
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
 			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */

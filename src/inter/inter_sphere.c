@@ -14,39 +14,18 @@ int argb_color(unsigned char r, unsigned char g, unsigned char b)
 
 }
 
-int inter_objects(t_cam *cam, t_vec *ray, t_list *objs)
+int inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
-	char *string;
-	char **split;
-	char *id;
 	int color;
-	t_sphere *sphere;
+	t_list *current;
 
 	color = -1;
-	while (objs)
+	current = scene->spheres;
+	while (current)
 	{
-		id = ((char **)(objs->data))[0];
-		/* printf("id =>%s\n", id); */
-		if (!ft_strncmp(id, "sp", ft_strlen(id)))
-		{
-			string = ((char **)(objs->data))[1];
-			split = ft_split(string, ',');
-			string = ((char **)(objs->data))[2];
-			sphere = new_sphere(
-					v_new(ft_atoi(split[0]),
-						ft_atoi(split[1]),
-						ft_atoi(split[2])),
-					ft_atoi(string));
-			string = ((char **)(objs->data))[3];
-			split = ft_split(string, ',');
-			sphere->color = argb_color(
-				ft_atoi(split[0]),
-				ft_atoi(split[1]),
-				ft_atoi(split[2]));
-			if (inter_sphere(cam, ray, sphere))
-				color = sphere->color;
-		}
-		objs = objs->next;
+		if (inter_sphere(cam, ray, current->data))
+			color = ((t_sphere *)(current->data))->color;
+		current = current->next;
 	}
 	return (color);
 }
