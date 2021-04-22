@@ -9,6 +9,7 @@ typedef struct	s_scene
 	t_list		*objs;
 	t_list 		*spheres;
 	t_list		*planes;
+	t_light		*light;
 	float		width;
 	float 		height;
 	int			ambient;
