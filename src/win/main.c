@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/21 14:40:56 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/21 22:19:53 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void     pixel_put(t_win *window, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-int win_close(int keycode, t_win *win)
+int key_press_hook(int keycode, t_win *win)
 {
 	if (keycode == KEY_Q)
 	{
@@ -29,6 +29,12 @@ int win_close(int keycode, t_win *win)
 	}
 	else
 		return (0);
+}
+int idk_hook(int keycode, t_win *win)
+{
+	printf("keycode is => %d\n", keycode);
+	(void)win;
+	return (0);
 }
 
 void draw_circle(t_win window, int width, int height)
@@ -87,7 +93,10 @@ int	main(int argc, char **argv)
 	//TODO: free scene
 
 	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
-	mlx_hook(window.win, 2, 1L<<0, win_close , &window);
+	/* printf("strtof => %f\n", ft_strtof("0.14")); */
+	printf("DONE!!\n");
+	mlx_hook(window.win, 2, 1L<<0, key_press_hook , &window);
+	mlx_hook(window.win, 17, 1L<<24, idk_hook , &window);
 
     mlx_loop(window.mlx);
 	return (0);
