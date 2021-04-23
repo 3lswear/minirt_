@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-int argb_color(int r, int g, int b)
+t_color argb_color(int r, int g, int b)
 {
 	int color;
 
@@ -20,7 +20,7 @@ int argb_color(int r, int g, int b)
 	return (color);
 }
 
-int c_add(int color1, int color2)
+t_color c_add(t_color color1, int color2)
 {
 	int result;
 	int channel;
@@ -42,7 +42,7 @@ int c_add(int color1, int color2)
 	return (result);
 }
 
-int c_mul(int color, float mul)
+t_color c_mul(t_color color, float mul)
 {
 	int result;
 
@@ -61,7 +61,7 @@ int calc_light(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
 	t_point *surface_point;
 	t_vec *n;
 	t_vec *l;
-	float mult;
+	float strength;
 
 
 	surface_point = v_mult(ray, ray_len);
@@ -70,11 +70,11 @@ int calc_light(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
 	v_norm(n);
 	/* printf("surface_point\t-> %f,%f,%f\n", surface_point->x, surface_point->y, surface_point->z); */
 	/* printf("light_point\t-> %f,%f,%f\n", l_norm->x, l_norm->y, l_norm->z); */
-	mult = v_dot_product(n, l) / (v_len(l) * v_len(n));
-	/* printf("mult => %f\n", mult); */
+	strength = v_dot_product(n, l) / (v_len(l) * v_len(n));
+	/* printf("strength => %f\n", strength); */
 	/* printf("color =>%X\n", color); */
-	if (mult > 0)
-		return(c_mul(light->color, (light->brightess * mult)));
+	if (strength > 0)
+		return(c_mul(light->color, (light->brightess * strength)));
 	else
 		return (0);
 }
@@ -85,28 +85,36 @@ int inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	t_list *current;
 	t_sphere *sphere;
 	float ray_len;
-	/* float ray_len_new; */
+
+	t_sphere *sph_closest;
+	float ray_min;
 
 	color = -1;
+	ray_min = INFINITY;
 	ray_len = 0;
+	sph_closest = NULL;
 	current = scene->spheres;
 	while (current)
 	{
 		sphere = current->data;
 		/* if (ray_len_new < ray_len) */
 
-		ray_len = inter_sphere(cam->origin, ray, current->data);
+		ray_len = inter_sphere(cam->origin, ray, sphere);
 		if (ray_len > 0)
 		{
-			color = c_add(sphere->color, scene->ambient);
-			if (scene->light)
-				color = c_add(color, calc_light(sphere, scene->light, ray, ray_len));
-			if (color > 0)
+			if (ray_len < ray_min)
 			{
-				return (color);
+				ray_min = ray_len;
+				sph_closest = sphere;
 			}
 		}
 		current = current->next;
+	}
+	if (ray_min < INFINITY)
+	{
+		color = c_add(sph_closest->color, scene->ambient);
+		if (scene->light)
+			color = c_add(color, calc_light(sph_closest, scene->light, ray, ray_min));
 	}
 	return (color);
 }
