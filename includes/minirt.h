@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/24 00:19:15 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/24 00:42:30 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 # define MINIRT_H
 
 
-#define R_MASK 0x00FF0000
-#define G_MASK 0x0000FF00
-#define B_MASK 0x000000FF
+#define R_MASK	0x00FF0000
+#define G_MASK	0x0000FF00
+#define B_MASK	0x000000FF
 
-# define BLUE 0x000000FF
-# define WHITE 0x00FFFFFF
-# define BLACK 0x00000000
+# define WHITE	0x00FFFFFF
+# define RED	0x00FF0000
+# define GREEN	0x0000FF00
+# define BLUE	0x000000FF
+# define BLACK	0x00000000
 
-# define ERR_ALLOC -1
-# define ERR_LIST -2
-# define ERR_ARG -3
+# define ERR_ALLOC	-1
+# define ERR_LIST	-2
+# define ERR_ARG	-3
 
 # define KEY_Q 113
 
