@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/22 23:23:32 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/24 00:19:15 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
+typedef int t_color;
 
 typedef struct s_win
 {
