@@ -54,6 +54,8 @@ void lst_spheres(t_scene *scene, char **data)
 		ft_atoi(center[1]),
 		ft_atoi(center[2]));
 	ft_lstadd_back(&(scene->spheres), ft_lstnew(sphere));
+	liberator(vec);
+	liberator(center);
 }
 
 void parse_objects(t_scene *scene, char **data)
@@ -84,6 +86,21 @@ void parse_lights(t_scene *scene, char **data)
 					ft_atoi(color[1]),
 					ft_atoi(color[2])));
 	ft_lstadd_back(&(scene->lights), ft_lstnew(light));
+	liberator(pos);
+	liberator(color);
+}
+
+void parse_ambient(t_scene *scene, char **data)
+{
+	char **split;
+
+	split = ft_split(data[2], ',');
+	scene->amb_intensity = ft_strtof(data[1]);
+	scene->ambient = argb_color(
+				ft_atoi(split[0]),
+				ft_atoi(split[1]),
+				ft_atoi(split[2]));
+	liberator(split);
 }
 
 void parse_input(char *file, t_scene **scene, t_win *window)
@@ -92,10 +109,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	char *line;
 	int ret;
 	char **data;
-	char **split;
 
-	// const char *whitespace;
-	// whitespace = " \v\f\r\t";
 	fd = open(file, O_RDONLY);
 	(void)window;
 
@@ -121,37 +135,25 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 			parse_res(data, *scene);
 		/* move to separate func */
 		else if (!ft_strncmp(data[0], "A", ft_strlen(data[0])))
-		{
-			split = ft_split(data[2], ',');
-			(*scene)->amb_intensity = ft_strtof(data[1]);
-			(*scene)->ambient = argb_color(
-						ft_atoi(split[0]),
-						ft_atoi(split[1]),
-						ft_atoi(split[2]));
-			/* (*scene)->ambient.r = ft_strtof(split[0]) / 255; */
-			/* (*scene)->ambient.g = ft_strtof(split[1]) / 255; */
-			/* (*scene)->ambient.b = ft_strtof(split[2]) / 255; */
-			free(split);
-		}
-			/* print_str_array(data); */
+			parse_ambient(*scene, data);
 		else if (!ft_strncmp(data[0], "c", ft_strlen(data[0])))
-			print_str_array(data);
-		else if (data[0][0] == '#')
 			print_str_array(data);
 		else if (!ft_strncmp(data[0], "l", ft_strlen(data[0])))
 			parse_lights(*scene, data);
+		else if (data[0][0] == '#')
+			print_str_array(data);
 		else
 			parse_objects(*scene, data);
 			/* ft_lstadd_back(&obj_list, ft_lstnew(data)); */
-		/* free(line); */
-		free(data);
+		free(line);
+		liberator(data);
 	}
+	if (!ret)
+		free(line);
+	close(fd);
 
 	/* (*scene)->objs = obj_list; */
 	printf("scene->width = %f\n", (*scene)->width);
 	printf("scene->height = %f\n", (*scene)->height);
 	/* obj_lst_print(obj_list); */
-	if (!ret)
-		free(line);
-	close(fd);
 }
