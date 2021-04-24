@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+void print_progress(t_scene *scene, int x, int y)
+{
+	if ((x * y) % 10)
+		return;
+	printf("\rprogress is %.1f%%", floor(((x * y) / (scene->height * scene->width)) * 100));
+	fflush(stdout);
+}
+
 void trace(t_win *window, t_scene *scene)
 {
 	int mlx_x;

@@ -17,10 +17,19 @@ t_color calc_light_matte(t_sphere *sphere, t_light *light, t_vec *ray, float ray
 	strength = v_dot_product(n, l) / (v_len(l) * v_len(n));
 	/* printf("strength => %f\n", strength); */
 	/* printf("color =>%X\n", color); */
+	free(surface_point);
 	if (v_dot_product(n, l) > 0)
+	{
+		free(l);
+		free(n);
 		return(c_mul_scalar(light->color, (light->brightess * strength)));
+	}
 	else
+	{
+		free(l);
+		free(n);
 		return (0);
+	}
 }
 
 t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
@@ -130,7 +139,7 @@ float inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
 	b = 2 * v_dot_product(cam2sphere, ray);
 	c = v_dot_product(cam2sphere, cam2sphere) - (pow(sphere->radius, 2));
 	discr = (b * b) - (4 * c);
-	/* free(cam2sphere); */
+	free(cam2sphere);
 	if (discr < 0)
 		return (0);
 	hit1 = (-b - sqrt(discr)) / 2;
