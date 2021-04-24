@@ -50,6 +50,8 @@ t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray
 		return (0);
 }
 
+/* t_color calc_lights(t_scene *scene, t_sphere *sphere) */
+
 t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
 	t_list *current;
@@ -71,32 +73,27 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	while (current)
 	{
 		sphere = current->data;
-		/* if (ray_len_new < ray_len) */
-
 		ray_len = inter_sphere(cam->origin, ray, sphere);
 		if (ray_len > 0)
-		{
 			if (ray_len < ray_min)
 			{
 				ray_min = ray_len;
 				sph_closest = sphere;
 			}
-		}
 		current = current->next;
 	}
+
 	if (ray_min < INFINITY)
 	{
 		ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
-
-		if (scene->light)
+		if (scene->lights)
 		{
-			calculated = calc_light_matte(sph_closest, scene->light, ray, ray_min);
+			calculated = calc_light_matte(sph_closest, scene->lights->data, ray, ray_min);
 			color = c_mul(sph_closest->color,
 					c_add(ambient, calculated));
 		}
 		else
 			color = c_mul(sph_closest->color, ambient);
-
 	}
 	return (color);
 }
