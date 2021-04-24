@@ -65,6 +65,27 @@ void parse_objects(t_scene *scene, char **data)
 
 }
 
+void parse_lights(t_scene *scene, char **data)
+{
+	t_light *light;
+	char **pos;
+	char **color;
+	
+	pos = ft_split(data[1], ',');
+	color = ft_split(data[3], ',');
+	light = l_new(
+				v_new(
+					ft_strtof(pos[0]),
+					ft_strtof(pos[1]),
+					ft_strtof(pos[2])),
+				ft_strtof(data[2]),
+				argb_color(
+					ft_atoi(color[0]),
+					ft_atoi(color[1]),
+					ft_atoi(color[2])));
+	ft_lstadd_back(&(scene->lights), ft_lstnew(light));
+}
+
 void parse_input(char *file, t_scene **scene, t_win *window)
 {
 	int fd;
@@ -72,7 +93,6 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	int ret;
 	char **data;
 	char **split;
-	t_light *light;
 
 	// const char *whitespace;
 	// whitespace = " \v\f\r\t";
@@ -85,9 +105,10 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
 	*scene = new_scene(cam, NULL);
 	(*scene)->spheres = NULL;
+	(*scene)->lights = NULL;
 
-	light = l_new(v_new(3, 0, -3), 0.9, WHITE);
-	(*scene)->light = light;
+	/* light = l_new(v_new(3, 0, -3), 0.9, WHITE); */
+	/* (*scene)->light = light; */
 
 	while (1)
 	{
@@ -117,10 +138,13 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 			print_str_array(data);
 		else if (data[0][0] == '#')
 			print_str_array(data);
+		else if (!ft_strncmp(data[0], "l", ft_strlen(data[0])))
+			parse_lights(*scene, data);
 		else
 			parse_objects(*scene, data);
 			/* ft_lstadd_back(&obj_list, ft_lstnew(data)); */
 		/* free(line); */
+		free(data);
 	}
 
 	/* (*scene)->objs = obj_list; */
