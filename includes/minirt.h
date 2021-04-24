@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/24 14:27:34 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/24 16:42:07 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define ERR_ALLOC	-1
 # define ERR_LIST	-2
 # define ERR_ARG	-3
+
+# define SHININESS	100
 
 # define KEY_Q 113
 
