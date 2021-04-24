@@ -59,18 +59,21 @@ t_color c_mul_scalar(t_color color, float mul)
 t_color c_mul(t_color color1, t_color color2)
 {
 	t_color result;
-	float channel;
+	double channel;
 	color1 = color1 & WHITE;
 	color2 = color2 & WHITE;
 
 	channel = idiv((color1 >> 16), 255) * idiv(color2 >> 16, 255);
+	/* channel = ceil(channel); */
 	result = channel * 255;
 	result = result << 8;
 	channel = idiv((color1 & G_MASK) >> 8, 255)
 		* idiv((color2 & G_MASK) >> 8, 255);
+	/* channel = ceil(channel); */
 	result += channel * 255;
 	result = result << 8;
 	channel = idiv((color1 & B_MASK), 255) * idiv(color2 & B_MASK, 255);
+	/* channel = ceil(channel); */
 	result += channel * 255;
 	return (result);
 }
@@ -143,33 +146,6 @@ t_color c_mul(t_color color1, t_color color2)
 /* 	return (result); */
 /* } */
 
-t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
-{
-	t_point *surface_point;
-	t_vec *n;
-	t_vec *l;
-	t_vec *r;
-	t_vec *v;
-	float strength;
-	int shinyness;
-	shinyness = 10;
-
-	surface_point = v_mult(ray, ray_len);
-	v = v_mult(surface_point, -1);
-	/* v_norm(v); */
-	l = v_sub(light->coords, surface_point);
-	n = v_sub(surface_point, sphere->center);
-	v_norm(n);
-	r = v_mult(v_mult(n, 2), v_dot_product(n, l));
-	r = (v_sub(r, l));
-	/* strength = v_dot_product(n, l) / (v_len(l) * v_len(n)); */
-	strength = pow(v_dot_product(r, v) / (v_len(r) * v_len(v)), shinyness);
-	if (v_dot_product(r, v) > 0)
-		return(c_mul_scalar(light->color, (light->brightess * strength)));
-	else
-		return (0);
-}
-
 t_color calc_light_matte(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
 {
 	t_point *surface_point;
@@ -187,8 +163,35 @@ t_color calc_light_matte(t_sphere *sphere, t_light *light, t_vec *ray, float ray
 	strength = v_dot_product(n, l) / (v_len(l) * v_len(n));
 	/* printf("strength => %f\n", strength); */
 	/* printf("color =>%X\n", color); */
-	if (strength > 0)
+	if (v_dot_product(n, l) > 0)
 		return(c_mul_scalar(light->color, (light->brightess * strength)));
+	else
+		return (0);
+}
+
+t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
+{
+	t_point *surface_point;
+	t_vec *n;
+	t_vec *l;
+	t_vec *r;
+	t_vec *v;
+	float strength;
+
+	surface_point = v_mult(ray, ray_len);
+	v = v_mult(surface_point, -1);
+	l = v_sub(light->coords, surface_point);
+	n = v_sub(surface_point, sphere->center);
+	v_norm(n);
+	r = v_sub(v_mult(n, 2 * v_dot_product(n, l)), l);
+	/* strength = v_dot_product(n, l) / (v_len(l) * v_len(n)); */
+	strength = pow(v_dot_product(r, v) / (v_len(r) * v_len(v)), SHININESS);
+	if (v_dot_product(r, v) > 0)
+	{
+		printf("strength => %f\n", strength);
+		printf("bri * stre => %f\n", light->brightess * strength);
+		return(c_mul_scalar(light->color, (light->brightess * strength)));
+	}
 	else
 		return (0);
 }
@@ -229,17 +232,11 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	}
 	if (ray_min < INFINITY)
 	{
-		/* color = c_add(sph_closest->color, */
-		/* 			c_mul_scalar(scene->ambient, scene->amb_intensity)); */
-		/* color = c_mul_scalar(sph_closest->color, scene->amb_intensity); */
-		/* color = c_add(sph_closest->color, */
-		/* 		c_mul_scalar(scene->ambient, scene->amb_intensity)); */
 		ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
 
 		if (scene->light)
 		{
 			calculated = calc_light_matte(sph_closest, scene->light, ray, ray_min);
-			/* if (calculated != 0) */
 			color = c_mul(sph_closest->color,
 					c_add(ambient, calculated));
 		}
