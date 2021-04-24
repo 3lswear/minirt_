@@ -27,9 +27,9 @@ void trace(t_win *window, t_scene *scene)
 	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
 	y_ang = (scene->height / 2);
 	mlx_y = 0;
-	printf("ambient: %X\n", scene->ambient);
-	printf("sphere: %X\n", ((t_sphere *)(scene->spheres->data))->color);
-	printf("combined: %X\n", c_add(((t_sphere *)(scene->spheres->data))->color, scene->ambient));
+	/* printf("ambient: %X\n", scene->ambient); */
+	/* printf("sphere: %X\n", ((t_sphere *)(scene->spheres->data))->color); */
+	/* printf("combined: %X\n", c_add(((t_sphere *)(scene->spheres->data))->color, scene->ambient)); */
 	while (y_ang >= -(scene->height / 2))
 	{
 		y_ray = y_ang * viewport->y_pixel;
@@ -52,9 +52,12 @@ void trace(t_win *window, t_scene *scene)
 			x_ang++;
 			mlx_x++;
 		}
+		print_progress(scene, mlx_x, mlx_y);
 		y_ang--;
 		mlx_y++;
 	}
+	free(viewport);
+	printf("\n");
 }
 
 t_view *get_viewport(float width, float height, float fov)

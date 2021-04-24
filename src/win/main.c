@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/24 20:53:56 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/25 02:32:28 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int key_press_hook(int keycode, t_win *win)
 {
 	if (keycode == KEY_Q)
 	{
+		mlx_destroy_image(win->mlx, win->img);
 		mlx_destroy_window(win->mlx, win->win);
+		mlx_destroy_display(win->mlx);
 		exit(0);
 	}
 	else
@@ -96,6 +98,7 @@ int	main(int argc, char **argv)
 	/* printf("strtof => %f\n", ft_strtof("0.14")); */
 	printf("multiplied color is %X\n", c_mul(0x00101010, 0x00101010));
 	printf("DONE!!\n");
+	/* exit(1337); */
 	mlx_hook(window.win, 2, 1L<<0, key_press_hook , &window);
 	mlx_hook(window.win, 17, 1L<<24, idk_hook , &window);
 
