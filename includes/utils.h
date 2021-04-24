@@ -8,7 +8,9 @@ void	parse_res(char **line, t_scene *scene);
 
 int	iswhitespace(const char *chr);
 char	**split_ws(char const *s);
+void	*liberator(char **array);
 char	*strchr_ws(const char *s);
 
 float	ft_strtof(const char *str);
+
 #endif

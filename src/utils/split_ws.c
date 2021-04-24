@@ -20,7 +20,7 @@ static unsigned int	get_wc(const char *s)
 	return (count);
 }
 
-static void	*liberator(char **array)
+void	*liberator(char **array)
 {
 	size_t	i;
 
