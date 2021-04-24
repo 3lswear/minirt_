@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/21 22:19:53 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/24 20:53:56 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 	parse_input(arg, &scene, &window);
 
     window.mlx = mlx_init();
-    window.win = mlx_new_window(window.mlx, scene->width, scene->height, "jopa");
+    window.win = mlx_new_window(window.mlx, scene->width, scene->height, "🤠🤠🤠");
 	
 	window.img = mlx_new_image(window.mlx, scene->width, scene->height);
 	window.addr = mlx_get_data_addr(window.img, &window.bpp, &window.line_l, 
@@ -94,6 +94,7 @@ int	main(int argc, char **argv)
 
 	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
 	/* printf("strtof => %f\n", ft_strtof("0.14")); */
+	printf("multiplied color is %X\n", c_mul(0x00101010, 0x00101010));
 	printf("DONE!!\n");
 	mlx_hook(window.win, 2, 1L<<0, key_press_hook , &window);
 	mlx_hook(window.win, 17, 1L<<24, idk_hook , &window);
