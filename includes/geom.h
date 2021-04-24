@@ -23,7 +23,7 @@ typedef struct	s_light
 {
 	t_vec	*coords;
 	float	brightess;
-	int		color;
+	t_color		color;
 } 				t_light;
 
 t_light *l_new(t_vec *coords, float brightess, int color);
