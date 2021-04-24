@@ -72,7 +72,6 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	int ret;
 	char **data;
 	char **split;
-	float amb_mult;
 	t_light *light;
 
 	// const char *whitespace;
@@ -87,7 +86,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	*scene = new_scene(cam, NULL);
 	(*scene)->spheres = NULL;
 
-	light = l_new(v_new(3, 0, -3), 0.7, WHITE);
+	light = l_new(v_new(3, 0, -3), 0.9, WHITE);
 	(*scene)->light = light;
 
 	while (1)
@@ -103,11 +102,14 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		else if (!ft_strncmp(data[0], "A", ft_strlen(data[0])))
 		{
 			split = ft_split(data[2], ',');
-			amb_mult = ft_strtof(data[1]);
+			(*scene)->amb_intensity = ft_strtof(data[1]);
 			(*scene)->ambient = argb_color(
-						ft_atoi(split[0]) * amb_mult,
-						ft_atoi(split[1]) * amb_mult,
-						ft_atoi(split[2]) * amb_mult);
+						ft_atoi(split[0]),
+						ft_atoi(split[1]),
+						ft_atoi(split[2]));
+			/* (*scene)->ambient.r = ft_strtof(split[0]) / 255; */
+			/* (*scene)->ambient.g = ft_strtof(split[1]) / 255; */
+			/* (*scene)->ambient.b = ft_strtof(split[2]) / 255; */
 			free(split);
 		}
 			/* print_str_array(data); */

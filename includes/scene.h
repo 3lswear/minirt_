@@ -12,7 +12,8 @@ typedef struct	s_scene
 	t_light		*light;
 	float		width;
 	float 		height;
-	int			ambient;
+	t_color		ambient;
+	float		amb_intensity;
 
 }				t_scene;
 
