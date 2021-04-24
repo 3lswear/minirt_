@@ -34,7 +34,8 @@ void trace(t_win *window, t_scene *scene)
 			v_norm(ray);
 			color = inter_objects(scene->cams, ray, scene);
 			if (color < 0)
-				color = scene->ambient;
+				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
+			/* pixel_put(window, mlx_x, mlx_y, argb_color(color)); */
 			pixel_put(window, mlx_x, mlx_y, color);
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
 			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
