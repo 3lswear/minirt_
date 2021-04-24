@@ -5,11 +5,10 @@
 typedef struct	s_scene
 {
 	t_cam 		*cams;
-	//TODO: add generic type that holds all types of figures
 	t_list		*objs;
 	t_list 		*spheres;
 	t_list		*planes;
-	t_light		*light;
+	t_list		*lights;
 	float		width;
 	float 		height;
 	t_color		ambient;
