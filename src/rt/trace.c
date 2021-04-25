@@ -21,8 +21,6 @@ void trace(t_win *window, t_scene *scene)
 	float x_ray;
 	float y_ray;
 
-	
-
 	viewport = get_viewport(scene->width, scene->height, scene->cams->fov);
 	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
 	y_ang = (scene->height / 2);
