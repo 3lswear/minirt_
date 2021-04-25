@@ -3,11 +3,20 @@
 
 typedef struct	s_sphere
 {
-	t_vec	*center;
+	t_point	*center;
 	float 		radius;
 	int 		color;
 } 				t_sphere;
 
 t_sphere *new_sphere(t_vec *center, float radius);
+
+typedef struct s_plane
+{
+	t_point *pos;
+	t_vec *norm;
+	t_color color;
+}				t_plane;
+
+t_plane *new_plane(t_point *pos, t_vec *norm);
 
 #endif
