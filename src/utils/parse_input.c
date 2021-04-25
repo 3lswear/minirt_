@@ -40,7 +40,7 @@ void lst_spheres(t_scene *scene, char **data)
 {
 	t_sphere *sphere;
 	char **vec;
-	char **center;
+	char **color;
 
 	vec = ft_split(data[1], ',');
 	sphere = new_sphere(
@@ -48,14 +48,47 @@ void lst_spheres(t_scene *scene, char **data)
 				ft_strtof(vec[1]),
 				ft_strtof(vec[2])),
 			ft_strtof(data[2]));
-	center = ft_split(data[3], ',');
+	color = ft_split(data[3], ',');
 	sphere->color = argb_color(
-		ft_atoi(center[0]),
-		ft_atoi(center[1]),
-		ft_atoi(center[2]));
+		ft_atoi(color[0]),
+		ft_atoi(color[1]),
+		ft_atoi(color[2]));
 	ft_lstadd_back(&(scene->spheres), ft_lstnew(sphere));
 	liberator(vec);
-	liberator(center);
+	liberator(color);
+}
+
+void lst_planes(t_scene *scene, char **data)
+{
+	t_plane *plane;
+	char **pos;
+	char **norm;
+	char **color;
+
+	pos = ft_split(data[1], ',');
+	norm = ft_split(data[2], ',');
+	plane = new_plane(
+		v_new(
+			ft_strtof(pos[0]),
+			ft_strtof(pos[1]),
+			ft_strtof(pos[2])
+		),
+		v_new(
+			ft_strtof(norm[0]),
+			ft_strtof(norm[1]),
+			ft_strtof(norm[2])
+		)
+	);
+	color = ft_split(data[3], ',');
+	plane->color = argb_color(
+			ft_atoi(color[0]),
+			ft_atoi(color[1]),
+			ft_atoi(color[2])
+		);
+	ft_lstadd_back(&(scene->planes), ft_lstnew(plane));
+	liberator(pos);
+	liberator(norm);
+	liberator(color);
 }
 
 void parse_objects(t_scene *scene, char **data)
@@ -64,6 +97,8 @@ void parse_objects(t_scene *scene, char **data)
 	id = data[0];
 	if (!ft_strncmp(id, "sp", ft_strlen(id)))
 		lst_spheres(scene, data);
+	else if (!ft_strncmp(id, "pl", ft_strlen(id)))
+		lst_planes(scene, data);
 
 }
 
@@ -117,7 +152,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	t_cam *cam;
 
 	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
-	*scene = new_scene(cam, NULL);
+	*scene = new_scene(cam);
 	(*scene)->spheres = NULL;
 	(*scene)->lights = NULL;
 
