@@ -5,7 +5,6 @@
 typedef struct	s_scene
 {
 	t_cam 		*cams;
-	t_list		*objs;
 	t_list 		*spheres;
 	t_list		*planes;
 	t_list		*lights;
@@ -17,6 +16,6 @@ typedef struct	s_scene
 }				t_scene;
 
 
-t_scene *new_scene(t_cam *cam, t_list *obj_list);
+t_scene *new_scene(t_cam *cam);
 
 #endif
