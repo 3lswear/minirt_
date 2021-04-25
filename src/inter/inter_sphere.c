@@ -1,16 +1,16 @@
 #include "minirt.h"
 
-t_color calc_light_matte(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
+t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, float ray_len)
 {
 	t_point *surface_point;
-	t_vec *n;
+	/* t_vec *n; */
 	t_vec *l;
 	float strength;
 
 
 	surface_point = v_mult(ray, ray_len);
 	l = v_sub(light->coords, surface_point);
-	n = v_sub(surface_point, sphere->center);
+	/* n = v_sub(surface_point, sphere->center); */
 	v_norm(n);
 	/* printf("surface_point\t-> %f,%f,%f\n", surface_point->x, surface_point->y, surface_point->z); */
 	/* printf("light_point\t-> %f,%f,%f\n", l_norm->x, l_norm->y, l_norm->z); */
@@ -21,13 +21,13 @@ t_color calc_light_matte(t_sphere *sphere, t_light *light, t_vec *ray, float ray
 	if (v_dot_product(n, l) > 0)
 	{
 		free(l);
-		free(n);
+		/* free(n); */
 		return(c_mul_scalar(light->color, (light->brightess * strength)));
 	}
 	else
 	{
 		free(l);
-		free(n);
+		/* free(n); */
 		return (0);
 	}
 }
@@ -59,17 +59,44 @@ t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray
 		return (0);
 }
 
-t_color calc_lights(t_sphere *sphere, t_scene *scene, t_vec *ray, float ray_min)
+t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
 {
 	t_list *current;
 	t_color result;
+	/* t_vec *norm; */
+	t_light *light;
+	t_vec *norm_mod;
+
+	current = scene->lights;
+	result = BLACK;
+	while (current)
+	{
+		light = current->data;
+		/* LEAKZ */
+		if (v_dot_product(v_sub(light->coords, ray), norm) < 0)
+			norm_mod = v_mult(norm, -1);
+		else
+			norm_mod = v_new(norm->x, norm->y, norm->z);
+
+		result = c_add(result,
+				calc_light_matte(norm_mod, current->data, ray, ray_min));
+		current = current->next;
+	}
+	return (result);
+}
+
+t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
+{
+	t_list *current;
+	t_color result;
+	/* t_vec *norm; */
 
 	current = scene->lights;
 	result = BLACK;
 	while (current)
 	{
 		result = c_add(result,
-				calc_light_matte(sphere, current->data, ray, ray_min));
+				calc_light_matte(norm, current->data, ray, ray_min));
 		current = current->next;
 	}
 	return (result);
@@ -87,10 +114,12 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	float ray_min;
 
 	t_color color;
-	t_color calculated;
+	/* t_color calculated; */
 	t_color ambient;
 
 	t_list *candidates;
+
+	t_vec *norm;
 
 	color = -1;
 	ray_min = INFINITY;
@@ -114,17 +143,16 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
 	if (sph_closest)
 	{
+		norm = v_sub(v_mult(ray, ray_min), sph_closest->center);
+		v_norm(norm);
 		if (scene->lights)
-		{
 			/* calculated = calc_light_matte(sph_closest, scene->lights->data, ray, ray_min); */
-			calculated = calc_lights(sph_closest, scene, ray, ray_min);
 			color = c_mul(sph_closest->color,
-					c_add(ambient, calculated));
-			
-			ft_lstadd_back(&candidates, ft_lstnew(cand_new(color, ray_min)));
-		}
-		/* else */
-		/* 	color = c_mul(sph_closest->color, ambient); */
+					c_add(ambient,
+						calc_lights(norm, scene, ray, ray_min)));
+		else
+			color = c_mul(ambient, sph_closest->color);
+		ft_lstadd_back(&candidates, ft_lstnew(cand_new(color, ray_min)));
 	}
 
 	current = scene->planes;
@@ -143,7 +171,13 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	}
 	if (plane_closest)
 	{
-		color = plane_closest->color;
+		if (scene->lights)
+			/* color = plane_closest->color; */
+			color = c_mul(plane_closest->color,
+					c_add(ambient,
+						calc_lights_2s(plane_closest->norm, scene, ray, ray_min)));
+		else
+			color = c_mul(ambient, plane_closest->color);
 		ft_lstadd_back(&candidates, ft_lstnew(cand_new(color, ray_min)));
 	}
 	return (choose_candidate(&candidates));
