@@ -79,47 +79,74 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
 	t_list *current;
 	t_sphere *sphere;
+	t_plane *plane;
 	float ray_len;
 
 	t_sphere *sph_closest;
+	t_plane *plane_closest;
 	float ray_min;
 
 	t_color color;
 	t_color calculated;
 	t_color ambient;
 
+	t_list *candidates;
+
 	color = -1;
 	ray_min = INFINITY;
 	ray_len = 0;
 	sph_closest = NULL;
+	plane_closest = NULL;
 	current = scene->spheres;
+	candidates = NULL;
 	while (current)
 	{
 		sphere = current->data;
 		ray_len = inter_sphere(cam->origin, ray, sphere);
-		if (ray_len > 0)
-			if (ray_len < ray_min)
-			{
-				ray_min = ray_len;
-				sph_closest = sphere;
-			}
+		if ((ray_len > 0) && (ray_len < ray_min))
+		{
+			ray_min = ray_len;
+			sph_closest = sphere;
+		}
 		current = current->next;
 	}
 
-	if (ray_min < INFINITY)
+	ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
+	if (sph_closest)
 	{
-		ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
 		if (scene->lights)
 		{
 			/* calculated = calc_light_matte(sph_closest, scene->lights->data, ray, ray_min); */
 			calculated = calc_lights(sph_closest, scene, ray, ray_min);
 			color = c_mul(sph_closest->color,
 					c_add(ambient, calculated));
+			
+			ft_lstadd_back(&candidates, ft_lstnew(cand_new(color, ray_min)));
 		}
-		else
-			color = c_mul(sph_closest->color, ambient);
+		/* else */
+		/* 	color = c_mul(sph_closest->color, ambient); */
 	}
-	return (color);
+
+	current = scene->planes;
+	while (current)
+	{
+		plane = current->data;
+		ray_len = inter_plane(cam->origin, ray, plane);
+
+		if ((ray_len > 0) && (ray_len < ray_min))
+			{
+				ray_min = ray_len;
+				plane_closest = plane;
+				color = plane->color;
+			}
+		current = current->next;
+	}
+	if (plane_closest)
+	{
+		color = plane_closest->color;
+		ft_lstadd_back(&candidates, ft_lstnew(cand_new(color, ray_min)));
+	}
+	return (choose_candidate(&candidates));
 }
 
 float inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
