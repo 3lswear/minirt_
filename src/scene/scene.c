@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_scene *new_scene(t_cam *cam, t_list *obj_list)
+t_scene *new_scene(t_cam *cam)
 {
 	t_scene *result;
 
@@ -8,7 +8,6 @@ t_scene *new_scene(t_cam *cam, t_list *obj_list)
 	if (!result)
 		handle_error(-1);
 	result->cams = cam;
-	result->objs = obj_list;
 	result->height = 0;
 	result->width = 0;
 	result->spheres = NULL;
