@@ -43,10 +43,7 @@ void v_norm(t_vec *vec)
 
 float v_dot_product(t_vec *v1, t_vec *v2)
 {
-	float result;
-
-	result = ((v1->x * v2->x) + (v1->y * v2->y) + (v1->z * v2->z));
-	return (result);
+	return ((v1->x * v2->x) + (v1->y * v2->y) + (v1->z * v2->z));
 }
 
 t_vec *v_mult(t_vec *vec, float mult)
