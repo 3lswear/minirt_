@@ -85,6 +85,8 @@ void lst_planes(t_scene *scene, char **data)
 			ft_atoi(color[1]),
 			ft_atoi(color[2])
 		);
+	/* maybe remove */
+	v_norm(plane->norm);
 	ft_lstadd_back(&(scene->planes), ft_lstnew(plane));
 	liberator(pos);
 	liberator(norm);
@@ -164,6 +166,8 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		ret = get_next_line(fd, &line);
 		if (ret != 1)
 			break;
+		if (!ft_strlen(line))
+			continue;
 		/* printf("line from gnl => %s\n", line); */
 		data = split_ws(line);
 		if (!ft_strncmp(data[0], "R", ft_strlen(data[0])))
