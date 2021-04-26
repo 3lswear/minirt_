@@ -1,5 +1,5 @@
-#ifndef SPHERE_H
-# define SPHERE_H
+#ifndef OBJECTS_H
+# define OBJECTS_H
 
 typedef struct	s_sphere
 {

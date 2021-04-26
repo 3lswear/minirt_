@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/24 16:42:07 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:56:34 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ size_t	ft_lstsize(t_list *list);
 #include "camera.h"
 #include "scene.h"
 #include "utils.h"
-#include "sphere.h"
+#include "objects.h"
 #include "rt.h"
 #include "inter.h"
 
