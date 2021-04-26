@@ -36,11 +36,23 @@ void obj_lst_print(t_list *lst)
 	printf("NULL\n");
 }
 
+t_obj *new_object(int type, t_object *object)
+{
+	t_obj *result;
+
+	(void)object;
+	result = malloc(sizeof(t_obj));
+	result->type = type;
+
+	return(result);
+}
+
 void lst_spheres(t_scene *scene, char **data)
 {
-	t_sphere *sphere;
+	t_sphere sphere;
 	char **vec;
 	char **color;
+	t_obj *object;
 
 	vec = ft_split(data[1], ',');
 	sphere = new_sphere(
@@ -49,11 +61,13 @@ void lst_spheres(t_scene *scene, char **data)
 				ft_strtof(vec[2])),
 			ft_strtof(data[2]));
 	color = ft_split(data[3], ',');
-	sphere->color = argb_color(
+	sphere.color = argb_color(
 		ft_atoi(color[0]),
 		ft_atoi(color[1]),
 		ft_atoi(color[2]));
-	ft_lstadd_back(&(scene->spheres), ft_lstnew(sphere));
+	object = new_object(T_SPHERE, NULL);
+	object->obj.sphere = sphere;
+	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 	liberator(vec);
 	liberator(color);
 }
@@ -156,7 +170,9 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
 	*scene = new_scene(cam);
 	(*scene)->spheres = NULL;
+	(*scene)->planes = NULL;
 	(*scene)->lights = NULL;
+	(*scene)->objects = NULL;
 
 	/* light = l_new(v_new(3, 0, -3), 0.9, WHITE); */
 	/* (*scene)->light = light; */
