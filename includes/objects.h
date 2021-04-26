@@ -8,7 +8,7 @@ typedef struct	s_sphere
 	int 		color;
 } 				t_sphere;
 
-t_sphere *new_sphere(t_vec *center, float diam);
+t_sphere new_sphere(t_vec *center, float diam);
 
 typedef struct s_plane
 {
