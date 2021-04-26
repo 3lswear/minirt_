@@ -2,11 +2,11 @@
 
 float inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 {
-	float ray_len;
+	/* float ray_len; */
 	float t;
 
-	ray_len = 0;
-	(void)origin;
+	/* ray_len = 0; */
+	/* (void)origin; */
 	/* if ((n->x * (ray->x - m->x) + */
 	/* 		n->y * (ray->y - m->y) + */
 	/* 		n->z * (ray->z - m->z)) == 0) */
@@ -14,14 +14,15 @@ float inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 	t = (v_dot_product(v_sub(plane->pos, origin), plane->norm))
 			/ (v_dot_product(ray, plane->norm));
 	/* ray_len = v_mult(ray, t); */
-	ray_len = t;
+	/* ray_len = t; */
 	/* printf("len to plane => %f\n", t); */
-	if (t > 0)
-	{
-		return (t);
-	}
-	else
-		return (0);
+	/* if (t > 0) */
+	/* { */
+	/* 	return (t); */
+	/* } */
+	/* else */
+	/* 	return (0); */
+	return (t);
 }
 
 /* t_color calc_light_matte_plane(t_plane *sphere, t_light *light, t_vec *ray, float ray_len) */
