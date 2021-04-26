@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_sphere *new_sphere(t_vec *center, float radius)
+t_sphere *new_sphere(t_vec *center, float diam)
 {
 	t_sphere *result;
 	
@@ -8,7 +8,7 @@ t_sphere *new_sphere(t_vec *center, float radius)
 	if (!result)
 		handle_error(-1);
 	result->center = center;
-	result->radius = radius;
+	result->diam = diam;
 	return (result);
 
 }

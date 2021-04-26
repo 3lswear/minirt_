@@ -198,7 +198,7 @@ float inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
 	/* printf("sphere->radius = %f\n", sphere->radius); */
 	cam2sphere = v_sub(origin, sphere->center);
 	b = 2 * v_dot_product(cam2sphere, ray);
-	c = v_dot_product(cam2sphere, cam2sphere) - (pow(sphere->radius, 2));
+	c = v_dot_product(cam2sphere, cam2sphere) - (pow((sphere->diam / 2), 2));
 	discr = (b * b) - (4 * c);
 	free(cam2sphere);
 	if (discr < 0)
