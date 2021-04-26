@@ -74,10 +74,11 @@ void lst_spheres(t_scene *scene, char **data)
 
 void lst_planes(t_scene *scene, char **data)
 {
-	t_plane *plane;
+	t_plane plane;
 	char **pos;
 	char **norm;
 	char **color;
+	t_obj *object;
 
 	pos = ft_split(data[1], ',');
 	norm = ft_split(data[2], ',');
@@ -94,14 +95,16 @@ void lst_planes(t_scene *scene, char **data)
 		)
 	);
 	color = ft_split(data[3], ',');
-	plane->color = argb_color(
+	plane.color = argb_color(
 			ft_atoi(color[0]),
 			ft_atoi(color[1]),
 			ft_atoi(color[2])
 		);
 	/* maybe remove */
-	v_norm(plane->norm);
-	ft_lstadd_back(&(scene->planes), ft_lstnew(plane));
+	v_norm(plane.norm);
+	object = new_object(T_PLANE, NULL);
+	object->obj.plane = plane;
+	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 	liberator(pos);
 	liberator(norm);
 	liberator(color);
