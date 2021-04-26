@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/26 17:56:34 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/26 18:24:42 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 #include <sys/stat.h>
 
 typedef int t_color;
+
 /* typedef struct	s_color */
 /* { */
 /* 	float r; */
@@ -86,6 +87,21 @@ size_t	ft_lstsize(t_list *list);
 #include "inter.h"
 
 #define RAD (M_PI / 180)
+
+typedef enum e_type {sphere, plane} t_type;
+
+typedef union u_object
+{
+	t_sphere sphere;
+	t_plane plane;
+} t_object;
+
+typedef struct s_obj
+{
+	enum e_type type;
+	union u_object obj;
+
+}	t_obj;
 
 
 void	pixel_put(t_win *window, int x, int y, int color);
