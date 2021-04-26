@@ -73,10 +73,11 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
 	{
 		light = current->data;
 		/* LEAKZ */
-		if (v_dot_product(v_sub(light->coords, ray), norm) < 0)
+		if (v_dot_product(ray, norm) > 0)
 			norm_mod = v_mult(norm, -1);
 		else
 			norm_mod = v_new(norm->x, norm->y, norm->z);
+		/* norm_mod = v_mult(norm, -1); */
 
 		result = c_add(result,
 				calc_light_matte(norm_mod, current->data, ray, ray_min));
@@ -165,7 +166,7 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 			{
 				ray_min = ray_len;
 				plane_closest = plane;
-				color = plane->color;
+				/* color = plane->color; */
 			}
 		current = current->next;
 	}
