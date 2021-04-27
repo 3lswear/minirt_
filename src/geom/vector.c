@@ -61,5 +61,16 @@ int v_equal(t_vec *v1, t_vec *v2)
 		return (0);
 }
 
+t_vec *v_cross(t_vec *a, t_vec *b)
+{
+	t_vec *result;
+
+	result = malloc(sizeof(t_vec));
+	result->x = (a->y * b->z - a->z * b->y);
+	result->y = (a->z * b->x - a->x * b->z);
+	result->z = (a->x * b->y - a->y * b->x);
+	return (result);
+}
+
 
 
