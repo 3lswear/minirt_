@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/26 18:37:43 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/26 21:45:11 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 #include "../ext/gnl/get_next_line.h"
 #include "../ext/libft/libft.h"
      #include <stdio.h>
+#include "float.h"
 #include <math.h>
 #include <stdlib.h>
 #include <fcntl.h>
