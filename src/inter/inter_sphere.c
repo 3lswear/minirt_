@@ -26,20 +26,24 @@ float inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
 	//choose which distance to return
 	/* if ((hit1 * hit2) > 0) */
 	/* ОПТИМИЗИРОВАТЬ */
-	if (hit1 > 0 && hit2 > 0)
-	{
-		if (hit1 > hit2)
-			return (hit2);
-		else
-			return (hit1);
-	}
-	else if ((hit1 * hit2) < 0)
-	{
-		if (hit1 > 0)
-			return (hit1);
-		else
-			return (hit2);
-	}
-	else
-		return (0);
+	/* if (hit1 > 0 && hit2 > 0) */
+	/* { */
+	/* 	if (hit1 > hit2) */
+	/* 		return (hit2); */
+	/* 	else */
+	/* 		return (hit1); */
+	/* } */
+	/* else if ((hit1 * hit2) < 0) */
+	/* { */
+	/* 	if (hit1 > 0) */
+	/* 		return (hit1); */
+	/* 	else */
+	/* 		return (hit2); */
+	/* } */
+	/* else */
+	/* 	return (0); */
+	if (hit1 > hit2)
+		return (hit2);
+	else 
+		return (hit1);
 }
