@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/26 21:45:11 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/27 19:38:20 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define ERR_ALLOC	-1
 # define ERR_LIST	-2
 # define ERR_ARG	-3
+# define ERR_SUBNORM -4
+# define ERR_NEG -5
 
 # define SHININESS	100
 
@@ -91,6 +93,7 @@ size_t	ft_lstsize(t_list *list);
 
 #define T_SPHERE 1
 #define T_PLANE 2
+#define T_SQUARE 3
 
 /* typedef enum e_type {sphere, plane} t_type; */
 
@@ -98,6 +101,7 @@ typedef union u_object
 {
 	t_sphere sphere;
 	t_plane plane;
+	t_square square;
 } t_object;
 
 typedef struct s_obj
