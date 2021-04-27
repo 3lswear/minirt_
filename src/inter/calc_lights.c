@@ -16,12 +16,16 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, float max
 			ray_len = inter_plane(start, vec, &cur_obj->obj.plane);
 		if ((ray_len < max_len) && (ray_len > 0))
 		{
-			printf("ray_len => %f, max_len => %f\n", ray_len, max_len);
+			free(start);
+			free(vec);
+			/* printf("ray_len => %f, max_len => %f\n", ray_len, max_len); */
 			return (1);
 		}
 
 		current = current->next;
 	}
+	free(start);
+	free(vec);
 	return (0);
 }
 
