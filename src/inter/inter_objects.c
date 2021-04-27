@@ -10,6 +10,7 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	t_obj *closest;
 
 	t_vec *norm;
+	t_vec *tmp;
 	t_color color;
 	t_color ambient;
 
@@ -43,7 +44,8 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	{
 		if (closest->type == T_SPHERE)
 		{
-			norm = v_sub(v_mult(ray, ray_min), closest->obj.sphere.center);
+			tmp = v_mult(ray, ray_min);
+			norm = v_sub(tmp, closest->obj.sphere.center);
 			v_norm(norm);
 			if (scene->lights)
 				color = c_mul(closest->obj.sphere.color,
@@ -51,6 +53,8 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 							calc_lights(norm, scene, ray, ray_min)));
 			else
 				color = c_mul(ambient, closest->obj.sphere.color);
+			free(norm);
+			free(tmp);
 		}
 		else if (closest->type == T_PLANE)
 		{
