@@ -1,11 +1,20 @@
 #include "minirt.h"
 
-void print_progress(t_scene *scene, int x, int y)
+void print_progress(t_scene *scene, int x, int y, t_win *window, char *string)
 {
-	if ((x * y) % 10)
-		return;
-	printf("\rprogress is %.1f%%", floor(((x * y) / (scene->height * scene->width)) * 100));
-	fflush(stdout);
+	int index;
+	/* if ((x * y) % 10) */
+	/* 	return; */
+	/* printf("\rprogress is %.1f%%", floor(((x * y) / (scene->height * scene->width)) * 100)); */
+	(void)x;
+	/* (void)string; */
+	/* (void)scene; */
+	/* (void)index; */
+	index = (y / scene->height) * 100;
+	/* printf("%d\n", index); */
+	string[index] = '#';
+	mlx_string_put(window->mlx, window->win, (scene->width / 2) - 300, scene->height / 2, WHITE, string);
+	/* mlx_string_put(window->mlx, window->win, x, y, WHITE, "#######"); */
 }
 
 void trace(t_win *window, t_scene *scene)
@@ -21,6 +30,10 @@ void trace(t_win *window, t_scene *scene)
 	float x_ray;
 	float y_ray;
 
+	char string[101];
+
+	ft_memset(string, '-', 100);
+	string[100] = 0;
 	viewport = get_viewport(scene->width, scene->height, scene->cams->fov);
 	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
 	y_ang = (scene->height / 2);
@@ -50,7 +63,7 @@ void trace(t_win *window, t_scene *scene)
 			x_ang++;
 			mlx_x++;
 		}
-		print_progress(scene, mlx_x, mlx_y);
+		print_progress(scene, mlx_x, mlx_y, window, string);
 		y_ang--;
 		mlx_y++;
 	}
