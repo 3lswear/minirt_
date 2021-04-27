@@ -1,5 +1,73 @@
 #include "minirt.h"
 
+t_point *parse_point(char *string)
+{
+	t_vec *result;
+	char **data;
+
+	data = ft_split(string, ',');
+	result = v_new(
+		ft_strtof(data[0]),
+		ft_strtof(data[1]),
+		ft_strtof(data[2])
+	);
+	liberator(data);
+	return (result);
+}
+
+t_vec *parse_vec(char *string)
+{
+	return(parse_point(string));
+}
+
+t_vec *parse_norm(char *string)
+{
+	t_vec *vec;
+
+	vec = parse_vec(string);
+	if (v_len(vec) != 1)
+	{
+		free(vec);
+		handle_error(ERR_SUBNORM);
+	}
+	return (vec);
+}
+
+float parse_floats(char *string)
+{
+	float result;
+
+	result = ft_strtof(string);
+	return (result);
+}
+
+float parse_flpos(char *string)
+{
+	float result;
+
+	result = parse_floats(string);
+	if (result < 0)
+		handle_error(ERR_NEG);
+	return (result);
+}
+
+t_color parse_color(char *string)
+{
+	t_color result;
+	char **data;
+
+	/* check rgb values */
+	data = ft_split(string, ',');
+	result = argb_color(
+		ft_atoi(data[0]),
+		ft_atoi(data[1]),
+		ft_atoi(data[1])
+	);
+	liberator(data);
+	
+	return (result);
+}
+
 void lst_print(t_list *lst)
 {
 	while (lst)
@@ -110,6 +178,20 @@ void lst_planes(t_scene *scene, char **data)
 	liberator(color);
 }
 
+void lst_squares(t_scene *scene, char **data)
+{
+	t_obj *object;
+
+	object = new_object(T_SQUARE, NULL);
+	object->obj.square = new_square(
+		parse_point(data[1]),
+		parse_norm(data[2]),
+		parse_flpos(data[3]),
+		parse_color(data[4])
+	);
+	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
+}
+
 void parse_objects(t_scene *scene, char **data)
 {
 	char *id;
@@ -118,6 +200,8 @@ void parse_objects(t_scene *scene, char **data)
 		lst_spheres(scene, data);
 	else if (!ft_strncmp(id, "pl", ft_strlen(id)))
 		lst_planes(scene, data);
+	else if (!ft_strncmp(id, "sq", ft_strlen(id)))
+		lst_squares(scene, data);
 
 }
 
