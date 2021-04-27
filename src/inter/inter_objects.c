@@ -1,5 +1,6 @@
 #include "minirt.h"
 
+
 t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
 	t_list *current;
@@ -26,6 +27,8 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 		else if (cur_obj->type == T_PLANE)
 		{
 			ray_len = inter_plane(cam->origin, ray, &cur_obj->obj.plane);
+			/* if (ray_len > 0) */
+			/* 	printf("ray_len plane => %f\n", ray_len); */
 		}
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
