@@ -10,3 +10,18 @@ t_triang new_triang(t_point *a, t_point *b, t_point *c, t_color color)
 	result.color = color;
 	return (result);
 }
+ 
+t_vec *triang_get_norm(t_triang *tri)
+{
+	t_vec *edge1;
+	t_vec *edge2;
+	t_vec *norm;
+
+	edge1 = v_sub(tri->b, tri->a);
+	edge2 = v_sub(tri->c, tri->a);
+
+	norm = v_cross(edge1, edge2);
+	v_norm(norm);
+	printf("tri norm is %f %f %f\n", norm->x, norm->y, norm->z);
+	return (norm);
+}
