@@ -1,9 +1,10 @@
 #include "minirt.h"
 
-t_color argb_color(int r, int g, int b)
+t_color	argb_color(int r, int g, int b)
 {
-	int color;
-if (r > 255)
+	int	color;
+
+	if (r > 255)
 		r = 255;
 	if (g > 255)
 		g = 255;
@@ -15,15 +16,13 @@ if (r > 255)
 	color += g;
 	color = color << 8;
 	color += b;
-	/* printf("color is %X\n", color); */
 	return (color);
 }
 
-t_color c_add(t_color color1, int color2)
+t_color	c_add(t_color color1, int color2)
 {
-	int result;
-	int channel;
-	/* 0xAARRGGBB */
+	int	result;
+	int	channel;
 
 	channel = (color1 & R_MASK) + (color2 & R_MASK);
 	if (channel > R_MASK)
@@ -37,13 +36,12 @@ t_color c_add(t_color color1, int color2)
 	if (channel > B_MASK)
 		channel = B_MASK;
 	result += channel;
-
 	return (result);
 }
 
-t_color c_mul_scalar(t_color color, float mul)
+t_color	c_mul_scalar(t_color color, float mul)
 {
-	int result;
+	int	result;
 
 	if (mul > 1)
 		return (color);
@@ -55,24 +53,21 @@ t_color c_mul_scalar(t_color color, float mul)
 	return (result);
 }
 
-t_color c_mul(t_color color1, t_color color2)
+t_color	c_mul(t_color color1, t_color color2)
 {
-	t_color result;
-	double channel;
+	t_color	result;
+	double	channel;
+
 	color1 = color1 & WHITE;
 	color2 = color2 & WHITE;
-
 	channel = idiv((color1 >> 16), 255) * idiv(color2 >> 16, 255);
-	/* channel = ceil(channel); */
 	result = channel * 255;
 	result = result << 8;
 	channel = idiv((color1 & G_MASK) >> 8, 255)
 		* idiv((color2 & G_MASK) >> 8, 255);
-	/* channel = ceil(channel); */
 	result += channel * 255;
 	result = result << 8;
 	channel = idiv((color1 & B_MASK), 255) * idiv(color2 & B_MASK, 255);
-	/* channel = ceil(channel); */
 	result += channel * 255;
 	return (result);
 }
@@ -144,4 +139,3 @@ t_color c_mul(t_color color1, t_color color2)
 /* 		result.b = 1; */
 /* 	return (result); */
 /* } */
-
