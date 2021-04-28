@@ -24,6 +24,7 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 		if (cur_obj->type == T_SPHERE)
 		{
 			ray_len = inter_sphere(cam->origin, ray, &cur_obj->obj.sphere);
+			/* printf("dist 2 sphere => %f\n", ray_len); */
 		}
 		else if (cur_obj->type == T_PLANE)
 		{
@@ -71,7 +72,12 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 		}
 		else if (closest->type == T_TRIANG)
 		{
-			color = closest->obj.triang.color;
+			if (scene->lights)
+				color = c_mul(closest->obj.triang.color,
+						c_add(ambient,
+							calc_lights_2s(closest->obj.triang.norm, scene, ray, ray_min)));
+			else
+				color = c_mul(ambient, closest->obj.triang.color);
 		}
 	}
 	return (color);
