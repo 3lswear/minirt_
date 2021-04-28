@@ -14,6 +14,8 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, float max
 			ray_len = inter_sphere(start, vec, &cur_obj->obj.sphere);
 		else if (cur_obj->type == T_PLANE)
 			ray_len = inter_plane(start, vec, &cur_obj->obj.plane);
+		else if (cur_obj->type == T_TRIANG)
+			ray_len = inter_triang(start, vec, &cur_obj->obj.triang);
 		if ((ray_len < max_len) && (ray_len > 0))
 		{
 			free(start);
@@ -45,6 +47,7 @@ int calc_shadow(t_vec *ray, float ray_len, t_point *light_pos, t_scene *scene)
 	return (just_intersect(surface_point, obj2light, scene->objects, max_len));
 
 }
+
 t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
 {
 	t_list *current;
