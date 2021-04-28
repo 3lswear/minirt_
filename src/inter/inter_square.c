@@ -11,7 +11,6 @@ float inter_square(t_point *origin, t_vec *ray, t_square *square)
 	ray_len = inter_plane(origin, ray, &plane);
 	if (ray_len < 0)
 		return (ray_len);
-	v_
-
+	return (0);
 
 }
