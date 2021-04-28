@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-t_list *ft_lstnew(void *data)
+t_list	*ft_lstnew(void *data)
 {
-	t_list *result;
+	t_list	*result;
 
 	result = ft_calloc(1, sizeof(t_list));
 	if (!result)
