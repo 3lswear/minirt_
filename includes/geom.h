@@ -18,6 +18,7 @@ void v_norm(t_vec *v);
 float v_dot_product(t_vec *v1, t_vec *v2);
 t_vec *v_mult(t_vec *vec, float mult);
 int v_equal(t_vec *v1, t_vec *v2);
+t_vec *v_cross(t_vec *a, t_vec *b);
 
 typedef struct	s_light
 {
