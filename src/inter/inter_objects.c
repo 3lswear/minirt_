@@ -31,6 +31,10 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 			/* if (ray_len > 0) */
 			/* 	printf("ray_len plane => %f\n", ray_len); */
 		}
+		else if (cur_obj->type == T_TRIANG)
+		{
+			ray_len = inter_triang(cam->origin, ray, &cur_obj->obj.triang);
+		}
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
 			ray_min = ray_len;
@@ -64,6 +68,10 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 							calc_lights_2s(closest->obj.plane.norm, scene, ray, ray_min)));
 			else
 				color = c_mul(ambient, closest->obj.plane.color);
+		}
+		else if (closest->type == T_TRIANG)
+		{
+			color = closest->obj.triang.color;
 		}
 	}
 	return (color);
