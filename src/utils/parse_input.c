@@ -192,6 +192,20 @@ void lst_squares(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
+void lst_triangs(t_scene *scene, char **data)
+{
+	t_obj *object;
+
+	object = new_object(T_TRIANG, NULL);
+	object->obj.triang = new_triang(
+		parse_point(data[1]),
+		parse_point(data[2]),
+		parse_point(data[3]),
+		parse_color(data[4])
+	);
+	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
+}
+
 void parse_objects(t_scene *scene, char **data)
 {
 	char *id;
@@ -202,6 +216,8 @@ void parse_objects(t_scene *scene, char **data)
 		lst_planes(scene, data);
 	else if (!ft_strncmp(id, "sq", ft_strlen(id)))
 		lst_squares(scene, data);
+	else if (!ft_strncmp(id, "tr", ft_strlen(id)))
+		lst_triangs(scene, data);
 
 }
 
