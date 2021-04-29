@@ -21,6 +21,10 @@ int v_equal(t_vec *v1, t_vec *v2);
 t_vec *v_cross(t_vec *a, t_vec *b);
 t_vec 	*v_add(t_vec *a, t_vec *b);
 
+void	v_sub_inplace(t_vec *a, t_vec *b);
+void	v_add_inplace(t_vec *a, t_vec *b);
+void	v_mult_inplace(t_vec *vec, double mult);
+
 typedef struct	s_light
 {
 	t_vec	*coords;

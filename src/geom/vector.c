@@ -21,12 +21,26 @@ t_vec	*v_sub(t_vec *v1, t_vec *v2)
 	return (result);
 }
 
+void	v_sub_inplace(t_vec *a, t_vec *b)
+{
+	a->x = a->x - b->x;
+	a->y = a->y - b->y;
+	a->z = a->z - b->z;
+}
+
 t_vec 	*v_add(t_vec *a, t_vec *b)
 {
 	t_vec	*result;
 
 	result = v_new(a->x + b->x, a->y + b->y, a->z + b->z);
 	return (result);
+}
+
+void	v_add_inplace(t_vec *a, t_vec *b)
+{
+	a->x = a->x + b->x;
+	a->y = a->y + b->y;
+	a->z = a->z + b->z;
 }
 
 double	v_len(t_vec *vec)
@@ -58,6 +72,14 @@ t_vec	*v_mult(t_vec *vec, double mult)
 
 	result = v_new(vec->x * mult, vec->y * mult, vec->z * mult);
 	return (result);
+}
+
+
+void	v_mult_inplace(t_vec *vec, double mult)
+{
+	vec->x *= mult;
+	vec->y *= mult;
+	vec->z *= mult;
 }
 
 int	v_equal(t_vec *v1, t_vec *v2)
