@@ -21,14 +21,14 @@ void trace(t_win *window, t_scene *scene)
 {
 	int mlx_x;
 	int mlx_y;
-	float x_ang;
-	float y_ang;
+	double x_ang;
+	double y_ang;
 	int color;
 	t_vec *ray;
 	t_view *viewport;
 
-	float x_ray;
-	float y_ray;
+	double x_ray;
+	double y_ray;
 
 	char string[101];
 
@@ -71,10 +71,10 @@ void trace(t_win *window, t_scene *scene)
 	printf("\n");
 }
 
-t_view *get_viewport(float width, float height, float fov)
+t_view *get_viewport(double width, double height, double fov)
 {
 	t_view *viewport;
-	float aspect_ratio;
+	double aspect_ratio;
 
 	viewport = malloc(sizeof(t_view));
 	if (!viewport)

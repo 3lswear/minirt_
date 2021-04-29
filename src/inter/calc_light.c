@@ -1,11 +1,11 @@
 #include "minirt.h"
 
-t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, float ray_len)
+t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len)
 {
 	t_point *surface_point;
 	/* t_vec *n; */
 	t_vec *l;
-	float strength;
+	double strength;
 
 
 	surface_point = v_mult(ray, ray_len);
@@ -32,14 +32,14 @@ t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, float ray_len)
 	}
 }
 
-t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, float ray_len)
+t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, double ray_len)
 {
 	t_point *surface_point;
 	t_vec *n;
 	t_vec *l;
 	t_vec *r;
 	t_vec *v;
-	float strength;
+	double strength;
 
 	surface_point = v_mult(ray, ray_len);
 	v = v_mult(surface_point, -1);

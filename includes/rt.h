@@ -3,13 +3,13 @@
 
 typedef struct s_viewport
 {
-	float width;
-	float height;
-	float x_pixel;
-	float y_pixel;
+	double width;
+	double height;
+	double x_pixel;
+	double y_pixel;
 	
 }				t_view;
 
-t_view *get_viewport(float width, float height, float fov);
+t_view *get_viewport(double width, double height, double fov);
 
 #endif

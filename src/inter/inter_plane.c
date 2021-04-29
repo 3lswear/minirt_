@@ -1,9 +1,9 @@
 #include "minirt.h"
 
-float inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
+double inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 {
-	/* float ray_len; */
-	float t;
+	/* double ray_len; */
+	double t;
 
 	/* ray_len = 0; */
 	/* (void)origin; */
@@ -25,12 +25,12 @@ float inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 	return (t);
 }
 
-/* t_color calc_light_matte_plane(t_plane *sphere, t_light *light, t_vec *ray, float ray_len) */
+/* t_color calc_light_matte_plane(t_plane *sphere, t_light *light, t_vec *ray, double ray_len) */
 /* { */
 /* 	t_point *surface_point; */
 /* 	t_vec *n; */
 /* 	t_vec *l; */
-/* 	float strength; */
+/* 	double strength; */
 
 
 /* 	surface_point = v_mult(ray, ray_len); */

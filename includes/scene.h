@@ -11,10 +11,10 @@ typedef struct	s_scene
 	t_list	*objects;
 
 	t_list		*lights;
-	float		width;
-	float 		height;
+	double		width;
+	double 		height;
 	t_color		ambient;
-	float		amb_intensity;
+	double		amb_intensity;
 
 }				t_scene;
 

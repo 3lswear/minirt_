@@ -10,10 +10,10 @@ static int	ft_iswhitespace(const char *chr)
 	return (0);
 }
 
-float	ft_strtof(const char *str)
+double	ft_strtof(const char *str)
 {
 	int			sign;
-	float		result;
+	double		result;
 	const char	*dot;
 
 	result = 0;

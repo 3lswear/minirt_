@@ -4,11 +4,11 @@
 typedef struct	s_sphere
 {
 	t_point	*center;
-	float 		diam;
+	double 		diam;
 	int 		color;
 } 				t_sphere;
 
-t_sphere new_sphere(t_vec *center, float diam);
+t_sphere new_sphere(t_vec *center, double diam);
 
 typedef struct s_plane
 {
@@ -23,11 +23,11 @@ typedef struct s_square
 {
 	t_point *pos;
 	t_vec *norm;
-	float	side;
+	double	side;
 	t_color color;
 } t_square;
 
-t_square new_square(t_point *pos, t_vec *norm, float side, t_color color);
+t_square new_square(t_point *pos, t_vec *norm, double side, t_color color);
 
 typedef struct s_triang
 {

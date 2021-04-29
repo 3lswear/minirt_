@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/29 01:36:30 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/29 03:50:40 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef int t_color;
 
 /* typedef struct	s_color */
 /* { */
-/* 	float r; */
-/* 	float g; */
-/* 	float b; */
+/* 	double r; */
+/* 	double g; */
+/* 	double b; */
 /* } 				t_color; */
 
 typedef struct s_win

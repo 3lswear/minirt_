@@ -4,8 +4,8 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
 	t_list *current;
 	t_obj *cur_obj;
-	float ray_len;
-	float ray_min;
+	double ray_len;
+	double ray_min;
 	t_obj *closest;
 
 	t_vec *norm;

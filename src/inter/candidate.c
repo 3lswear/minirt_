@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-t_candidate *cand_new(t_color color, float dist)
+t_candidate *cand_new(t_color color, double dist)
 {
 	t_candidate *result;
 
@@ -15,7 +15,7 @@ t_candidate *cand_new(t_color color, float dist)
 t_color choose_candidate(t_list **list)
 {
 	t_list *current;
-	float dist_min;
+	double dist_min;
 	t_candidate *cand;
 	t_candidate *winner;
 

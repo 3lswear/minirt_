@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-float	inter_triang(t_point *origin, t_vec *ray, t_triang *tri)
+double	inter_triang(t_point *origin, t_vec *ray, t_triang *tri)
 {
 	t_vec		*edge1;
 	t_vec		*edge2;

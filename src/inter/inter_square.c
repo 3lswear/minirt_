@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-float inter_square(t_point *origin, t_vec *ray, t_square *square)
+double inter_square(t_point *origin, t_vec *ray, t_square *square)
 {
-	float ray_len;
+	double ray_len;
 	
 	t_plane plane;
 	plane.color = BLACK;

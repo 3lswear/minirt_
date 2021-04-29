@@ -2,11 +2,11 @@
 
 t_hit inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
 {
-	float b;
-	float c;
-	float discr;
-	/* float hit1; */
-	/* float hit2; */
+	double b;
+	double c;
+	double discr;
+	/* double hit1; */
+	/* double hit2; */
 	t_vec *cam2sphere;
 	t_hit hit;
 

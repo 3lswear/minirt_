@@ -39,7 +39,7 @@ t_color	c_add(t_color color1, int color2)
 	return (result);
 }
 
-t_color	c_mul_scalar(t_color color, float mul)
+t_color	c_mul_scalar(t_color color, double mul)
 {
 	int	result;
 
@@ -109,7 +109,7 @@ t_color	c_mul(t_color color1, t_color color2)
 /* 	return (result); */
 /* } */
 
-/* t_color c_mul_scalar(t_color color, float mul) */
+/* t_color c_mul_scalar(t_color color, double mul) */
 /* { */
 /* 	t_color result; */
 /* 	result.r = color.r * mul; */

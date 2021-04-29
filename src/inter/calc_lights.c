@@ -1,10 +1,10 @@
 #include "minirt.h"
 
-static int just_intersect(t_point *start, t_vec *vec, t_list *objects, float max_len)
+static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double max_len)
 {
 	t_list *current;
 	t_obj *cur_obj;
-	float ray_len;
+	double ray_len;
 	t_hit hit;
 
 	current = objects;
@@ -41,11 +41,11 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, float max
 	return (0);
 }
 
-int calc_shadow(t_vec *ray, float ray_len, t_point *light_pos, t_scene *scene)
+int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene)
 {
 	t_point *surface_point;
 	t_vec *obj2light;
-	float max_len;
+	double max_len;
 
 	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 9));
 	/* obj2light = v_sub(surface_point, light_pos); */
@@ -58,7 +58,7 @@ int calc_shadow(t_vec *ray, float ray_len, t_point *light_pos, t_scene *scene)
 
 }
 
-t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
+t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 {
 	t_list *current;
 	t_color result;
@@ -95,7 +95,7 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
 	return (result);
 }
 
-t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, float ray_min)
+t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 {
 	t_list *current;
 	t_color result;

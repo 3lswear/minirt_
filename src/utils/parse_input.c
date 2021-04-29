@@ -33,19 +33,19 @@ t_vec *parse_norm(char *string)
 	return (vec);
 }
 
-float parse_floats(char *string)
+double parse_doubles(char *string)
 {
-	float result;
+	double result;
 
 	result = ft_strtof(string);
 	return (result);
 }
 
-float parse_flpos(char *string)
+double parse_flpos(char *string)
 {
-	float result;
+	double result;
 
-	result = parse_floats(string);
+	result = parse_doubles(string);
 	if (result < 0)
 		handle_error(ERR_NEG);
 	return (result);
