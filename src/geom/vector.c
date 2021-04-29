@@ -21,6 +21,14 @@ t_vec	*v_sub(t_vec *v1, t_vec *v2)
 	return (result);
 }
 
+t_vec 	*v_add(t_vec *a, t_vec *b)
+{
+	t_vec	*result;
+
+	result = v_new(a->x + b->x, a->y + b->y, a->z + b->z);
+	return (result);
+}
+
 double	v_len(t_vec *vec)
 {
 	double	result;
