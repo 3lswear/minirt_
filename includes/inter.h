@@ -26,9 +26,9 @@ double	inter_triang(t_vec *origin, t_vec *ray, t_triang *tri);
 t_color	choose_candidate(t_list **list);
 
 t_color	calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min);
-t_color	calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min);
+t_color	calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, t_cam *cam);
 
-t_color	calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len);
+t_color	calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len, t_cam *cam);
 t_color	calc_light_shiny(t_sphere *sphere, t_light *light,
 			t_vec *ray, double ray_len);
 

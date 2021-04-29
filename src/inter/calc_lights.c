@@ -41,13 +41,16 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 	return (0);
 }
 
-int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene)
+int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, t_cam *cam)
 {
 	t_point *surface_point;
 	t_vec *obj2light;
 	double max_len;
 
 	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 9));
+	/* print_vec(surface_point, "surface_point"); */
+	surface_point = v_add(surface_point, cam->origin);
+	/* print_vec(surface_point, "surface_point after add"); */
 	/* obj2light = v_sub(surface_point, light_pos); */
 	obj2light = v_sub(light_pos, surface_point);
 	/* obj2light = v_mult(obj2light, 1 - 0.100090); */
@@ -58,7 +61,7 @@ int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene)
 
 }
 
-t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
+t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, t_cam *cam)
 {
 	t_list *current;
 	t_color result;
@@ -78,9 +81,9 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 			norm_mod = v_new(norm->x, norm->y, norm->z);
 		/* norm_mod = v_mult(norm, -1); */
 
-		if (!calc_shadow(ray, ray_min, light->coords, scene))
+		if (!calc_shadow(ray, ray_min, light->coords, scene, cam))
 			result = c_add(result,
-				calc_light_matte(norm_mod, light, ray, ray_min));
+				calc_light_matte(norm_mod, light, ray, ray_min, cam));
 
 		/* result = c_add(result, */
 		/* 	calc_light_matte(norm_mod, light, ray, ray_min)); */
@@ -106,9 +109,9 @@ t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 			/* /1* return (result); *1/ */
 		/* /1* 	return (RED); *1/ */
 		/* else */
-		if (!calc_shadow(ray, ray_min, light->coords, scene))
+		if (!calc_shadow(ray, ray_min, light->coords, scene, NULL))
 			result = c_add(result,
-					calc_light_matte(norm, current->data, ray, ray_min));
+					calc_light_matte(norm, current->data, ray, ray_min, NULL));
 		current = current->next;
 	}
 	return (result);
