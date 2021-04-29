@@ -24,7 +24,7 @@ void trace(t_win *window, t_scene *scene)
 	double x_ang;
 	double y_ang;
 	int color;
-	t_vec *ray;
+	/* t_vec *ray; */
 	t_view *viewport;
 
 	double x_ray;
@@ -49,9 +49,9 @@ void trace(t_win *window, t_scene *scene)
 		while (x_ang <= scene->width / 2)
 		{
 			x_ray = x_ang * viewport->x_pixel;
-			ray = v_new(x_ray, y_ray, -1);
-			v_norm(ray);
-			color = inter_objects(scene->cams, ray, scene);
+			scene->cams->ray = v_new(x_ray, y_ray, -1);
+			v_norm(scene->cams->ray);
+			color = inter_objects(scene->cams, scene->cams->ray, scene);
 			if (color < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
 			/* pixel_put(window, mlx_x, mlx_y, argb_color(color)); */
@@ -59,7 +59,7 @@ void trace(t_win *window, t_scene *scene)
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
 			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
 			/* mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color); */
-			free(ray);
+			free(scene->cams->ray);
 			x_ang++;
 			mlx_x++;
 		}

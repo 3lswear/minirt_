@@ -6,6 +6,7 @@ typedef struct	s_cam
 	t_vec 		*origin;
 	t_vec		*dir;
 	double		fov;
+	t_vec		*ray;
 
 }				t_cam;
 
