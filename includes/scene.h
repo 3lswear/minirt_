@@ -4,17 +4,13 @@
 
 typedef struct	s_scene
 {
-	t_cam 		*cams;
-	t_list 		*spheres;
-	t_list		*planes;
-
-	t_list	*objects;
-
-	t_list		*lights;
 	double		width;
 	double 		height;
 	t_color		ambient;
 	double		amb_intensity;
+	t_cam 		*cams;
+	t_list		*objects;
+	t_list		*lights;
 
 }				t_scene;
 
