@@ -17,7 +17,7 @@ typedef struct s_hit
 double get_positive(t_hit hit);
 double just_get(t_hit hit);
 
-t_color	inter_objects(t_cam *cam, t_vec *ray, t_scene *scene);
+t_color	inter_objects(t_cam *cam, t_scene *scene);
 t_hit	inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere);
 double	inter_plane(t_vec *origin, t_vec *ray, t_plane *plane);
 double	inter_triang(t_vec *origin, t_vec *ray, t_triang *tri);
