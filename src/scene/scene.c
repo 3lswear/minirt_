@@ -10,7 +10,5 @@ t_scene *new_scene(t_cam *cam)
 	result->cams = cam;
 	result->height = 0;
 	result->width = 0;
-	result->spheres = NULL;
-	result->planes = NULL;
 	return (result);
 }

@@ -274,8 +274,6 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 
 	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
 	*scene = new_scene(cam);
-	(*scene)->spheres = NULL;
-	(*scene)->planes = NULL;
 	(*scene)->lights = NULL;
 	(*scene)->objects = NULL;
 
