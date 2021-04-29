@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/29 14:56:42 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/30 00:49:14 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef union u_object
 typedef struct s_obj
 {
 	int type;
+	t_color color;
 	t_object obj;
 
 }	t_obj;

@@ -140,6 +140,7 @@ void lst_spheres(t_scene *scene, char **data)
 		ft_atoi(color[2]));
 	object = new_object(T_SPHERE, NULL);
 	object->obj.sphere = sphere;
+	object->color = sphere.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 	liberator(vec);
 	liberator(color);
@@ -177,6 +178,7 @@ void lst_planes(t_scene *scene, char **data)
 	v_norm_inplace(plane.norm);
 	object = new_object(T_PLANE, NULL);
 	object->obj.plane = plane;
+	object->color = plane.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 	liberator(pos);
 	liberator(norm);
@@ -194,6 +196,7 @@ void lst_squares(t_scene *scene, char **data)
 		parse_flpos(data[3]),
 		parse_color(data[4])
 	);
+	object->color = object->obj.square.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
@@ -208,6 +211,7 @@ void lst_triangs(t_scene *scene, char **data)
 		parse_point(data[3]),
 		parse_color(data[4])
 	);
+	object->color = object->obj.triang.color;
 	object->obj.triang.norm = triang_get_norm(&object->obj.triang);
 	printf("tri color => %X\n", object->obj.triang.color);
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
