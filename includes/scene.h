@@ -8,7 +8,7 @@ typedef struct	s_scene
 	double 		height;
 	t_color		ambient;
 	double		amb_intensity;
-	t_cam 		*cams;
+	t_list 		*cams;
 	t_list		*objects;
 	t_list		*lights;
 

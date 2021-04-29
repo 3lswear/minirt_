@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/25 02:32:28 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/29 15:02:09 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ int	main(int argc, char **argv)
 	/* draw_circle(window, width, height); */
 
 
-	trace(&window, scene);
+	iter_cams(scene, &window);
+	/* trace(&window, scene); */
 	//TODO: free scene
 
 	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/29 03:50:40 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:56:42 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,5 @@ typedef struct s_obj
 
 
 void	pixel_put(t_win *window, int x, int y, int color);
-void	trace(t_win *window, t_scene *scene);
 
 #endif

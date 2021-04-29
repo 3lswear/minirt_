@@ -7,7 +7,8 @@ t_scene *new_scene(t_cam *cam)
 	result = malloc(sizeof(t_scene));
 	if (!result)
 		handle_error(-1);
-	result->cams = cam;
+	(void)*cam;
+	result->cams = NULL;
 	result->height = 0;
 	result->width = 0;
 	return (result);

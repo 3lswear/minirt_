@@ -208,6 +208,18 @@ void lst_triangs(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
+void lst_cams(t_scene *scene, char **data)
+{
+	t_cam *cam;
+	cam = new_cam(
+		parse_point(data[1]),
+		parse_norm(data[2]),
+		ft_strtof(data[3])
+	);
+	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
+	print_str_array(data);
+}
+
 void parse_objects(t_scene *scene, char **data)
 {
 	char *id;
@@ -270,10 +282,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 	(void)window;
 
 	/* scene initialization */
-	t_cam *cam;
-
-	cam = new_cam(v_new(0, 0, 0), v_new(0, 0, -1), 90);
-	*scene = new_scene(cam);
+	*scene = new_scene(NULL);
 	(*scene)->lights = NULL;
 	(*scene)->objects = NULL;
 
@@ -295,7 +304,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		else if (!ft_strncmp(data[0], "A", ft_strlen(data[0])))
 			parse_ambient(*scene, data);
 		else if (!ft_strncmp(data[0], "c", ft_strlen(data[0])))
-			print_str_array(data);
+			lst_cams(*scene, data);
 		else if (!ft_strncmp(data[0], "l", ft_strlen(data[0])))
 			parse_lights(*scene, data);
 		else if (data[0][0] == '#')

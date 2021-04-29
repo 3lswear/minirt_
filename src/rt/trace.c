@@ -17,7 +17,7 @@ void print_progress(t_scene *scene, int x, int y, t_win *window, char *string)
 	/* mlx_string_put(window->mlx, window->win, x, y, WHITE, "#######"); */
 }
 
-void trace(t_win *window, t_scene *scene)
+void trace(t_win *window, t_scene *scene, t_cam *cam)
 {
 	int mlx_x;
 	int mlx_y;
@@ -34,7 +34,7 @@ void trace(t_win *window, t_scene *scene)
 
 	ft_memset(string, '-', 100);
 	string[100] = 0;
-	viewport = get_viewport(scene->width, scene->height, scene->cams->fov);
+	viewport = get_viewport(scene->width, scene->height, cam->fov);
 	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
 	y_ang = (scene->height / 2);
 	mlx_y = 0;
@@ -49,9 +49,9 @@ void trace(t_win *window, t_scene *scene)
 		while (x_ang <= scene->width / 2)
 		{
 			x_ray = x_ang * viewport->x_pixel;
-			scene->cams->ray = v_new(x_ray, y_ray, -1);
-			v_norm(scene->cams->ray);
-			color = inter_objects(scene->cams, scene->cams->ray, scene);
+			cam->ray = v_new(x_ray, y_ray, -1);
+			v_norm(cam->ray);
+			color = inter_objects(cam, cam->ray, scene);
 			if (color < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
 			/* pixel_put(window, mlx_x, mlx_y, argb_color(color)); */
@@ -59,7 +59,7 @@ void trace(t_win *window, t_scene *scene)
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
 			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
 			/* mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color); */
-			free(scene->cams->ray);
+			free(cam->ray);
 			x_ang++;
 			mlx_x++;
 		}
