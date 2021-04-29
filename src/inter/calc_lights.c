@@ -23,11 +23,11 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 		/* if ((ray_len < max_len) && (ray_len > max_len * FLT_EPSILON * 100)) */
 		if ((ray_len < max_len) && (ray_len > 0))
 		{
-			if (hit.a * hit.b != 0)
-			{
-				printf("hits => %f	%f\n", hit.a, hit.b);
-				printf("ray_len =>\t%f\n", ray_len);
-			}
+			/* if (hit.a * hit.b != 0) */
+			/* { */
+			/* 	printf("hits => %f	%f\n", hit.a, hit.b); */
+			/* 	printf("ray_len =>\t%f\n", ray_len); */
+			/* } */
 			free(start);
 			free(vec);
 			/* printf("ray_len => %f, max_len => %f\n", ray_len, max_len); */
@@ -78,16 +78,10 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 			norm_mod = v_new(norm->x, norm->y, norm->z);
 		/* norm_mod = v_mult(norm, -1); */
 
-		/* calc_shadow(ray, ray_min, light->coords, scene); */
-			/* result = BLUE; */
-		/* /1* 	return (result); *1/ */
-		/* /1* 	return (RED); *1/ */
-		/* else */
 		if (!calc_shadow(ray, ray_min, light->coords, scene))
 			result = c_add(result,
 				calc_light_matte(norm_mod, light, ray, ray_min));
-		/* else */
-		/* 	result = RED; */
+
 		/* result = c_add(result, */
 		/* 	calc_light_matte(norm_mod, light, ray, ray_min)); */
 		current = current->next;
