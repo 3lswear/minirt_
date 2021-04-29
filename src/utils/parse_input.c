@@ -68,6 +68,11 @@ t_color parse_color(char *string)
 	return (result);
 }
 
+void print_vec(t_vec *vec, char *label)
+{
+	printf("%s => %lf %lf %lf\n", label, vec->x, vec->y, vec->z);
+}
+
 void lst_print(t_list *lst)
 {
 	while (lst)
@@ -217,6 +222,7 @@ void lst_cams(t_scene *scene, char **data)
 		ft_strtof(data[3])
 	);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
+	printf("cam->origin %lf %lf %lf\n", cam->origin->x, cam->origin->y, cam->origin->z);
 	print_str_array(data);
 }
 
