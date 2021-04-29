@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/28 01:57:30 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/29 01:36:30 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ERR_LIST	-2
 # define ERR_ARG	-3
 # define ERR_SUBNORM -4
-# define ERR_NEG -5
+# define ERR_NEG	-5
 
 # define SHININESS	100
 
@@ -65,22 +65,7 @@ typedef struct s_win
 	int			en;
 }				t_win;
  
-typedef struct	s_list
-{
-	struct s_list	*next;
-	void	*data;
-
-}				t_list;
-
-t_list	*ft_lstnew(void *data);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-void	ft_lstclear(t_list **head, void (*del)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstadd_back(t_list **head, t_list *new);
-void	ft_lstadd_front(t_list **head, t_list *new);
-size_t	ft_lstsize(t_list *list);
-
+#include "list.h"
 #include "geom.h"
 #include "camera.h"
 #include "scene.h"
