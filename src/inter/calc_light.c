@@ -12,7 +12,7 @@ t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len, t
 	surface_point = v_add(surface_point, cam->origin);
 	l = v_sub(light->coords, surface_point);
 	/* n = v_sub(surface_point, sphere->center); */
-	v_norm(n);
+	v_norm_inplace(n);
 	/* printf("surface_point\t-> %f,%f,%f\n", surface_point->x, surface_point->y, surface_point->z); */
 	/* printf("light_point\t-> %f,%f,%f\n", l_norm->x, l_norm->y, l_norm->z); */
 	strength = v_dot_product(n, l) / (v_len(l) * v_len(n));
@@ -46,7 +46,7 @@ t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, double ra
 	v = v_mult(surface_point, -1);
 	l = v_sub(light->coords, surface_point);
 	n = v_sub(surface_point, sphere->center);
-	v_norm(n);
+	v_norm_inplace(n);
 	r = v_sub(v_mult(n, 2 * v_dot_product(n, l)), l);
 	/* strength = v_dot_product(n, l) / (v_len(l) * v_len(n)); */
 	strength = pow(v_dot_product(r, v) / (v_len(r) * v_len(v)), SHININESS);

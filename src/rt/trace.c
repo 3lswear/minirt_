@@ -50,7 +50,7 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 		{
 			x_ray = x_ang * viewport->x_pixel;
 			cam->ray = v_new(x_ray, y_ray, -1);
-			v_norm(cam->ray);
+			v_norm_inplace(cam->ray);
 			color = inter_objects(cam, cam->ray, scene);
 			if (color < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);

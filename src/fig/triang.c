@@ -21,7 +21,7 @@ t_vec *triang_get_norm(t_triang *tri)
 	edge2 = v_sub(tri->c, tri->a);
 
 	norm = v_cross(edge1, edge2);
-	v_norm(norm);
+	v_norm_inplace(norm);
 	printf("tri norm is %f %f %f\n", norm->x, norm->y, norm->z);
 	return (norm);
 }

@@ -52,7 +52,7 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 			/* print_vec(surface_point, "surface_point"); */
 			norm = v_sub(surface_point, closest->obj.sphere.center);
 			/* printf("norm len => %lf\n", v_len(norm)); */
-			v_norm(norm);
+			v_norm_inplace(norm);
 			if (scene->lights)
 				color = c_mul(closest->obj.sphere.color,
 						c_add(ambient,

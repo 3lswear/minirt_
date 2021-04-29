@@ -56,7 +56,7 @@ int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, 
 	/* obj2light = v_mult(obj2light, 1 - 0.100090); */
 	max_len = v_len(obj2light);
 	/* max_len = max_len - FLT_EPSILON; */
-	v_norm(obj2light);
+	v_norm_inplace(obj2light);
 	return (just_intersect(surface_point, obj2light, scene->objects, max_len));
 
 }

@@ -51,7 +51,21 @@ double	v_len(t_vec *vec)
 	return (result);
 }
 
-void	v_norm(t_vec	*vec)
+t_vec	*v_norm(t_vec *vec)
+{
+	t_vec *result;
+	double len;
+
+	len = v_len(vec);
+	result = v_new(
+		vec->x / len,
+		vec->y / len,
+		vec->z / len
+	);
+	return (result);
+}
+
+void	v_norm_inplace(t_vec	*vec)
 {
 	double	len;
 

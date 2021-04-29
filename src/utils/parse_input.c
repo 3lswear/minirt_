@@ -174,7 +174,7 @@ void lst_planes(t_scene *scene, char **data)
 			ft_atoi(color[2])
 		);
 	/* maybe remove */
-	v_norm(plane.norm);
+	v_norm_inplace(plane.norm);
 	object = new_object(T_PLANE, NULL);
 	object->obj.plane = plane;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
