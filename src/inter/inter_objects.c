@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 {
 	t_list *current;
@@ -14,6 +13,8 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 	t_color color;
 	t_color ambient;
 
+	t_hit hit;
+
 	ray_min = INFINITY;
 	closest = NULL;
 	color = -1;
@@ -23,19 +24,13 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 		cur_obj = current->data;
 		if (cur_obj->type == T_SPHERE)
 		{
-			ray_len = inter_sphere(cam->origin, ray, &cur_obj->obj.sphere);
-			/* printf("dist 2 sphere => %f\n", ray_len); */
+			hit = inter_sphere(cam->origin, ray, &cur_obj->obj.sphere);
+			ray_len = get_positive(hit);
 		}
 		else if (cur_obj->type == T_PLANE)
-		{
 			ray_len = inter_plane(cam->origin, ray, &cur_obj->obj.plane);
-			/* if (ray_len > 0) */
-			/* 	printf("ray_len plane => %f\n", ray_len); */
-		}
 		else if (cur_obj->type == T_TRIANG)
-		{
 			ray_len = inter_triang(cam->origin, ray, &cur_obj->obj.triang);
-		}
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
 			ray_min = ray_len;
@@ -55,7 +50,7 @@ t_color inter_objects(t_cam *cam, t_vec *ray, t_scene *scene)
 			if (scene->lights)
 				color = c_mul(closest->obj.sphere.color,
 						c_add(ambient,
-							calc_lights(norm, scene, ray, ray_min)));
+							calc_lights_2s(norm, scene, ray, ray_min)));
 			else
 				color = c_mul(ambient, closest->obj.sphere.color);
 			free(norm);
