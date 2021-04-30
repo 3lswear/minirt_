@@ -123,66 +123,35 @@ t_obj *new_object(int type, t_object *object)
 void lst_spheres(t_scene *scene, char **data)
 {
 	t_sphere sphere;
-	char **vec;
-	char **color;
 	t_obj *object;
 
-	vec = ft_split(data[1], ',');
 	sphere = new_sphere(
-			v_new(ft_strtof(vec[0]),
-				ft_strtof(vec[1]),
-				ft_strtof(vec[2])),
-			ft_strtof(data[2]));
-	color = ft_split(data[3], ',');
-	sphere.color = argb_color(
-		ft_atoi(color[0]),
-		ft_atoi(color[1]),
-		ft_atoi(color[2]));
+			parse_point(data[1]),
+			parse_doubles(data[2])
+			);
+	sphere.color = parse_color(data[3]);
 	object = new_object(T_SPHERE, NULL);
 	object->obj.sphere = sphere;
 	object->color = sphere.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
-	liberator(vec);
-	liberator(color);
 }
 
 void lst_planes(t_scene *scene, char **data)
 {
 	t_plane plane;
-	char **pos;
-	char **norm;
-	char **color;
 	t_obj *object;
 
-	pos = ft_split(data[1], ',');
-	norm = ft_split(data[2], ',');
 	plane = new_plane(
-		v_new(
-			ft_strtof(pos[0]),
-			ft_strtof(pos[1]),
-			ft_strtof(pos[2])
-		),
-		v_new(
-			ft_strtof(norm[0]),
-			ft_strtof(norm[1]),
-			ft_strtof(norm[2])
-		)
+			parse_point(data[1]),
+			parse_norm(data[2]),
+			parse_color(data[3])
 	);
-	color = ft_split(data[3], ',');
-	plane.color = argb_color(
-			ft_atoi(color[0]),
-			ft_atoi(color[1]),
-			ft_atoi(color[2])
-		);
 	/* maybe remove */
 	v_norm_inplace(plane.norm);
 	object = new_object(T_PLANE, NULL);
 	object->obj.plane = plane;
 	object->color = plane.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
-	liberator(pos);
-	liberator(norm);
-	liberator(color);
 }
 
 void lst_squares(t_scene *scene, char **data)
@@ -223,7 +192,7 @@ void lst_cams(t_scene *scene, char **data)
 	cam = new_cam(
 		parse_point(data[1]),
 		parse_norm(data[2]),
-		ft_strtof(data[3])
+		parse_flpos(data[3])
 	);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
 	printf("cam->origin %lf %lf %lf\n", cam->origin->x, cam->origin->y, cam->origin->z);
@@ -248,37 +217,19 @@ void parse_objects(t_scene *scene, char **data)
 void parse_lights(t_scene *scene, char **data)
 {
 	t_light *light;
-	char **pos;
-	char **color;
 	
-	pos = ft_split(data[1], ',');
-	color = ft_split(data[3], ',');
 	light = l_new(
-				v_new(
-					ft_strtof(pos[0]),
-					ft_strtof(pos[1]),
-					ft_strtof(pos[2])),
-				ft_strtof(data[2]),
-				argb_color(
-					ft_atoi(color[0]),
-					ft_atoi(color[1]),
-					ft_atoi(color[2])));
+				parse_point(data[1]),
+				parse_flpos(data[2]),
+				parse_color(data[3])
+	);
 	ft_lstadd_back(&(scene->lights), ft_lstnew(light));
-	liberator(pos);
-	liberator(color);
 }
 
 void parse_ambient(t_scene *scene, char **data)
 {
-	char **split;
-
-	split = ft_split(data[2], ',');
-	scene->amb_intensity = ft_strtof(data[1]);
-	scene->ambient = argb_color(
-				ft_atoi(split[0]),
-				ft_atoi(split[1]),
-				ft_atoi(split[2]));
-	liberator(split);
+	scene->amb_intensity = parse_flpos(data[1]);
+	scene->ambient = parse_color(data[2]);
 }
 
 void parse_input(char *file, t_scene **scene, t_win *window)
