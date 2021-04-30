@@ -21,6 +21,7 @@ t_color	inter_objects(t_cam *cam, t_scene *scene);
 t_hit	inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere);
 double	inter_plane(t_vec *origin, t_vec *ray, t_plane *plane);
 double	inter_triang(t_vec *origin, t_vec *ray, t_triang *tri);
+double inter_square(t_point *origin, t_vec *ray, t_square *square);
 
 /* t_candidate	*cand_new(t_color color, double dist); */
 t_color	choose_candidate(t_list **list);

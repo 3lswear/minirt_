@@ -20,6 +20,8 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 			ray_len = inter_plane(start, vec, &cur_obj->obj.plane);
 		else if (cur_obj->type == T_TRIANG)
 			ray_len = inter_triang(start, vec, &cur_obj->obj.triang);
+		else if (cur_obj->type == T_SQUARE)
+			ray_len = inter_square(start, vec, &cur_obj->obj.square);
 		/* if ((ray_len < max_len) && (ray_len > max_len * FLT_EPSILON * 100)) */
 		if ((ray_len < max_len) && (ray_len > 0))
 		{
@@ -86,7 +88,7 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, 
 				calc_light_matte(norm_mod, light, ray, ray_min, cam));
 
 		/* result = c_add(result, */
-		/* 	calc_light_matte(norm_mod, light, ray, ray_min)); */
+		/* 	calc_light_matte(norm_mod, light, ray, ray_min, cam)); */
 		free(norm_mod);
 		current = current->next;
 	}
