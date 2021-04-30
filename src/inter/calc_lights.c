@@ -1,11 +1,11 @@
 #include "minirt.h"
 
-static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double max_len)
+static	int just_intersect(t_point *start, t_vec *vec, t_list *objects, double max_len)
 {
-	t_list *current;
-	t_obj *cur_obj;
-	double ray_len;
-	t_hit hit;
+	t_list	*current;
+	t_obj	*cur_obj;
+	double	ray_len;
+	t_hit	hit;
 
 	current = objects;
 	while (current)
@@ -43,11 +43,11 @@ static int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 	return (0);
 }
 
-int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, t_cam *cam)
+int	calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, t_cam *cam)
 {
-	t_point *surface_point;
-	t_vec *obj2light;
-	double max_len;
+	t_point	*surface_point;
+	t_vec	*obj2light;
+	double	max_len;
 
 	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 1));
 	/* print_vec(surface_point, "surface_point"); */
@@ -63,13 +63,12 @@ int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, 
 
 }
 
-t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, t_cam *cam)
+t_color	calc_lights_2s(t_vec *norm, t_scene *scene, double ray_min, t_cam *cam)
 {
-	t_list *current;
-	t_color result;
-	/* t_vec *norm; */
-	t_light *light;
-	t_vec *norm_mod;
+	t_list	*current;
+	t_color	result;
+	t_light	*light;
+	t_vec	*norm_mod;
 
 	current = scene->lights;
 	result = BLACK;
@@ -77,15 +76,14 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, 
 	{
 		light = current->data;
 		/* LEAKZ */
-		if (v_dot_product(ray, norm) > 0)
+		if (v_dot_product(cam->ray, norm) > 0)
 			norm_mod = v_mult(norm, -1);
 		else
 			norm_mod = v_new(norm->x, norm->y, norm->z);
-		/* norm_mod = v_mult(norm, -1); */
 
-		if (!calc_shadow(ray, ray_min, light->coords, scene, cam))
+		if (!calc_shadow(cam->ray, ray_min, light->coords, scene, cam))
 			result = c_add(result,
-				calc_light_matte(norm_mod, light, ray, ray_min, cam));
+				calc_light_matte(norm_mod, light, cam->ray, ray_min, cam));
 
 		/* result = c_add(result, */
 		/* 	calc_light_matte(norm_mod, light, ray, ray_min, cam)); */

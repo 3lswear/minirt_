@@ -16,19 +16,19 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 			norm = v_sub(surface_point, closest->obj.sphere.center);
 			v_norm_inplace(norm);
 			color = c_mul(closest->color, c_add(ambient,
-						calc_lights_2s(norm, scene, cam->ray, ray_min, cam)));
+						calc_lights_2s(norm, scene, ray_min, cam)));
 			free(norm);
 			free(surface_point);
 		}
 		else if (closest->type == T_PLANE)
 			color = c_mul(closest->color, c_add(ambient,
-						calc_lights_2s(closest->obj.plane.norm, scene, cam->ray, ray_min, cam)));
+						calc_lights_2s(closest->obj.plane.norm, scene, ray_min, cam)));
 		else if (closest->type == T_TRIANG)
 			color = c_mul(closest->color, c_add(ambient,
-						calc_lights_2s(closest->obj.triang.norm, scene, cam->ray, ray_min, cam)));
+						calc_lights_2s(closest->obj.triang.norm, scene, ray_min, cam)));
 		else if (closest->type == T_SQUARE)
 			color = c_mul(closest->color, c_add(ambient,
-						calc_lights_2s(closest->obj.square.norm, scene, cam->ray, ray_min, cam)));
+						calc_lights_2s(closest->obj.square.norm, scene, ray_min, cam)));
 	}
 	else
 		color = c_mul(ambient, closest->color);
