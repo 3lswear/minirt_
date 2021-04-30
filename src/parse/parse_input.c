@@ -161,7 +161,8 @@ void lst_squares(t_scene *scene, char **data)
 	object = new_object(T_SQUARE, NULL);
 	object->obj.square = new_square(
 		parse_point(data[1]),
-		parse_norm(data[2]),
+		/* parse_norm(data[2]), */
+		parse_vec(data[2]),
 		parse_flpos(data[3]),
 		parse_color(data[4])
 	);
