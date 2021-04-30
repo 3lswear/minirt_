@@ -24,10 +24,16 @@ typedef struct s_square
 	t_point *pos;
 	t_vec *norm;
 	double	side;
+	double hside;
 	t_color color;
+	t_point *a;
+	t_point *b;
+	t_point *c;
+	t_point *d;
 } t_square;
 
 t_square new_square(t_point *pos, t_vec *norm, double side, t_color color);
+void sq_get_vertices(t_square *square);
 
 typedef struct s_triang
 {
