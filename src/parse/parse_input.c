@@ -166,6 +166,7 @@ void lst_squares(t_scene *scene, char **data)
 		parse_flpos(data[3]),
 		parse_color(data[4])
 	);
+	v_norm_inplace(object->obj.square.norm);
 	object->color = object->obj.square.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
