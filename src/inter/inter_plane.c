@@ -4,6 +4,7 @@ double inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 {
 	/* double ray_len; */
 	double t;
+	t_vec *tmp;
 
 	/* ray_len = 0; */
 	/* (void)origin; */
@@ -11,8 +12,11 @@ double inter_plane(t_vec *origin, t_vec *ray, t_plane *plane)
 	/* 		n->y * (ray->y - m->y) + */
 	/* 		n->z * (ray->z - m->z)) == 0) */
 	/* 	return () */
-	t = (v_dot_product(v_sub(plane->pos, origin), plane->norm))
+	tmp = v_sub(plane->pos, origin);
+
+	t = (v_dot_product(tmp, plane->norm))
 			/ (v_dot_product(ray, plane->norm));
+	free(tmp);
 	/* ray_len = v_mult(ray, t); */
 	/* ray_len = t; */
 	/* printf("len to plane => %f\n", t); */

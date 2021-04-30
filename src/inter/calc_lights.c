@@ -49,7 +49,7 @@ int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, 
 
 	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 9));
 	/* print_vec(surface_point, "surface_point"); */
-	surface_point = v_add(surface_point, cam->origin);
+	v_add_inplace(surface_point, cam->origin);
 	/* print_vec(surface_point, "surface_point after add"); */
 	/* obj2light = v_sub(surface_point, light_pos); */
 	obj2light = v_sub(light_pos, surface_point);
@@ -87,6 +87,7 @@ t_color calc_lights_2s(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min, 
 
 		/* result = c_add(result, */
 		/* 	calc_light_matte(norm_mod, light, ray, ray_min)); */
+		free(norm_mod);
 		current = current->next;
 	}
 	return (result);

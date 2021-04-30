@@ -9,7 +9,7 @@ t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len, t
 
 
 	surface_point = v_mult(ray, ray_len);
-	surface_point = v_add(surface_point, cam->origin);
+	v_add_inplace(surface_point, cam->origin);
 	l = v_sub(light->coords, surface_point);
 	/* n = v_sub(surface_point, sphere->center); */
 	v_norm_inplace(n);
