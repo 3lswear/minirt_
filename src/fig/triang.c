@@ -19,6 +19,8 @@ t_vec *triang_get_norm(t_triang *tri)
 
 	edge1 = v_sub(tri->b, tri->a);
 	edge2 = v_sub(tri->c, tri->a);
+	tri->edge1 = edge1;
+	tri->edge2 = edge2;
 
 	norm = v_cross(edge1, edge2);
 	v_norm_inplace(norm);

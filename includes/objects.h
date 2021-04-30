@@ -36,6 +36,8 @@ typedef struct s_triang
 	t_point *c;
 	t_color color;
 	t_vec *norm;
+	t_vec *edge1;
+	t_vec *edge2;
 } t_triang;
 
 t_triang new_triang(t_point *a, t_point *b, t_point *c, t_color color);
