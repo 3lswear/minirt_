@@ -11,6 +11,8 @@ void handle_error(int code)
 		msg = "List error";
 	else if (code == ERR_ARG)
 		msg = "Wrong amount of arguments!";
+	else if (code == ERR_SUBNORM)
+		msg = "Vector provided is not normal!";
 	else
 		msg = "idk 🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔";
 
