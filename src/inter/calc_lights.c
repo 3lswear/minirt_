@@ -49,7 +49,7 @@ int calc_shadow(t_vec *ray, double ray_len, t_point *light_pos, t_scene *scene, 
 	t_vec *obj2light;
 	double max_len;
 
-	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 9));
+	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 1));
 	/* print_vec(surface_point, "surface_point"); */
 	v_add_inplace(surface_point, cam->origin);
 	/* print_vec(surface_point, "surface_point after add"); */
