@@ -1,10 +1,10 @@
 #include "minirt.h"
 
-int idk_hook(int keycode, t_win *win)
+int idk_hook(int keycode, struct s_data *data)
 {
-	printf("keycode is => %d\n", keycode);
-	(void)win;
-	return (0);
+	graceful_exit(data->win, data->scene);
+	printf("keycode => %d\n", keycode);
+	return (1337);
 }
 
 void next_cam(t_scene *scene, t_win *window, t_cam *cam)
@@ -13,6 +13,7 @@ void next_cam(t_scene *scene, t_win *window, t_cam *cam)
 	window->addr = mlx_get_data_addr(window->img, &window->bpp, &window->line_l, 
 			&window->en);
 	trace(window, scene, cam);
+	/* free(cam->ray); */
 	/* loop and hook to switch to the next one */
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 }
@@ -21,10 +22,8 @@ int key_press_hook(int keycode, struct s_data *data)
 {
 	if (keycode == KEY_Q || keycode == KEY_ESC)
 	{
-		mlx_destroy_image(data->win->mlx, data->win->img);
-		mlx_destroy_window(data->win->mlx, data->win->win);
-		mlx_destroy_display(data->win->mlx);
-		exit(0);
+		graceful_exit(data->win, data->scene);
+		return (1337);
 	}
 	else if (keycode == KEY_SPC)
 	{
@@ -34,6 +33,7 @@ int key_press_hook(int keycode, struct s_data *data)
 			data->current = data->current->next;
 			data->cam = data->current->data;
 			mlx_destroy_image(data->win->mlx, data->win->img);
+			free(data->cam->ray);
 			next_cam(data->scene, data->win, data->cam);
 		}
 		else
@@ -49,23 +49,23 @@ int key_press_hook(int keycode, struct s_data *data)
 
 void iter_cams(t_scene *scene, t_win *window)
 {
-	t_list *current;
+	/* t_list *current; */
 	t_cam *cam;
 	struct s_data data;
 
-	current = scene->cams;
-	cam = current->data;
+	/* current = scene->cams; */
+	cam = scene->cams->data;
 	/* transform scene maybe */
 	data.win = window;
 	data.scene = scene;
-	data.current = current;
+	data.current = scene->cams;
 	data.cam = cam;
 	next_cam(scene, window, cam);
 	/* mlx_hook(window->win, 17, 1L<<24, idk_hook , window); */
 	/* mlx_loop_hook(window->mlx, key_press_hook, &data); */
-	mlx_hook(window->win, 2, 1L<<0, key_press_hook , &data);
+	mlx_hook(window->win, 2, 1L<<0, (void *)key_press_hook , &data);
+	mlx_hook(window->win, 33, 256, (void *)idk_hook, &data);
 	mlx_loop(window->mlx);
-	printf("switching to the next cam!!!\n");
-	current = current->next;
-
+	exit(0);
+	/* current = current->next; */
 }
