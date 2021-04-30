@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/29 15:02:09 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/04/30 13:05:00 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,6 @@ void     pixel_put(t_win *window, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-int key_press_hook(int keycode, t_win *win)
-{
-	if (keycode == KEY_Q)
-	{
-		mlx_destroy_image(win->mlx, win->img);
-		mlx_destroy_window(win->mlx, win->win);
-		mlx_destroy_display(win->mlx);
-		exit(0);
-	}
-	else
-		return (0);
-}
-int idk_hook(int keycode, t_win *win)
-{
-	printf("keycode is => %d\n", keycode);
-	(void)win;
-	return (0);
-}
 
 void draw_circle(t_win window, int width, int height)
 {
@@ -84,9 +66,6 @@ int	main(int argc, char **argv)
     window.mlx = mlx_init();
     window.win = mlx_new_window(window.mlx, scene->width, scene->height, "🤠🤠🤠");
 	
-	window.img = mlx_new_image(window.mlx, scene->width, scene->height);
-	window.addr = mlx_get_data_addr(window.img, &window.bpp, &window.line_l, 
-			&window.en);
 
 	/* draw_circle(window, width, height); */
 
@@ -95,14 +74,9 @@ int	main(int argc, char **argv)
 	/* trace(&window, scene); */
 	//TODO: free scene
 
-	mlx_put_image_to_window(window.mlx, window.win, window.img, 0, 0);
 	/* printf("strtof => %f\n", ft_strtof("0.14")); */
 	printf("multiplied color is %X\n", c_mul(0x00101010, 0x00101010));
 	printf("DONE!!\n");
 	/* exit(1337); */
-	mlx_hook(window.win, 2, 1L<<0, key_press_hook , &window);
-	mlx_hook(window.win, 17, 1L<<24, idk_hook , &window);
-
-    mlx_loop(window.mlx);
 	return (0);
 }      
