@@ -17,7 +17,7 @@ typedef struct s_plane
 	t_color color;
 }				t_plane;
 
-t_plane new_plane(t_point *pos, t_vec *norm);
+t_plane new_plane(t_point *pos, t_vec *norm, t_color color);
 
 typedef struct s_square
 {
