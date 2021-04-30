@@ -143,7 +143,8 @@ void lst_planes(t_scene *scene, char **data)
 
 	plane = new_plane(
 			parse_point(data[1]),
-			parse_norm(data[2]),
+			parse_vec(data[2]),
+			/* parse_norm(data[2]), */
 			parse_color(data[3])
 	);
 	/* maybe remove */
@@ -167,6 +168,7 @@ void lst_squares(t_scene *scene, char **data)
 		parse_color(data[4])
 	);
 	v_norm_inplace(object->obj.square.norm);
+	sq_get_vertices(&object->obj.square);
 	object->color = object->obj.square.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
