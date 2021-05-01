@@ -17,6 +17,52 @@ void print_progress(t_scene *scene, int x, int y, t_win *window, char *string)
 	/* mlx_string_put(window->mlx, window->win, x, y, WHITE, "#######"); */
 }
 
+t_vec *get_cam_ray(t_cam *cam, double x_ray, double y_ray)
+{
+	t_vec *ray;
+	double z;
+	t_vec *actual_dir;
+	t_vec *up;
+	t_vec *cam_right;
+	t_vec *cam_up;
+
+	/* t_vec *lookat; */
+	t_vec *result;
+
+	z = -1;
+	(void)cam;
+	ray = v_new(x_ray, y_ray, z);
+	v_norm_inplace(ray);
+
+
+	/* actual_dir = v_mult(cam->dir, 1); */
+	/* actual_dir = v_mult(cam->dir, -1); */
+	actual_dir = v_new(cam->dir->x, cam->dir->y, -cam->dir->z);
+	/* actual_dir = v_sub(cam->dir, cam->origin); */
+	v_norm_inplace(actual_dir);
+	/* print_vec(actual_dir, "cam->dir "); */
+
+	up = v_new(0, 1, 0);
+	cam_right = v_cross(up, actual_dir);
+	v_norm_inplace(cam_right);
+	/* print_vec(cam_right, "cam_right "); */
+	cam_up = v_cross(actual_dir, cam_right);
+	v_norm_inplace(cam_up);
+	/* print_vec(cam_up, "cam_up "); */
+
+	result = v_new(
+			((ray->x * cam_right->x) +(ray->y * cam_right->y) + (ray->z * cam_right->z)),
+			((ray->x * cam_up->x) +(ray->y * cam_up->y) + (ray->z * cam_up->z)),
+			((ray->x * actual_dir->x) +(ray->y * actual_dir->y) + (ray->z * actual_dir->z))
+			);
+	v_norm_inplace(result);
+	/* print_vec(result, "transormed vec\n\n\n"); */
+
+	free(actual_dir);
+
+	return (result);
+}
+
 void trace(t_win *window, t_scene *scene, t_cam *cam)
 {
 	int mlx_x;
@@ -49,8 +95,8 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 		while (x_ang <= scene->width / 2)
 		{
 			x_ray = x_ang * viewport->x_pixel;
-			cam->ray = v_new(x_ray, y_ray, -1);
-			v_norm_inplace(cam->ray);
+			cam->ray = get_cam_ray(cam, x_ray, y_ray);
+			/* cam->ray = v_new(x_ray, y_ray, -1); */
 			color = inter_objects(cam, scene);
 			if (color < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
