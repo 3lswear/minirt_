@@ -6,7 +6,6 @@ void free_sphere(t_obj *obj)
 
 	sphere = &obj->obj.sphere;
 	free(sphere->center);
-	free(obj);
 }
 
 void free_plane(t_obj *obj)
@@ -16,7 +15,32 @@ void free_plane(t_obj *obj)
 	plane = &obj->obj.plane;
 	free(plane->norm);
 	free(plane->pos);
-	free(obj);
+}
+
+void free_triang(t_obj *obj)
+{
+	t_triang *triang;
+
+	triang = &obj->obj.triang;
+	free(triang->a);
+	free(triang->b);
+	free(triang->c);
+	free(triang->norm);
+	free(triang->edge1);
+	free(triang->edge2);
+}
+
+void free_square(t_obj *obj)
+{
+	t_square *sq;
+
+	sq = &obj->obj.square;
+	free(sq->a);
+	free(sq->b);
+	free(sq->c);
+	free(sq->d);
+	free(sq->norm);
+	free(sq->pos);
 }
 
 void clean_objects(void *data)
@@ -28,6 +52,11 @@ void clean_objects(void *data)
 		free_sphere(object);
 	else if (object->type == T_PLANE)
 		free_plane(object);
+	else if (object->type == T_TRIANG)
+		free_triang(object);
+	else if (object->type == T_SQUARE)
+		free_square(object);
+	free(object);
 
 }
 
@@ -60,6 +89,7 @@ void graceful_exit(t_win *win, t_scene *scene)
 	mlx_destroy_image(win->mlx, win->img);
 	mlx_destroy_window(win->mlx, win->win);
 	mlx_destroy_display(win->mlx);
+	free(win->mlx);
 	exit(0);
 }
 
