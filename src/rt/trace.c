@@ -30,31 +30,44 @@ t_vec *get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 	t_vec *result;
 
 	z = -1;
-	(void)cam;
 	ray = v_new(x_ray, y_ray, z);
+	/* ray = v_new(x_ray - cam->origin->x, y_ray - cam->origin->y, z - cam->origin->z); */
 	v_norm_inplace(ray);
 
 
-	/* actual_dir = v_mult(cam->dir, 1); */
-	/* actual_dir = v_mult(cam->dir, -1); */
-	actual_dir = v_new(cam->dir->x, cam->dir->y, -cam->dir->z);
-	/* actual_dir = v_sub(cam->dir, cam->origin); */
+	actual_dir = v_mult(cam->dir, -1);
+	/* actual_dir = v_sub(cam->origin, cam->dir); */
+	/* actual_dir = v_add(cam->origin, cam->dir); */
+	/* v_mult_inplace(actual_dir, -1); */
+	/* actual_dir = v_new(cam->dir->x, cam->dir->y, -cam->dir->z); */
+	/* actual_dir = v_add(actual_dir, cam->origin); */
 	v_norm_inplace(actual_dir);
-	/* print_vec(actual_dir, "cam->dir "); */
+	/* print_vec(actual_dir, "actual_dir"); */
 
 	up = v_new(0, 1, 0);
 	cam_right = v_cross(up, actual_dir);
-	v_norm_inplace(cam_right);
 	/* print_vec(cam_right, "cam_right "); */
+	v_norm_inplace(cam_right);
 	cam_up = v_cross(actual_dir, cam_right);
-	v_norm_inplace(cam_up);
 	/* print_vec(cam_up, "cam_up "); */
+	v_norm_inplace(cam_up);
+
+	/* ray = v_sub(ray, cam->origin); */
+	/* result = v_new( */
+	/* 		((ray->x * cam_right->x) + (ray->y * cam_right->y) + (ray->z * cam_right->z)), */
+	/* 		((ray->x * cam_up->x) + (ray->y * cam_up->y) + (ray->z * cam_up->z)), */
+	/* 		((ray->x * actual_dir->x) + (ray->y * actual_dir->y) + (ray->z * actual_dir->z)) */
+	/* 		); */
+	/* v_sub_inplace(ray, cam->origin); */
 
 	result = v_new(
-			((ray->x * cam_right->x) +(ray->y * cam_right->y) + (ray->z * cam_right->z)),
-			((ray->x * cam_up->x) +(ray->y * cam_up->y) + (ray->z * cam_up->z)),
-			((ray->x * actual_dir->x) +(ray->y * actual_dir->y) + (ray->z * actual_dir->z))
+			((ray->x * cam_right->x) + (ray->y * cam_up->x) + (ray->z * actual_dir->x)),
+			((ray->x * cam_right->y) + (ray->y * cam_up->y) + (ray->z * actual_dir->y)),
+			((ray->x * cam_right->z) + (ray->y * cam_up->z) + (ray->z * actual_dir->z))
 			);
+
+
+	/* result->z += 0.7; */
 	v_norm_inplace(result);
 	/* print_vec(result, "transormed vec\n\n\n"); */
 
