@@ -195,7 +195,8 @@ void lst_cams(t_scene *scene, char **data)
 	t_cam *cam;
 	cam = new_cam(
 		parse_point(data[1]),
-		parse_norm(data[2]),
+		/* parse_norm(data[2]), */
+		parse_vec(data[2]),
 		parse_flpos(data[3])
 	);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
