@@ -1,11 +1,11 @@
 #ifndef LIST_H
-#define LIST_H
+# define LIST_H
 
-typedef struct	s_list
+typedef struct s_list
 {
 	struct s_list	*next;
-	void	*data;
-}				t_list;
+	void			*data;
+}			t_list;
 
 t_list	*ft_lstnew(void *data);
 t_list	*ft_lstlast(t_list *lst);

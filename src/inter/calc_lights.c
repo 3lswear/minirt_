@@ -87,7 +87,7 @@ t_color	calc_lights_2s(t_vec *norm, t_scene *scene, double ray_min, t_cam *cam)
 
 		if (!calc_shadow(cam->ray, ray_min, light->coords, scene, cam))
 			result = c_add(result,
-				calc_light_matte(norm_mod, light, cam->ray, ray_min, cam));
+				calc_light_matte(norm_mod, light, ray_min, cam));
 
 		/* result = c_add(result, */
 		/* 	calc_light_matte(norm_mod, light, cam->ray, ray_min, cam)); */
@@ -97,27 +97,27 @@ t_color	calc_lights_2s(t_vec *norm, t_scene *scene, double ray_min, t_cam *cam)
 	return (result);
 }
 
-t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
-{
-	t_list *current;
-	t_color result;
-	t_light *light;
-	/* t_vec *norm; */
+/* t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min) */
+/* { */
+/* 	t_list *current; */
+/* 	t_color result; */
+/* 	t_light *light; */
+/* 	/1* t_vec *norm; *1/ */
 
-	current = scene->lights;
-	result = new_color(0, 0, 0);
-	while (current)
-	{
-		light = current->data;
-		/* calc_shadow(ray, ray_min, light->coords, scene); */
-			/* result = BLUE; */
-			/* /1* return (result); *1/ */
-		/* /1* 	return (RED); *1/ */
-		/* else */
-		if (!calc_shadow(ray, ray_min, light->coords, scene, NULL))
-			result = c_add(result,
-					calc_light_matte(norm, current->data, ray, ray_min, NULL));
-		current = current->next;
-	}
-	return (result);
-}
+/* 	current = scene->lights; */
+/* 	result = new_color(0, 0, 0); */
+/* 	while (current) */
+/* 	{ */
+/* 		light = current->data; */
+/* 		/1* calc_shadow(ray, ray_min, light->coords, scene); *1/ */
+/* 			/1* result = BLUE; *1/ */
+/* 			/1* /2* return (result); *2/ *1/ */
+/* 		/1* /2* 	return (RED); *2/ *1/ */
+/* 		/1* else *1/ */
+/* 		if (!calc_shadow(ray, ray_min, light->coords, scene, NULL)) */
+/* 			result = c_add(result, */
+/* 					calc_light_matte(norm, current->data, ray, ray_min, NULL)); */
+/* 		current = current->next; */
+/* 	} */
+/* 	return (result); */
+/* } */

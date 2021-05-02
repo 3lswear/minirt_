@@ -15,7 +15,8 @@ t_vec	*v_new(double x, double y, double z)
 
 t_vec	v_new_s(double x, double y, double z)
 {
-	t_vec result;
+	t_vec	result;
+
 	result.x = x;
 	result.y = y;
 	result.z = z;
@@ -62,14 +63,14 @@ double	v_len(t_vec *vec)
 
 t_vec	*v_norm(t_vec *vec)
 {
-	t_vec *result;
-	double len;
+	t_vec	*result;
+	double	len;
 
 	len = v_len(vec);
 	result = v_new(
-		vec->x / len,
-		vec->y / len,
-		vec->z / len
+	vec->x / len,
+	vec->y / len,
+	vec->z / len
 	);
 	return (result);
 }
@@ -96,7 +97,6 @@ t_vec	*v_mult(t_vec *vec, double mult)
 	result = v_new(vec->x * mult, vec->y * mult, vec->z * mult);
 	return (result);
 }
-
 
 void	v_mult_inplace(t_vec *vec, double mult)
 {

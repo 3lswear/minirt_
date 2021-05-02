@@ -13,10 +13,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-
-#define R_MASK	0x00FF0000
-#define G_MASK	0x0000FF00
-#define B_MASK	0x000000FF
+# define R_MASK	0x00FF0000
+# define G_MASK	0x0000FF00
+# define B_MASK	0x000000FF
 
 # define WHITE	0x00FFFFFF
 # define RED	0x00FF0000
@@ -36,51 +35,32 @@
 # define KEY_ESC	0xFF1B
 # define KEY_SPC	0x20
 
+# include "../mlx-linux/mlx.h"
+# include "../ext/gnl/get_next_line.h"
+# include "../ext/libft/libft.h"
+# include <stdio.h>
+# include "float.h"
+# include <math.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
-#include "../mlx-linux/mlx.h"
-#include "../ext/gnl/get_next_line.h"
-#include "../ext/libft/libft.h"
-     #include <stdio.h>
-#include "float.h"
-#include <math.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-
+# include "win.h"
+# include "color.h"
+# include "list.h"
+# include "geom.h"
+# include "camera.h"
+# include "scene.h"
+# include "utils.h"
+# include "objects.h"
+# include "rt.h"
+# include "inter.h"
 /* typedef int t_color; */
 
-typedef struct	s_color
-{
-	double r;
-	double g;
-	double b;
-} 				t_color;
-
-typedef struct s_win
-{
-	void		*mlx;
-	void		*win;
-	void		*img;
-	void		*addr;
-	int			line_l;
-	int			bpp;
-	int			en;
-}				t_win;
- 
-#include "list.h"
-#include "geom.h"
-#include "camera.h"
-#include "scene.h"
-#include "utils.h"
-#include "objects.h"
-#include "rt.h"
-#include "inter.h"
-
-#define RAD (M_PI / 180)
-
-#define T_SPHERE 1
-#define T_PLANE 2
-#define T_SQUARE 3
+# define RAD (M_PI / 180)
+# define T_SPHERE 1
+# define T_PLANE 2
+# define T_SQUARE 3
 # define T_TRIANG 4
 # define T_CYLIND 5
 
@@ -88,21 +68,20 @@ typedef struct s_win
 
 typedef union u_object
 {
-	t_sphere sphere;
-	t_plane plane;
-	t_square square;
-	t_triang triang;
-	t_cylind cylind;
-} t_object;
+	t_sphere	sphere;
+	t_plane		plane;
+	t_square	square;
+	t_triang	triang;
+	t_cylind	cylind;
+}	t_object;
 
 typedef struct s_obj
 {
-	int type;
-	t_color color;
-	t_object obj;
+	int			type;
+	t_color		color;
+	t_object	obj;
 
 }	t_obj;
-
 
 void	pixel_put(t_win *window, int x, int y, int color);
 
