@@ -5,13 +5,6 @@ void	free_cam_basis(t_cam *cam)
 	free4(cam->rev_dir, cam->right, cam->up, NULL);
 }
 
-int		idk_hook(int keycode, struct s_data *data)
-{
-	graceful_exit(data->win, data->scene);
-	printf("keycode => %d\n", keycode);
-	return (1337);
-}
-
 void	next_cam(t_scene *scene, t_win *window, t_cam *cam)
 {
 	window->img = mlx_new_image(window->mlx, scene->width, scene->height);
@@ -22,6 +15,14 @@ void	next_cam(t_scene *scene, t_win *window, t_cam *cam)
 	/* free(cam->ray); */
 	/* loop and hook to switch to the next one */
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
+}
+
+int		close_button(int keycode, struct s_data *data)
+{
+	(void)keycode;
+	(void)data;
+	/* graceful_exit(data->win, data->scene); */
+	exit(0);
 }
 
 int		key_press_hook(int keycode, struct s_data *data)
@@ -57,21 +58,17 @@ void	iter_cams(t_scene *scene, t_win *window)
 {
 	t_cam			*cam;
 	struct s_data	data;
-	/* t_list *current; */
 
-	/* current = scene->cams; */
 	cam = scene->cams->data;
-	/* transform scene maybe */
 	data.win = window;
 	data.scene = scene;
 	data.current = scene->cams;
 	data.cam = cam;
 	next_cam(scene, window, cam);
-	/* mlx_hook(window->win, 17, 1L<<24, idk_hook , window); */
+	/* mlx_hook(window->win, 17, 1L<<24, close_button , window); */
 	/* mlx_loop_hook(window->mlx, key_press_hook, &data); */
+	mlx_hook(window->win, 33, 256, (void *)close_button, &data);
 	mlx_hook(window->win, 2, 1L<<0, (void *)key_press_hook , &data);
-	mlx_hook(window->win, 33, 256, (void *)idk_hook, &data);
 	mlx_loop(window->mlx);
 	exit(0);
-	/* current = current->next; */
 }

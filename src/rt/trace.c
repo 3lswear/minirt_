@@ -19,7 +19,7 @@ void print_progress(t_scene *scene, int x, int y, t_win *window, char *string)
 
 void	get_cam_basis(t_cam *cam)
 {
-	t_vec *up;
+	t_vec	*up;
 
 	up = v_new(0, 1, 0);
 	cam->rev_dir = v_mult(cam->dir, -1);
@@ -28,7 +28,6 @@ void	get_cam_basis(t_cam *cam)
 	cam->right = v_cross(up, cam->rev_dir);
 	if (v_len(cam->right) == 0)
 	{
-		printf("jopa\n");
 		free(up);
 		up = v_new(0, 0, -1);
 		free(cam->right);
@@ -45,8 +44,8 @@ void	get_cam_basis(t_cam *cam)
 
 t_vec *get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 {
-	t_vec *ray;
-	t_vec *result;
+	t_vec	*ray;
+	t_vec	*result;
 
 	ray = v_new(x_ray, y_ray, -1);
 	v_norm_inplace(ray);
@@ -67,7 +66,6 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 	double x_ang;
 	double y_ang;
 	t_color color;
-	/* t_vec *ray; */
 	t_view *viewport;
 
 	double x_ray;
@@ -78,12 +76,8 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 	ft_memset(string, '-', 100);
 	string[100] = 0;
 	viewport = get_viewport(scene->width, scene->height, cam->fov);
-	printf("scene->height / 2 * -1 = %f\n", -(scene->height / 2));
 	y_ang = (scene->height / 2);
 	mlx_y = 0;
-	/* printf("ambient: %X\n", scene->ambient); */
-	/* printf("sphere: %X\n", ((t_sphere *)(scene->spheres->data))->color); */
-	/* printf("combined: %X\n", c_add(((t_sphere *)(scene->spheres->data))->color, scene->ambient)); */
 	get_cam_basis(cam);
 	while (y_ang >= -(scene->height / 2))
 	{
@@ -94,16 +88,10 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 		{
 			x_ray = x_ang * viewport->x_pixel;
 			cam->ray = get_cam_ray(cam, x_ray, y_ray);
-			/* cam->ray = v_new(x_ray, y_ray, -1); */
 			color = inter_objects(cam, scene);
-			/* if (color < 0) */
 			if (color.r * color.g * color.b < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
-			/* pixel_put(window, mlx_x, mlx_y, argb_color(color)); */
 			pixel_put(window, mlx_x, mlx_y, argb_color(color));
-			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
-			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
-			/* mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color); */
 			free(cam->ray);
 			x_ang++;
 			mlx_x++;
