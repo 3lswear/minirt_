@@ -58,11 +58,15 @@ t_color parse_color(char *string)
 
 	/* check rgb values */
 	data = ft_split(string, ',');
-	result = argb_color(
+	result = new_color(
 		ft_atoi(data[0]),
 		ft_atoi(data[1]),
 		ft_atoi(data[2])
 	);
+	/* result = argb_color( */
+	/* 	ft_atoi(data[0]), */
+	/* 	ft_atoi(data[1]), */
+	/* 	ft_atoi(data[2]) */
 	liberator(data);
 	
 	return (result);
@@ -186,7 +190,7 @@ void lst_triangs(t_scene *scene, char **data)
 	);
 	object->color = object->obj.triang.color;
 	object->obj.triang.norm = triang_get_norm(&object->obj.triang);
-	printf("tri color => %X\n", object->obj.triang.color);
+	/* printf("tri color => %X\n", object->obj.triang.color); */
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 

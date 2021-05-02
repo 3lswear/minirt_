@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/30 13:05:00 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/02 11:39:56 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv)
 	//TODO: free scene
 
 	/* printf("strtof => %f\n", ft_strtof("0.14")); */
-	printf("multiplied color is %X\n", c_mul(0x00101010, 0x00101010));
+	/* printf("multiplied color is %X\n", c_mul(0x00101010, 0x00101010)); */
 	printf("DONE!!\n");
 	/* exit(1337); */
 	return (0);

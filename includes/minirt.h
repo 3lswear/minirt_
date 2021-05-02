@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/04/30 13:09:45 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/02 11:23:01 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-typedef int t_color;
+/* typedef int t_color; */
 
-/* typedef struct	s_color */
-/* { */
-/* 	double r; */
-/* 	double g; */
-/* 	double b; */
-/* } 				t_color; */
+typedef struct	s_color
+{
+	double r;
+	double g;
+	double b;
+} 				t_color;
 
 typedef struct s_win
 {

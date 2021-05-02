@@ -66,7 +66,7 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 	int mlx_y;
 	double x_ang;
 	double y_ang;
-	int color;
+	t_color color;
 	/* t_vec *ray; */
 	t_view *viewport;
 
@@ -96,10 +96,11 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 			cam->ray = get_cam_ray(cam, x_ray, y_ray);
 			/* cam->ray = v_new(x_ray, y_ray, -1); */
 			color = inter_objects(cam, scene);
-			if (color < 0)
+			/* if (color < 0) */
+			if (color.r * color.g * color.b < 0)
 				color = c_mul_scalar(scene->ambient, scene->amb_intensity);
 			/* pixel_put(window, mlx_x, mlx_y, argb_color(color)); */
-			pixel_put(window, mlx_x, mlx_y, color);
+			pixel_put(window, mlx_x, mlx_y, argb_color(color));
 			/* printf("x, y\t\t=>%10d\t%10d\n", mlx_x, mlx_y); */
 			/* printf("x_ang, y_ang\t=> %10f\t%10f\n", x_ang, y_ang); */
 			/* mlx_pixel_put(window->mlx, window->win, mlx_x, mlx_y, color); */

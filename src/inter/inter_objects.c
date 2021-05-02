@@ -6,7 +6,7 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 	t_vec *norm;
 	t_color color;
 
-	color = -1;
+	color = new_color(-1, -1, -1);
 	if (scene->lights)
 	{
 		if (closest->type == T_SPHERE)
@@ -70,5 +70,5 @@ t_color inter_objects(t_cam *cam, t_scene *scene)
 	if (closest)
 		return(color_closest(scene, cam, closest, ambient, ray_min));
 	else
-		return (-1);
+		return (new_color(-1, -1, -1));
 }

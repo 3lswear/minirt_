@@ -29,7 +29,7 @@ t_color calc_light_matte(t_vec *n, t_light *light, t_vec *ray, double ray_len, t
 	{
 		free(l);
 		/* free(n); */
-		return (0);
+		return (new_color(0, 0, 0));
 	}
 }
 
@@ -57,5 +57,5 @@ t_color calc_light_shiny(t_sphere *sphere, t_light *light, t_vec *ray, double ra
 		return(c_mul_scalar(light->color, (light->brightess * strength)));
 	}
 	else
-		return (0);
+		return (new_color(0, 0, 0));
 }

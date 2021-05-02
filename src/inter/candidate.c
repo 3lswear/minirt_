@@ -35,5 +35,5 @@ t_color choose_candidate(t_list **list)
 	if (winner)
 		return (winner->color);
 	else
-		return (-1);
+		return (new_color(-1, -1, -1));
 }

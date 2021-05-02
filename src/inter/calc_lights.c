@@ -71,7 +71,7 @@ t_color	calc_lights_2s(t_vec *norm, t_scene *scene, double ray_min, t_cam *cam)
 	t_vec	*norm_mod;
 
 	current = scene->lights;
-	result = BLACK;
+	result = new_color(0, 0, 0);
 	while (current)
 	{
 		light = current->data;
@@ -101,7 +101,7 @@ t_color calc_lights(t_vec *norm, t_scene *scene, t_vec *ray, double ray_min)
 	/* t_vec *norm; */
 
 	current = scene->lights;
-	result = BLACK;
+	result = new_color(0, 0, 0);
 	while (current)
 	{
 		light = current->data;

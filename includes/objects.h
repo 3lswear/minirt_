@@ -5,7 +5,7 @@ typedef struct	s_sphere
 {
 	t_point	*center;
 	double 		diam;
-	int 		color;
+	t_color 	color;
 } 				t_sphere;
 
 t_sphere new_sphere(t_vec *center, double diam);
