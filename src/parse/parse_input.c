@@ -288,7 +288,10 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		if (ret != 1)
 			break;
 		if (!ft_strlen(line))
+		{
+			free(line);
 			continue;
+		}
 		/* printf("line from gnl => %s\n", line); */
 		data = split_ws(line);
 		if (!ft_strncmp(data[0], "R", ft_strlen(data[0])))
@@ -308,7 +311,7 @@ void parse_input(char *file, t_scene **scene, t_win *window)
 		free(line);
 		liberator(data);
 	}
-	if (!ret)
+	if (!ret || ret == -1)
 		free(line);
 	close(fd);
 

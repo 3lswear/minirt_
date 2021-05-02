@@ -43,6 +43,14 @@ void free_square(t_obj *obj)
 	free(sq->pos);
 }
 
+void	free_cylind(t_obj *obj)
+{
+	t_cylind *cy;
+
+	cy = &obj->obj.cylind;
+	free4(cy->norm, cy->pos, NULL, NULL);
+}
+
 void clean_objects(void *data)
 {
 	t_obj *object;
@@ -56,6 +64,8 @@ void clean_objects(void *data)
 		free_triang(object);
 	else if (object->type == T_SQUARE)
 		free_square(object);
+	else if (object->type == T_CYLIND)
+		free_cylind(object);
 	free(object);
 
 }

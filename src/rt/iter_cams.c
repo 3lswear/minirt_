@@ -1,5 +1,10 @@
 #include "minirt.h"
 
+void	free_cam_basis(t_cam *cam)
+{
+	free4(cam->rev_dir, cam->right, cam->up, NULL);
+}
+
 int idk_hook(int keycode, struct s_data *data)
 {
 	graceful_exit(data->win, data->scene);
@@ -13,6 +18,7 @@ void next_cam(t_scene *scene, t_win *window, t_cam *cam)
 	window->addr = mlx_get_data_addr(window->img, &window->bpp, &window->line_l, 
 			&window->en);
 	trace(window, scene, cam);
+	free_cam_basis(cam);
 	/* free(cam->ray); */
 	/* loop and hook to switch to the next one */
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
