@@ -16,6 +16,7 @@ typedef struct s_hit
 
 double get_positive(t_hit hit);
 double just_get(t_hit hit);
+t_hit h_new(double a, double b);
 
 t_color	inter_objects(t_cam *cam, t_scene *scene);
 
@@ -46,5 +47,14 @@ typedef struct s_moller
 	t_vec	*qvec;
 
 }	t_moller;
+
+typedef struct s_quad
+{
+	double discr;
+	double a;
+	double b;
+	double c;
+	t_hit result;
+}	t_quad;
 
 #endif
