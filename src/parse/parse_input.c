@@ -1,28 +1,28 @@
 #include "minirt.h"
 
-t_point *parse_point(char *string)
+t_point	*parse_point(char *string)
 {
-	t_vec *result;
-	char **data;
+	t_vec	*result;
+	char	**data;
 
 	data = ft_split(string, ',');
 	result = v_new(
-		ft_strtof(data[0]),
-		ft_strtof(data[1]),
-		ft_strtof(data[2])
-	);
+			ft_strtof(data[0]),
+			ft_strtof(data[1]),
+			ft_strtof(data[2])
+			);
 	liberator(data);
 	return (result);
 }
 
-t_vec *parse_vec(char *string)
+t_vec	*parse_vec(char *string)
 {
-	return(parse_point(string));
+	return (parse_point(string));
 }
 
-t_vec *parse_norm(char *string)
+t_vec	*parse_norm(char *string)
 {
-	t_vec *vec;
+	t_vec	*vec;
 
 	vec = parse_vec(string);
 	/* attention!!! */
@@ -37,17 +37,17 @@ t_vec *parse_norm(char *string)
 	return (vec);
 }
 
-double parse_doubles(char *string)
+double	parse_doubles(char *string)
 {
-	double result;
+	double	result;
 
 	result = ft_strtof(string);
 	return (result);
 }
 
-double parse_flpos(char *string)
+double	parse_flpos(char *string)
 {
-	double result;
+	double	result;
 
 	result = parse_doubles(string);
 	if (result < 0)
@@ -55,33 +55,32 @@ double parse_flpos(char *string)
 	return (result);
 }
 
-t_color parse_color(char *string)
+t_color	parse_color(char *string)
 {
-	t_color result;
-	char **data;
+	t_color	result;
+	char	**data;
 
 	/* check rgb values */
 	data = ft_split(string, ',');
 	result = new_color(
-		ft_atoi(data[0]),
-		ft_atoi(data[1]),
-		ft_atoi(data[2])
-	);
+			ft_atoi(data[0]),
+			ft_atoi(data[1]),
+			ft_atoi(data[2])
+			);
 	/* result = argb_color( */
 	/* 	ft_atoi(data[0]), */
 	/* 	ft_atoi(data[1]), */
 	/* 	ft_atoi(data[2]) */
 	liberator(data);
-	
 	return (result);
 }
 
-void print_vec(t_vec *vec, char *label)
+void	print_vec(t_vec *vec, char *label)
 {
 	printf("%s => %lf %lf %lf\n", label, vec->x, vec->y, vec->z);
 }
 
-void lst_print(t_list *lst)
+void	lst_print(t_list *lst)
 {
 	while (lst)
 	{
@@ -92,9 +91,9 @@ void lst_print(t_list *lst)
 	ft_putendl_fd("", 1);
 }
 
-void print_str_array(char **data)
+void	print_str_array(char **data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (data[i])
@@ -105,7 +104,7 @@ void print_str_array(char **data)
 	printf("\n");
 }
 
-void obj_lst_print(t_list *lst)
+void	obj_lst_print(t_list *lst)
 {
 	printf("   ");
 	while (lst)
@@ -117,21 +116,20 @@ void obj_lst_print(t_list *lst)
 	printf("NULL\n");
 }
 
-t_obj *new_object(int type, t_object *object)
+t_obj	*new_object(int type, t_object *object)
 {
-	t_obj *result;
+	t_obj	*result;
 
 	(void)object;
 	result = malloc(sizeof(t_obj));
 	result->type = type;
-
 	return(result);
 }
 
-void lst_spheres(t_scene *scene, char **data)
+void	lst_spheres(t_scene *scene, char **data)
 {
-	t_sphere sphere;
-	t_obj *object;
+	t_sphere	sphere;
+	t_obj		*object;
 
 	sphere = new_sphere(
 			parse_point(data[1]),
@@ -144,17 +142,17 @@ void lst_spheres(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void lst_planes(t_scene *scene, char **data)
+void	lst_planes(t_scene *scene, char **data)
 {
-	t_plane plane;
-	t_obj *object;
+	t_plane	plane;
+	t_obj	*object;
 
 	plane = new_plane(
-			parse_point(data[1]),
-			parse_vec(data[2]),
-			/* parse_norm(data[2]), */
-			parse_color(data[3])
-	);
+				parse_point(data[1]),
+				parse_vec(data[2]),
+				/* parse_norm(data[2]), */
+				parse_color(data[3])
+				);
 	/* maybe remove */
 	v_norm_inplace(plane.norm);
 	object = new_object(T_PLANE, NULL);
@@ -163,18 +161,18 @@ void lst_planes(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void lst_squares(t_scene *scene, char **data)
+void	lst_squares(t_scene *scene, char **data)
 {
-	t_obj *object;
+	t_obj	*object;
 
 	object = new_object(T_SQUARE, NULL);
 	object->obj.square = new_square(
-		parse_point(data[1]),
-		/* parse_norm(data[2]), */
-		parse_vec(data[2]),
-		parse_flpos(data[3]),
-		parse_color(data[4])
-	);
+			parse_point(data[1]),
+			/* parse_norm(data[2]), */
+			parse_vec(data[2]),
+			parse_flpos(data[3]),
+			parse_color(data[4])
+			);
 	v_norm_inplace(object->obj.square.norm);
 	object->obj.square.hside = object->obj.square.side / 2.0;
 	sq_get_vertices(&object->obj.square);
@@ -182,26 +180,27 @@ void lst_squares(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void lst_triangs(t_scene *scene, char **data)
+void	lst_triangs(t_scene *scene, char **data)
 {
-	t_obj *object;
+	t_obj	*object;
 
 	object = new_object(T_TRIANG, NULL);
 	object->obj.triang = new_triang(
-		parse_point(data[1]),
-		parse_point(data[2]),
-		parse_point(data[3]),
-		parse_color(data[4])
-	);
+			parse_point(data[1]),
+			parse_point(data[2]),
+			parse_point(data[3]),
+			parse_color(data[4])
+			);
 	object->color = object->obj.triang.color;
 	object->obj.triang.norm = triang_get_norm(&object->obj.triang);
 	/* printf("tri color => %X\n", object->obj.triang.color); */
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void lst_cams(t_scene *scene, char **data)
+void	lst_cams(t_scene *scene, char **data)
 {
-	t_cam *cam;
+	t_cam	*cam;
+
 	cam = new_cam(
 		parse_point(data[1]),
 		/* parse_norm(data[2]), */
@@ -215,15 +214,15 @@ void lst_cams(t_scene *scene, char **data)
 
 void	lst_cylinds(t_scene *scene, char **data)
 {
-	t_obj *object;
+	t_obj	*object;
 
 	object = new_object(T_CYLIND, NULL);
 	object->obj.cylind = new_cylind(
-		parse_point(data[1]),
-		parse_norm(data[2]),
-		parse_flpos(data[3]),
-		parse_flpos(data[4])
-	);
+			parse_point(data[1]),
+			parse_norm(data[2]),
+			parse_flpos(data[3]),
+			parse_flpos(data[4])
+			);
 	object->obj.cylind.color = parse_color(data[5]);
 	object->obj.cylind.rad = object->obj.cylind.diam / 2.0;
 	object->obj.cylind.cur_norm = NULL;
@@ -231,9 +230,10 @@ void	lst_cylinds(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void parse_objects(t_scene *scene, char **data)
+void	parse_objects(t_scene *scene, char **data)
 {
-	char *id;
+	char	*id;
+
 	id = data[0];
 	if (!ft_strncmp(id, "sp", ft_strlen(id)))
 		lst_spheres(scene, data);
@@ -247,39 +247,37 @@ void parse_objects(t_scene *scene, char **data)
 		lst_cylinds(scene, data);
 }
 
-void parse_lights(t_scene *scene, char **data)
+void	parse_lights(t_scene *scene, char **data)
 {
-	t_light *light;
-	
+	t_light	*light;
+
 	light = l_new(
-				parse_point(data[1]),
-				parse_flpos(data[2]),
-				parse_color(data[3])
-	);
+			parse_point(data[1]),
+			parse_flpos(data[2]),
+			parse_color(data[3])
+			);
 	ft_lstadd_back(&(scene->lights), ft_lstnew(light));
 }
 
-void parse_ambient(t_scene *scene, char **data)
+void	parse_ambient(t_scene *scene, char **data)
 {
 	scene->amb_intensity = parse_flpos(data[1]);
 	scene->ambient = parse_color(data[2]);
 }
 
-void parse_input(char *file, t_scene **scene, t_win *window)
+void	parse_input(char *file, t_scene **scene, t_win *window)
 {
-	int fd;
-	char *line;
-	int ret;
-	char **data;
+	int		fd;
+	char	*line;
+	int		ret;
+	char	**data;
 
 	fd = open(file, O_RDONLY);
 	(void)window;
-
 	/* scene initialization */
 	*scene = new_scene(NULL);
 	(*scene)->lights = NULL;
 	(*scene)->objects = NULL;
-
 	/* light = l_new(v_new(3, 0, -3), 0.9, WHITE); */
 	/* (*scene)->light = light; */
 

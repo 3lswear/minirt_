@@ -2,8 +2,8 @@
 
 void	ft_lstclear(t_list **head, void (*del)(void *))
 {
-	t_list *lst;
-	t_list *tmp;
+	t_list	*lst;
+	t_list	*tmp;
 
 	if (!head)
 		handle_error(ERR_LIST);

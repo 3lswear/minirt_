@@ -68,10 +68,10 @@ t_vec	*v_norm(t_vec *vec)
 
 	len = v_len(vec);
 	result = v_new(
-	vec->x / len,
-	vec->y / len,
-	vec->z / len
-	);
+			vec->x / len,
+			vec->y / len,
+			vec->z / len
+			);
 	return (result);
 }
 

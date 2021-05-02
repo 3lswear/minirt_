@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-static	int just_intersect(t_point *start, t_vec *vec, t_list *objects, double max_len)
+static int	just_intersect(t_point *start, t_vec *vec, t_list *objects, double max_len)
 {
 	t_list	*current;
 	t_obj	*cur_obj;
@@ -26,20 +26,12 @@ static	int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 		{
 			ray_len = just_get(inter_cylind(start, vec, &cur_obj->obj.cylind, 0));
 		}
-		/* if ((ray_len < max_len) && (ray_len > max_len * FLT_EPSILON * 100)) */
 		if ((ray_len < max_len) && (ray_len > 0))
 		{
-			/* if (hit.a * hit.b != 0) */
-			/* { */
-			/* 	printf("hits => %f	%f\n", hit.a, hit.b); */
-			/* 	printf("ray_len =>\t%f\n", ray_len); */
-			/* } */
 			free(start);
 			free(vec);
-			/* printf("ray_len => %f, max_len => %f\n", ray_len, max_len); */
 			return (1);
 		}
-
 		current = current->next;
 	}
 	free(start);
