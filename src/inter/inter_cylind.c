@@ -21,101 +21,72 @@ double	inter_disk(t_point *origin, t_vec *ray, t_plane *plane, double rad)
 
 }
 
+void	set_tube_norm(t_point *surface_point, t_cylind *cy, t_point *cap_pos, double m)
+{
+	t_point *center;
+
+	center = v_add(cap_pos, v_mult(cy->norm, m));
+	cy->cur_norm = v_sub(surface_point, center);
+	v_norm_inplace(cy->cur_norm);
+	free(center);
+}
+
+t_point *get_surface(t_point *origin, t_vec *ray, double len)
+{
+	t_point *surface_point;
+
+	surface_point = v_mult(ray, len);
+	v_add_inplace(surface_point, origin);
+	return (surface_point);
+}
+
+t_hit solve_quad(t_vec *ray, t_cylind *cy, t_vec *cam2cent)
+{
+	t_quad quad;
+
+	quad.a = v_dot_product(ray, ray) - pow(v_dot_product(ray, cy->norm), 2);
+	quad.b = v_dot_product(ray, cam2cent) - v_dot_product(ray, cy->norm) *
+		v_dot_product(cam2cent, cy->norm);
+	quad.c = v_dot_product(cam2cent, cam2cent) - pow(v_dot_product(cam2cent, cy->norm), 2) 
+		- pow(cy->rad, 2);
+	quad.b = quad.b * 2.0;
+	quad.discr = (quad.b * quad.b) - (4 * quad.a * quad.c);
+	if (quad.discr < 0)
+		return (h_new(0, 0));
+	return (h_new(
+				(-quad.b - sqrt(quad.discr)) / (2 * quad.a),
+				(-quad.b + sqrt(quad.discr)) / (2 * quad.a)
+				));
+}
+
 t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 {
 	t_hit tube_hits;
-	double rad;
-	double discr;
-	double a;
-	double b;
-	double c;
+	t_hit cap_hits;
+	t_hit result;
 	t_vec *cam2cent;
 	double m1;
-	double m2;
-	t_hit cap_hits;
 	t_plane cap1;
 	t_plane cap2;
-	t_hit result;
-
-	t_color red;
-	t_point *surface_point;
-
-	t_point *center;
-
-	red = new_color(255, 0, 0);
-	rad = cy->diam / 2.0;
-	/* cam2cent = v_sub(origin, cy->pos); */
-	cam2cent = v_sub(origin, v_add((cy->pos), v_mult(cy->norm, cy->height / 2)));
-	a = v_dot_product(ray, ray) - pow(v_dot_product(ray, cy->norm), 2);
-	b = v_dot_product(ray, cam2cent) - v_dot_product(ray, cy->norm) *
-		v_dot_product(cam2cent, cy->norm);
-	c = v_dot_product(cam2cent, cam2cent) - pow(v_dot_product(cam2cent, cy->norm), 2) 
-		- pow(rad, 2);
-	b = b * 2.0;
-	discr = (b * b) - (4 * a * c);
-	if (discr < 0)
-	{
-		tube_hits.a = 0;
-		tube_hits.b = 0;
-		return (tube_hits);
-	}
-	tube_hits.a = (-b - sqrt(discr)) / (2 * a);
-	tube_hits.b = (-b + sqrt(discr)) / (2 * a);
 	
+	cam2cent = v_sub(origin, v_add((cy->pos), v_mult(cy->norm, cy->height / 2)));
+	tube_hits = solve_quad(ray, cy, cam2cent);
 	m1 = v_dot_product(ray, v_mult(cy->norm, get_positive(tube_hits))) + v_dot_product(cam2cent, cy->norm);
-	/* m1 = v_dot_product(ray, v_mult(cy->norm, tube_hits.a)) + v_dot_product(cam2cent, cy->norm); */
-	/* m2 = v_dot_product(ray, v_mult(cy->norm, tube_hits.b)) + v_dot_product(cam2cent, cy->norm); */
-	/* printf("positive tube_hits => %lf\n", get_positive(tube_hits)); */
-	(void)m2;
 	if (m1 <= 0 && m1 >= -cy->height)
-	/* if ((m1 <= 0 && m1 >= -(cy->height)) || (m2 <= 0 && m2 >= -(cy->height))) */
-	{
 		result.a = just_get(tube_hits);
-	}
 	else
 		result.a = -1;
-
 	cap1 = new_plane(v_add(cy->pos, v_mult(cy->norm, cy->height / 2)), cy->norm, cy->color);
 	cap2 = new_plane(v_add(cy->pos, v_mult(cy->norm, -cy->height / 2)), cy->norm, cy->color);
-	/* print_vec(cap1.pos, "cap1 pos "); */
-	/* print_vec(cap2.pos, "cap2 pos "); */
-	/* print_vec(cap1.norm, "cap1 norm"); */
-	/* cap_hits.a = inter_plane(origin, ray, &cap1); */
-	/* cap_hits.b = inter_plane(origin, ray, &cap2); */
-	cap_hits.a = inter_disk(origin, ray, &cap1, rad);
-	cap_hits.b = inter_disk(origin, ray, &cap2, rad);
-	/* printf("cap_hits.a => %lf\n", cap_hits.a); */
-	/* printf("cap_hits.b => %lf\n", cap_hits.b); */
+	cap_hits.a = inter_disk(origin, ray, &cap1, cy->rad);
+	cap_hits.b = inter_disk(origin, ray, &cap2, cy->rad);
 	result.b = get_positive(cap_hits);
-	/* result.b = -1; */
-	/* if (result.a != -1 && result.b != 0) */
-	/* { */
-	/* 	printf("result.a => %lf\n", result.a); */
-	/* } */
-	/* cy->cur_norm = v_mult(cy->norm, 1); */
 	if (just_get(result) == just_get(cap_hits))
 		cy->cur_norm = v_mult(cy->norm, 1);
 	else if (just_get(result) == just_get(tube_hits) && just_get(result) > 0)
-	{
-		surface_point = v_mult(ray, get_positive(tube_hits));
-		v_add_inplace(surface_point, origin);
-		/* printf("norm is tube's\n"); */
-
-		center = v_add(cap1.pos, v_mult(cy->norm, m1));
-		/* v_sub_inplace(center, origin); */
-
-		cy->cur_norm = v_sub(surface_point, center);
-		v_norm_inplace(cy->cur_norm);
-
-		/* print_vec(surface_point, "surface_point\t"); */
-		print_vec(center, "center\t\t");
-		/* printf("m1 is %lf\n", m1); */
-	}
+		set_tube_norm(get_surface(origin, ray, just_get(tube_hits)), cy, cap1.pos, m1);
 	else
 		cy->cur_norm = NULL;
 
-	/* if (result.b != 0) */
-	/* 	printf("result.b => %lf\n", result.b); */
-	/* printf("jopa\n"); */
 	return (result);
 }
