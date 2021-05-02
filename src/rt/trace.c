@@ -17,62 +17,46 @@ void print_progress(t_scene *scene, int x, int y, t_win *window, char *string)
 	/* mlx_string_put(window->mlx, window->win, x, y, WHITE, "#######"); */
 }
 
+void	get_cam_basis(t_cam *cam)
+{
+	t_vec *up;
+
+	up = v_new(0, 1, 0);
+	cam->rev_dir = v_mult(cam->dir, -1);
+	v_norm_inplace(cam->rev_dir);
+
+	cam->right = v_cross(up, cam->rev_dir);
+	if (v_len(cam->right) == 0)
+	{
+		printf("jopa\n");
+		free(up);
+		up = v_new(0, 0, -1);
+		free(cam->right);
+		cam->right = v_cross(up, cam->rev_dir);
+	}
+	print_vec(cam->right, "cam->right");
+	v_norm_inplace(cam->right);
+
+	cam->up = v_cross(cam->rev_dir, cam->right);
+	print_vec(cam->up, "cam->up");
+	v_norm_inplace(cam->up);
+	free(up);
+}
+
 t_vec *get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 {
 	t_vec *ray;
-	double z;
-	t_vec *actual_dir;
-	t_vec *up;
-	t_vec *cam_right;
-	t_vec *cam_up;
-
-	/* t_vec *lookat; */
 	t_vec *result;
 
-	z = -1;
-	ray = v_new(x_ray, y_ray, z);
-	/* ray = v_new(x_ray - cam->origin->x, y_ray - cam->origin->y, z - cam->origin->z); */
+	ray = v_new(x_ray, y_ray, -1);
 	v_norm_inplace(ray);
-
-
-	actual_dir = v_mult(cam->dir, -1);
-	/* actual_dir = v_sub(cam->origin, cam->dir); */
-	/* actual_dir = v_add(cam->origin, cam->dir); */
-	/* v_mult_inplace(actual_dir, -1); */
-	/* actual_dir = v_new(cam->dir->x, cam->dir->y, -cam->dir->z); */
-	/* actual_dir = v_add(actual_dir, cam->origin); */
-	v_norm_inplace(actual_dir);
-	/* print_vec(actual_dir, "actual_dir"); */
-
-	up = v_new(0, 1, 0);
-	cam_right = v_cross(up, actual_dir);
-	/* print_vec(cam_right, "cam_right "); */
-	v_norm_inplace(cam_right);
-	cam_up = v_cross(actual_dir, cam_right);
-	/* print_vec(cam_up, "cam_up "); */
-	v_norm_inplace(cam_up);
-
-	/* ray = v_sub(ray, cam->origin); */
-	/* result = v_new( */
-	/* 		((ray->x * cam_right->x) + (ray->y * cam_right->y) + (ray->z * cam_right->z)), */
-	/* 		((ray->x * cam_up->x) + (ray->y * cam_up->y) + (ray->z * cam_up->z)), */
-	/* 		((ray->x * actual_dir->x) + (ray->y * actual_dir->y) + (ray->z * actual_dir->z)) */
-	/* 		); */
-	/* v_sub_inplace(ray, cam->origin); */
-
 	result = v_new(
-			((ray->x * cam_right->x) + (ray->y * cam_up->x) + (ray->z * actual_dir->x)),
-			((ray->x * cam_right->y) + (ray->y * cam_up->y) + (ray->z * actual_dir->y)),
-			((ray->x * cam_right->z) + (ray->y * cam_up->z) + (ray->z * actual_dir->z))
+			((ray->x * cam->right->x) + (ray->y * cam->up->x) + (ray->z * cam->rev_dir->x)),
+			((ray->x * cam->right->y) + (ray->y * cam->up->y) + (ray->z * cam->rev_dir->y)),
+			((ray->x * cam->right->z) + (ray->y * cam->up->z) + (ray->z * cam->rev_dir->z))
 			);
-
-
-	/* result->z += 0.7; */
 	v_norm_inplace(result);
-	/* print_vec(result, "transormed vec\n\n\n"); */
-
-	free(actual_dir);
-
+	free(ray);
 	return (result);
 }
 
@@ -100,6 +84,7 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 	/* printf("ambient: %X\n", scene->ambient); */
 	/* printf("sphere: %X\n", ((t_sphere *)(scene->spheres->data))->color); */
 	/* printf("combined: %X\n", c_add(((t_sphere *)(scene->spheres->data))->color, scene->ambient)); */
+	get_cam_basis(cam);
 	while (y_ang >= -(scene->height / 2))
 	{
 		y_ray = y_ang * viewport->y_pixel;
