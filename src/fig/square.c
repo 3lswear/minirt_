@@ -17,11 +17,15 @@ void	sq_get_vertices(t_square *square)
 	t_vec	*w;
 	t_vec	*u_plus_w;
 	t_vec	*u_min_w;
+	t_vec	up;
 
-	square->hside = square->side / 2.0;
-	u = v_cross(square->norm, v_new(0, 1, 0));
+	up = v_new_s(0, 1, 0);
+	u = v_cross(square->norm, &up);
 	if (v_len(u) < FLT_EPSILON)
-		u = v_cross(square->norm, v_new(1, 0, 0));
+	{
+		up = v_new_s(1, 0, 0);
+		u = v_cross(square->norm, &up);
+	}
 	v_norm_inplace(u);
 	w = v_cross(square->norm, u);
 	v_norm_inplace(w);
@@ -33,8 +37,5 @@ void	sq_get_vertices(t_square *square)
 	square->b = v_add(u_min_w, square->pos);
 	square->c = v_sub(square->pos, u_plus_w);
 	square->d = v_sub(square->pos, u_min_w);
-	free(u);
-	free(w);
-	free(u_plus_w);
-	free(u_min_w);
+	free4(u, w, u_plus_w, u_min_w);
 }
