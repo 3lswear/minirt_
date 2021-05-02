@@ -58,16 +58,23 @@ typedef struct s_quad
 
 typedef struct s_ic
 {
-	t_hit tube_hits;
-	t_hit cap_hits;
-	t_hit result;
-	double m1;
-	t_plane cap1;
-	t_plane cap2;
-	t_vec *cam2cent;
-	t_point *point1;
-	t_point *point2;
+	t_hit	tube_hits;
+	t_hit	cap_hits;
+	t_hit	result;
+	double	m1;
+	t_plane	cap1;
+	t_plane	cap2;
+	t_vec	*cam2cent;
+	t_point	*point1;
+	t_point	*point2;
 
-} t_ic;
+}	t_ic;
+
+double	inter_disk(t_point *origin, t_vec *ray, t_plane *plane, double rad);
+void	set_tube_norm(t_point *surface_point, t_cylind *cy,
+		t_point *cap_pos, double m);
+t_point	*get_surface(t_point *origin, t_vec *ray, double len);
+t_hit	solve_quad(t_vec *ray, t_cylind *cy, t_vec *cam2cent);
+double	calc_m(t_cylind *cy, t_hit tube_hits, t_vec *cam2cent, t_vec *ray);
 
 #endif
