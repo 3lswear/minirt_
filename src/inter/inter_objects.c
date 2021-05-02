@@ -6,7 +6,7 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 	t_vec *norm;
 	t_color color;
 
-	color = new_color(-1, -1, -1);
+	/* color = new_color(-1, -1, -1); */
 	if (scene->lights)
 	{
 		if (closest->type == T_SPHERE)
@@ -30,7 +30,11 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 			color = c_mul(closest->color, c_add(ambient,
 						calc_lights_2s(closest->obj.square.norm, scene, ray_min, cam)));
 		else if (closest->type == T_CYLIND)
-			color = closest->color;
+			/* color = closest->color; */
+			color = c_mul(closest->color, c_add(ambient,
+						calc_lights_2s(closest->obj.cylind.cur_norm, scene, ray_min, cam)));
+		else
+			color = c_mul(ambient, closest->color);
 	}
 	else
 		color = c_mul(ambient, closest->color);
