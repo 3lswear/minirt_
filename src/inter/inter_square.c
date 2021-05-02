@@ -22,6 +22,12 @@ double inter_square(t_point *origin, t_vec *ray, t_square *sq)
 	
 	hit.a = inter_triang(origin, ray, &t1);
 	hit.b = inter_triang(origin, ray, &t2);
+	free(t1.norm);
+	free(t2.norm);
+	free(t1.edge1);
+	free(t1.edge2);
+	free(t2.edge1);
+	free(t2.edge2);
 
 	if (hit.a > 0)
 		return (hit.a);

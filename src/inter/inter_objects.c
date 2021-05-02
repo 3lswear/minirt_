@@ -30,9 +30,12 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 			color = c_mul(closest->color, c_add(ambient,
 						calc_lights_2s(closest->obj.square.norm, scene, ray_min, cam)));
 		else if (closest->type == T_CYLIND)
-			/* color = closest->color; */
+		{
 			color = c_mul(closest->color, c_add(ambient,
 						calc_lights_2s(closest->obj.cylind.cur_norm, scene, ray_min, cam)));
+			/* free(closest->obj.cylind.cur_norm); */
+
+		}
 		else
 			color = c_mul(ambient, closest->color);
 	}
