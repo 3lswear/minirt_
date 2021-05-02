@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/05/02 11:23:01 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/02 11:58:30 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_win
 #define T_PLANE 2
 #define T_SQUARE 3
 # define T_TRIANG 4
+# define T_CYLIND 5
 
 /* typedef enum e_type {sphere, plane} t_type; */
 
@@ -91,6 +92,7 @@ typedef union u_object
 	t_plane plane;
 	t_square square;
 	t_triang triang;
+	t_cylind cylind;
 } t_object;
 
 typedef struct s_obj

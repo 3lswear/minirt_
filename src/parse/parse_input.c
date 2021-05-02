@@ -25,11 +25,15 @@ t_vec *parse_norm(char *string)
 	t_vec *vec;
 
 	vec = parse_vec(string);
-	if (v_len(vec) != 1)
+	/* attention!!! */
+	if (vec->x > 1 || vec->x < -1 ||
+		vec->y > 1 || vec->y < -1 ||
+		vec->z > 1 || vec->z < -1)
 	{
 		free(vec);
 		handle_error(ERR_SUBNORM);
 	}
+	v_norm_inplace(vec);
 	return (vec);
 }
 
@@ -208,6 +212,22 @@ void lst_cams(t_scene *scene, char **data)
 	print_str_array(data);
 }
 
+void	lst_cylinds(t_scene *scene, char **data)
+{
+	t_obj *object;
+
+	object = new_object(T_CYLIND, NULL);
+	object->obj.cylind = new_cylind(
+		parse_point(data[1]),
+		parse_norm(data[2]),
+		parse_flpos(data[3]),
+		parse_flpos(data[4])
+	);
+	object->obj.cylind.color = parse_color(data[5]);
+	object->color = object->obj.cylind.color;
+	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
+}
+
 void parse_objects(t_scene *scene, char **data)
 {
 	char *id;
@@ -220,7 +240,8 @@ void parse_objects(t_scene *scene, char **data)
 		lst_squares(scene, data);
 	else if (!ft_strncmp(id, "tr", ft_strlen(id)))
 		lst_triangs(scene, data);
-
+	else if (!ft_strncmp(id, "cy", ft_strlen(id)))
+		lst_cylinds(scene, data);
 }
 
 void parse_lights(t_scene *scene, char **data)

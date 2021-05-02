@@ -29,6 +29,8 @@ t_color color_closest(t_scene *scene, t_cam *cam, t_obj *closest, t_color ambien
 		else if (closest->type == T_SQUARE)
 			color = c_mul(closest->color, c_add(ambient,
 						calc_lights_2s(closest->obj.square.norm, scene, ray_min, cam)));
+		else if (closest->type == T_CYLIND)
+			color = closest->color;
 	}
 	else
 		color = c_mul(ambient, closest->color);
@@ -59,6 +61,8 @@ t_color inter_objects(t_cam *cam, t_scene *scene)
 			ray_len = inter_triang(cam->origin, cam->ray, &cur_obj->obj.triang);
 		else if (cur_obj->type == T_SQUARE)
 			ray_len = inter_square(cam->origin, cam->ray, &cur_obj->obj.square);
+		else if (cur_obj->type == T_CYLIND)
+			ray_len = get_positive(inter_cylind(cam->origin, cam->ray, &cur_obj->obj.cylind));
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
 			ray_min = ray_len;

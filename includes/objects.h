@@ -49,4 +49,16 @@ typedef struct s_triang
 t_triang new_triang(t_point *a, t_point *b, t_point *c, t_color color);
 t_vec *triang_get_norm(t_triang *tri);
 
+typedef struct s_cylind
+{
+	t_point *pos;
+	t_vec *norm;
+	double diam;
+	double height;
+	t_color color;
+
+} t_cylind;
+
+t_cylind	new_cylind(t_point *pos, t_vec *norm, double diam, double height);
+
 #endif
