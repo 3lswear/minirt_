@@ -56,4 +56,18 @@ typedef struct s_quad
 	t_hit	result;
 }	t_quad;
 
+typedef struct s_ic
+{
+	t_hit tube_hits;
+	t_hit cap_hits;
+	t_hit result;
+	double m1;
+	t_plane cap1;
+	t_plane cap2;
+	t_vec *cam2cent;
+	t_point *point1;
+	t_point *point2;
+
+} t_ic;
+
 #endif
