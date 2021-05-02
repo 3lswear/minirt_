@@ -54,6 +54,7 @@ typedef struct s_cylind
 	t_point *pos;
 	t_vec *norm;
 	double diam;
+	double rad;
 	double height;
 	t_color color;
 	t_vec *cur_norm;

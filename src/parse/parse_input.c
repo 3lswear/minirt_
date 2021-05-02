@@ -224,6 +224,7 @@ void	lst_cylinds(t_scene *scene, char **data)
 		parse_flpos(data[4])
 	);
 	object->obj.cylind.color = parse_color(data[5]);
+	object->obj.cylind.rad = object->obj.cylind.diam / 2.0;
 	object->color = object->obj.cylind.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
