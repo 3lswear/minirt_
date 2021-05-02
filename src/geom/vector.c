@@ -13,6 +13,15 @@ t_vec	*v_new(double x, double y, double z)
 	return (vec);
 }
 
+t_vec	v_new_s(double x, double y, double z)
+{
+	t_vec result;
+	result.x = x;
+	result.y = y;
+	result.z = z;
+	return (result);
+}
+
 t_vec	*v_sub(t_vec *v1, t_vec *v2)
 {
 	t_vec	*result;

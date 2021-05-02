@@ -12,6 +12,7 @@ typedef t_vec t_point;
 
 
 t_vec *v_new(double x, double y, double z);
+t_vec	v_new_s(double x, double y, double z);
 t_vec *v_sub(t_vec *v1, t_vec *v2);
 double v_len(t_vec *vec);
 double v_dot_product(t_vec *v1, t_vec *v2);
