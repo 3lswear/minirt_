@@ -34,3 +34,11 @@ double just_get(t_hit hit)
 		else
 			return (hit.b);
 }
+
+t_hit h_new(double a, double b)
+{
+	t_hit result;
+	result.a = a;
+	result.b = b;
+	return (result);
+}
