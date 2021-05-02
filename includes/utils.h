@@ -6,6 +6,8 @@ void handle_error(int value);
 void parse_input(char *file, t_scene **scene, t_win *window);
 void	parse_res(char **line, t_scene *scene);
 
+int	free4(void *a, void *b, void *c, void *d);
+
 int	iswhitespace(const char *chr);
 char	**split_ws(char const *s);
 void	*liberator(char **array);
