@@ -5,14 +5,14 @@ void	free_cam_basis(t_cam *cam)
 	free4(cam->rev_dir, cam->right, cam->up, NULL);
 }
 
-int idk_hook(int keycode, struct s_data *data)
+int		idk_hook(int keycode, struct s_data *data)
 {
 	graceful_exit(data->win, data->scene);
 	printf("keycode => %d\n", keycode);
 	return (1337);
 }
 
-void next_cam(t_scene *scene, t_win *window, t_cam *cam)
+void	next_cam(t_scene *scene, t_win *window, t_cam *cam)
 {
 	window->img = mlx_new_image(window->mlx, scene->width, scene->height);
 	window->addr = mlx_get_data_addr(window->img, &window->bpp, &window->line_l, 
@@ -24,7 +24,7 @@ void next_cam(t_scene *scene, t_win *window, t_cam *cam)
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 }
 
-int key_press_hook(int keycode, struct s_data *data)
+int		key_press_hook(int keycode, struct s_data *data)
 {
 	if (keycode == KEY_Q || keycode == KEY_ESC)
 	{
@@ -53,11 +53,11 @@ int key_press_hook(int keycode, struct s_data *data)
 	}
 }
 
-void iter_cams(t_scene *scene, t_win *window)
+void	iter_cams(t_scene *scene, t_win *window)
 {
+	t_cam			*cam;
+	struct s_data	data;
 	/* t_list *current; */
-	t_cam *cam;
-	struct s_data data;
 
 	/* current = scene->cams; */
 	cam = scene->cams->data;
