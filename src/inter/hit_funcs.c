@@ -20,6 +20,7 @@ double get_positive(t_hit hit)
 		return (0);
 }
 
+
 double just_get(t_hit hit)
 {
 	if (hit.a * hit.b > 0.0)

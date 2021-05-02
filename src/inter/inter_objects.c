@@ -62,7 +62,7 @@ t_color inter_objects(t_cam *cam, t_scene *scene)
 		else if (cur_obj->type == T_SQUARE)
 			ray_len = inter_square(cam->origin, cam->ray, &cur_obj->obj.square);
 		else if (cur_obj->type == T_CYLIND)
-			ray_len = get_positive(inter_cylind(cam->origin, cam->ray, &cur_obj->obj.cylind));
+			ray_len = just_get(inter_cylind(cam->origin, cam->ray, &cur_obj->obj.cylind));
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
 			ray_min = ray_len;

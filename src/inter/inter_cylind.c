@@ -1,28 +1,44 @@
 #include "minirt.h"
 
+double	inter_disk(t_point *origin, t_vec *ray, t_plane *plane, double rad)
+{
+	double plane_hit;
+	t_point *surface_point;
+	t_vec *v;
+	double d2;
+
+	plane_hit = inter_plane(origin, ray, plane);
+	if (plane_hit > 0)
+	{
+		surface_point = v_mult(ray, plane_hit);
+		v_add_inplace(surface_point, origin);
+		v = v_sub(surface_point, plane->pos);
+		d2 = v_dot_product(v, v);
+		if (sqrt(d2) <= rad)
+			return (plane_hit);
+	}
+	return (-1);
+
+}
+
 t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 {
-	t_hit hit;
+	t_hit tube_hits;
 	double rad;
 	double discr;
 	double a;
 	double b;
 	double c;
 	t_vec *cam2cent;
-	/* t_point *cap1point; */
 	double m1;
-	/* double m2; */
+	t_hit cap_hits;
+	t_plane cap1;
+	t_plane cap2;
+	t_hit result;
 
-	/* cap1point = v_add(cy->pos, v_mult(cy->norm, cy->height / 2)); */
-	/* print_vec(cap1point, "cap1point"); */
-	/* printf("%lf\n", v_dot_product(v_sub(cap1point, origin), cy->norm)); */
-	/* print_vec(v_sub(cap1point, origin), "cam2cap1"); */
-	/* if (v_dot_product(ray, v_add(cy->norm, cy->pos)) > 0) */
-	/* { */
-	/* 	hit.a = 0; */
-	/* 	hit.b = 0; */
-	/* 	return (hit); */
-	/* } */
+	t_color red;
+
+	red = new_color(255, 0, 0);
 	rad = cy->diam / 2.0;
 	/* cam2cent = v_sub(origin, cy->pos); */
 	cam2cent = v_sub(origin, v_add((cy->pos), v_mult(cy->norm, cy->height / 2)));
@@ -35,25 +51,40 @@ t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 	discr = (b * b) - (4 * a * c);
 	if (discr < 0)
 	{
-		hit.a = 0;
-		hit.b = 0;
-		return (hit);
+		tube_hits.a = 0;
+		tube_hits.b = 0;
+		return (tube_hits);
 	}
-	hit.a = (-b - sqrt(discr)) / (2 * a);
-	hit.b = (-b + sqrt(discr)) / (2 * a);
+	tube_hits.a = (-b - sqrt(discr)) / (2 * a);
+	tube_hits.b = (-b + sqrt(discr)) / (2 * a);
 	
-	if (hit.a * hit.b > 0)
-	{
-		m1 = v_dot_product(ray, v_mult(cy->norm, get_positive(hit))) + v_dot_product(cam2cent, cy->norm);
-		/* m1 = v_dot_product(v_add(v_mult(ray, get_positive(hit)), cam2cent), ray); */
-		/* m2 = v_dot_product(v_add(v_mult(ray, hit.b), cam2cent), ray); */
-		printf("m1 => %lf\n", m1);
-		/* printf("m2 => %lf\n", m2); */
-		/* if ((m1 <= 1 && m1 >= 0) || (m2 <= 1 && m2 >= 0)) */
-		if (m1 < cy->height / 2 && m1 > -(cy->height / 2))
-			return(hit);
-	}
-	hit.a = 0;
-	hit.b = 0;
-	return (hit);
+	m1 = v_dot_product(ray, v_mult(cy->norm, get_positive(tube_hits))) + v_dot_product(cam2cent, cy->norm);
+	/* printf("m1 => %lf\n", m1); */
+	if (m1 <= 0 && m1 >= -(cy->height))
+		result.a = get_positive(tube_hits);
+	else
+		result.a = -1;
+
+	cap1 = new_plane(v_add(cy->pos, v_mult(cy->norm, cy->height / 2)), cy->norm, cy->color);
+	cap2 = new_plane(v_add(cy->pos, v_mult(cy->norm, -cy->height / 2)), cy->norm, cy->color);
+	/* print_vec(cap1.pos, "cap1 pos "); */
+	/* print_vec(cap2.pos, "cap2 pos "); */
+	/* print_vec(cap1.norm, "cap1 norm"); */
+	/* cap_hits.a = inter_plane(origin, ray, &cap1); */
+	/* cap_hits.b = inter_plane(origin, ray, &cap2); */
+	cap_hits.a = inter_disk(origin, ray, &cap1, rad);
+	cap_hits.b = inter_disk(origin, ray, &cap2, rad);
+	/* printf("cap_hits.a => %lf\n", cap_hits.a); */
+	/* printf("cap_hits.b => %lf\n", cap_hits.b); */
+	result.b = get_positive(cap_hits);
+	/* result.b = -1; */
+	/* if (result.a != -1 && result.b != 0) */
+	/* { */
+	/* 	printf("result.a => %lf\n", result.a); */
+	/* } */
+
+	/* if (result.b != 0) */
+	/* 	printf("result.b => %lf\n", result.b); */
+	/* printf("jopa\n"); */
+	return (result);
 }
