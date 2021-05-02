@@ -90,7 +90,7 @@ static t_vec *calc_cam2cent(t_point *origin, t_cylind *cy)
 	return (cam2cent);
 }
 
-t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
+t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy, int set_normal)
 {
 	t_hit tube_hits;
 	t_hit cap_hits;
@@ -118,15 +118,14 @@ t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 	cap_hits.a = inter_disk(origin, ray, &cap1, cy->rad);
 	cap_hits.b = inter_disk(origin, ray, &cap2, cy->rad);
 	result.b = get_positive(cap_hits);
-	if (just_get(result) == just_get(cap_hits))
-		cy->cur_norm = v_mult(cy->norm, 1);
-	else if (just_get(result) == just_get(tube_hits) && just_get(result) > 0)
-		set_tube_norm(get_surface(origin, ray, just_get(tube_hits)), cy, cap1.pos, m1);
-	else
-		cy->cur_norm = NULL;
-	free(cam2cent);
-	free(point1);
-	free(point2);
+	if (set_normal)
+	{
+		if (just_get(result) == just_get(cap_hits))
+			cy->cur_norm = v_mult(cy->norm, 1);
+		else if (just_get(result) == just_get(tube_hits) && just_get(result) > 0)
+			set_tube_norm(get_surface(origin, ray, just_get(tube_hits)), cy, cap1.pos, m1);
+	}
+	free4(cam2cent, point1, point2, NULL);
 
 	return (result);
 }

@@ -225,6 +225,7 @@ void	lst_cylinds(t_scene *scene, char **data)
 	);
 	object->obj.cylind.color = parse_color(data[5]);
 	object->obj.cylind.rad = object->obj.cylind.diam / 2.0;
+	object->obj.cylind.cur_norm = NULL;
 	object->color = object->obj.cylind.color;
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }

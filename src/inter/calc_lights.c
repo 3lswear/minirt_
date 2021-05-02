@@ -24,8 +24,7 @@ static	int just_intersect(t_point *start, t_vec *vec, t_list *objects, double ma
 			ray_len = inter_square(start, vec, &cur_obj->obj.square);
 		else if (cur_obj->type == T_CYLIND)
 		{
-			ray_len = just_get(inter_cylind(start, vec, &cur_obj->obj.cylind));
-			free(cur_obj->obj.cylind.cur_norm);
+			ray_len = just_get(inter_cylind(start, vec, &cur_obj->obj.cylind, 0));
 		}
 		/* if ((ray_len < max_len) && (ray_len > max_len * FLT_EPSILON * 100)) */
 		if ((ray_len < max_len) && (ray_len > 0))
