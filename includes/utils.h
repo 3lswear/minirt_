@@ -13,5 +13,6 @@ char	*strchr_ws(const char *s);
 
 double	ft_strtof(const char *str);
 void print_vec(t_vec *vec, char *label);
+void graceful_exit(t_win *win, t_scene *scene);
 
 #endif
