@@ -72,7 +72,7 @@ typedef struct s_ic
 
 double	inter_disk(t_point *origin, t_vec *ray, t_plane *plane, double rad);
 void	set_tube_norm(t_point *surface_point, t_cylind *cy,
-		t_point *cap_pos, double m);
+			t_point *cap_pos, double m);
 t_point	*get_surface(t_point *origin, t_vec *ray, double len);
 t_hit	solve_quad(t_vec *ray, t_cylind *cy, t_vec *cam2cent);
 double	calc_m(t_cylind *cy, t_hit tube_hits, t_vec *cam2cent, t_vec *ray);

@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/05/02 11:58:30 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/03 02:03:14 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@
 # include "inter.h"
 /* typedef int t_color; */
 
-# define RAD (M_PI / 180)
 # define T_SPHERE 1
 # define T_PLANE 2
 # define T_SQUARE 3

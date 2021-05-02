@@ -125,7 +125,7 @@ t_view *get_viewport(double width, double height, double fov)
 	if (!viewport)
 		handle_error(-1);
 	aspect_ratio = width / height;
-	viewport->width = 2 * tan((fov / 2) * RAD);
+	viewport->width = 2 * tan((fov / 2) * (M_PI / 180));
 	viewport->height = viewport->width  / aspect_ratio;
 	viewport->x_pixel = viewport->width / width;
 	viewport->y_pixel = viewport->height / height;
