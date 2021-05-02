@@ -31,12 +31,16 @@ t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 	double c;
 	t_vec *cam2cent;
 	double m1;
+	double m2;
 	t_hit cap_hits;
 	t_plane cap1;
 	t_plane cap2;
 	t_hit result;
 
 	t_color red;
+	t_point *surface_point;
+
+	t_point *center;
 
 	red = new_color(255, 0, 0);
 	rad = cy->diam / 2.0;
@@ -59,9 +63,15 @@ t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 	tube_hits.b = (-b + sqrt(discr)) / (2 * a);
 	
 	m1 = v_dot_product(ray, v_mult(cy->norm, get_positive(tube_hits))) + v_dot_product(cam2cent, cy->norm);
-	/* printf("m1 => %lf\n", m1); */
-	if (m1 <= 0 && m1 >= -(cy->height))
-		result.a = get_positive(tube_hits);
+	/* m1 = v_dot_product(ray, v_mult(cy->norm, tube_hits.a)) + v_dot_product(cam2cent, cy->norm); */
+	/* m2 = v_dot_product(ray, v_mult(cy->norm, tube_hits.b)) + v_dot_product(cam2cent, cy->norm); */
+	/* printf("positive tube_hits => %lf\n", get_positive(tube_hits)); */
+	(void)m2;
+	if (m1 <= 0 && m1 >= -cy->height)
+	/* if ((m1 <= 0 && m1 >= -(cy->height)) || (m2 <= 0 && m2 >= -(cy->height))) */
+	{
+		result.a = just_get(tube_hits);
+	}
 	else
 		result.a = -1;
 
@@ -82,6 +92,27 @@ t_hit	inter_cylind(t_point *origin, t_vec *ray, t_cylind *cy)
 	/* { */
 	/* 	printf("result.a => %lf\n", result.a); */
 	/* } */
+	/* cy->cur_norm = v_mult(cy->norm, 1); */
+	if (just_get(result) == just_get(cap_hits))
+		cy->cur_norm = v_mult(cy->norm, 1);
+	else if (just_get(result) == just_get(tube_hits) && just_get(result) > 0)
+	{
+		surface_point = v_mult(ray, get_positive(tube_hits));
+		v_add_inplace(surface_point, origin);
+		/* printf("norm is tube's\n"); */
+
+		center = v_add(cap1.pos, v_mult(cy->norm, m1));
+		/* v_sub_inplace(center, origin); */
+
+		cy->cur_norm = v_sub(surface_point, center);
+		v_norm_inplace(cy->cur_norm);
+
+		/* print_vec(surface_point, "surface_point\t"); */
+		print_vec(center, "center\t\t");
+		/* printf("m1 is %lf\n", m1); */
+	}
+	else
+		cy->cur_norm = NULL;
 
 	/* if (result.b != 0) */
 	/* 	printf("result.b => %lf\n", result.b); */

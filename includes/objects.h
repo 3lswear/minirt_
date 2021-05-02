@@ -56,6 +56,7 @@ typedef struct s_cylind
 	double diam;
 	double height;
 	t_color color;
+	t_vec *cur_norm;
 
 } t_cylind;
 
