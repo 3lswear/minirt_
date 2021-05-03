@@ -1,10 +1,16 @@
 #include "minirt.h"
 
-void	lst_spheres(t_scene *scene, char **data)
+void	lst_spheres(t_scene *scene, char **data, t_parse *pa)
 {
 	t_sphere	sphere;
 	t_obj		*object;
 
+	if (split_len(data) != 4)
+		{
+
+			printf("SPLIT LEN RETURNED %d on line %d\n", split_len(data), pa->lc);
+			handle_error(ERR_TOKENS, pa->lc);
+		}
 	sphere = new_sphere(
 			parse_point(data[1]),
 			parse_doubles(data[2])
@@ -16,11 +22,13 @@ void	lst_spheres(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void	lst_planes(t_scene *scene, char **data)
+void	lst_planes(t_scene *scene, char **data, t_parse *pa)
 {
 	t_plane	plane;
 	t_obj	*object;
 
+	if (split_len(data) != 4)
+		handle_error(ERR_TOKENS, pa->lc);
 	plane = new_plane(
 			parse_point(data[1]),
 			parse_vec(data[2]),
@@ -35,10 +43,12 @@ void	lst_planes(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void	lst_squares(t_scene *scene, char **data)
+void	lst_squares(t_scene *scene, char **data, t_parse *pa)
 {
 	t_obj	*object;
 
+	if (split_len(data) != 5)
+		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_SQUARE, NULL);
 	object->obj.square = new_square(
 			parse_point(data[1]),
@@ -54,10 +64,12 @@ void	lst_squares(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void	lst_triangs(t_scene *scene, char **data)
+void	lst_triangs(t_scene *scene, char **data, t_parse *pa)
 {
 	t_obj	*object;
 
+	if (split_len(data) != 5)
+		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_TRIANG, NULL);
 	object->obj.triang = new_triang(
 			parse_point(data[1]),
@@ -71,10 +83,12 @@ void	lst_triangs(t_scene *scene, char **data)
 	ft_lstadd_back(&(scene->objects), ft_lstnew(object));
 }
 
-void	lst_cylinds(t_scene *scene, char **data)
+void	lst_cylinds(t_scene *scene, char **data, t_parse *pa)
 {
 	t_obj	*object;
 
+	if (split_len(data) != 6)
+		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_CYLIND, NULL);
 	object->obj.cylind = new_cylind(
 			parse_point(data[1]),

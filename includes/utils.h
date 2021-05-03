@@ -1,18 +1,20 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-struct s_parse
+typedef struct s_parse
 {
 	int	res_count;
 	int amb_count;
 	int valid;
+	int	lc;
+	int	ret;
 	
-};
+}	t_parse;
 
 double	idiv(int a, int b);
 void	handle_error(int value, int line);
 void	parse_input(char *file, t_scene **scene, t_win *window);
-void	parse_res(char **line, t_scene *scene, t_win *win);
+void	parse_res(char **line, t_scene *scene, t_parse *pa);
 int	split_len(char **data);
 
 t_point	*parse_point(char *string);
@@ -22,16 +24,16 @@ double	parse_doubles(char *string);
 double	parse_flpos(char *string);
 t_color	parse_color(char *string);
 
-void	lst_cams(t_scene *scene, char **data);
-void	parse_objects(t_scene *scene, char **data);
-void	parse_lights(t_scene *scene, char **data);
-void	parse_ambient(t_scene *scene, char **data);
+void	lst_cams(t_scene *scene, char **data, t_parse *pa);
+void	parse_objects(t_scene *scene, char **data, t_parse *pa);
+void	parse_lights(t_scene *scene, char **data, t_parse *pa);
+void	parse_ambient(t_scene *scene, char **data, t_parse *pa);
 
-void	lst_spheres(t_scene *scene, char **data);
-void	lst_planes(t_scene *scene, char **data);
-void	lst_squares(t_scene *scene, char **data);
-void	lst_triangs(t_scene *scene, char **data);
-void	lst_cylinds(t_scene *scene, char **data);
+void	lst_spheres(t_scene *scene, char **data, t_parse *pa);
+void	lst_planes(t_scene *scene, char **data, t_parse *pa);
+void	lst_squares(t_scene *scene, char **data, t_parse *pa);
+void	lst_triangs(t_scene *scene, char **data, t_parse *pa);
+void	lst_cylinds(t_scene *scene, char **data, t_parse *pa);
 
 int		free4(void *a, void *b, void *c, void *d);
 

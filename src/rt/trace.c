@@ -85,8 +85,5 @@ t_view	*get_viewport(double width, double height, double fov)
 	viewport->height = viewport->width / aspect_ratio;
 	viewport->x_pixel = viewport->width / width;
 	viewport->y_pixel = viewport->height / height;
-	printf("viewport->x_pixel = %f\n", viewport->x_pixel);
-	printf("viewport->y_pixel = %f\n", viewport->y_pixel);
-	printf("viewport->height = %f\n", viewport->height);
 	return (viewport);
 }

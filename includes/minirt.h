@@ -32,6 +32,7 @@
 # define ERR_SUBNORM -4
 # define ERR_NEG	-5
 # define ERR_FILE	-6
+# define ERR_TOKENS -7
 
 # define SHININESS	100
 
