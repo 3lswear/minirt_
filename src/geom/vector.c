@@ -6,7 +6,7 @@ t_vec	*v_new(double x, double y, double z)
 
 	vec = malloc(sizeof(t_vec));
 	if (!vec)
-		handle_error(-1);
+		handle_error(-1, -1);
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;

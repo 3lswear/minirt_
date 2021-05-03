@@ -79,7 +79,7 @@ t_view	*get_viewport(double width, double height, double fov)
 
 	viewport = malloc(sizeof(t_view));
 	if (!viewport)
-		handle_error(-1);
+		handle_error(-1, -1);
 	aspect_ratio = width / height;
 	viewport->width = 2 * tan((fov / 2) * (M_PI / 180));
 	viewport->height = viewport->width / aspect_ratio;

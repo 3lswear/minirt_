@@ -5,7 +5,7 @@ void	ft_lstadd_back(t_list **head, t_list *new)
 	t_list	*last;
 
 	if (!new || !head)
-		handle_error(ERR_LIST);
+		handle_error(ERR_LIST, -1);
 	if (!(*head))
 	{
 		*head = new;

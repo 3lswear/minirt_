@@ -61,7 +61,7 @@ int check_save(int argc, char **argv)
 		}
 		else
 		{
-			handle_error(ERR_ARG);
+			handle_error(ERR_ARG, -1);
 			return (0);
 		}
 	}
@@ -75,7 +75,7 @@ char *get_filename(char **argv, int argc)
 		return (argv[1]);
 	else
 	{
-		handle_error(ERR_ARG);
+		handle_error(ERR_ARG, -1);
 		return (NULL);
 	}
 }

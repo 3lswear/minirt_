@@ -63,7 +63,7 @@ void	save_screen(t_win *win, t_scene *scene)
 
 	fd = open("out.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (!fd)
-		handle_error(ERR_FILE);
+		handle_error(ERR_FILE, -1);
 	write_file(win, scene, fd);
 	printf("File save successful!\n");
 	graceful_exit(win, scene, 1);

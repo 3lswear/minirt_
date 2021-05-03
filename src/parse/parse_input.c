@@ -7,6 +7,7 @@ void	parse_input(char *file, t_scene **scene, t_win *window)
 	char	*line;
 	int		ret;
 	char	**data;
+	int		lc;
 
 	fd = open(file, O_RDONLY);
 	(void)window;
@@ -14,6 +15,7 @@ void	parse_input(char *file, t_scene **scene, t_win *window)
 	*scene = new_scene(NULL);
 	(*scene)->lights = NULL;
 	(*scene)->objects = NULL;
+	lc = 1;
 	while (1)
 	{
 		ret = get_next_line(fd, &line);

@@ -6,7 +6,7 @@ t_candidate *cand_new(t_color color, double dist)
 
 	result = malloc(sizeof(t_candidate));
 	if (!result)
-		handle_error(ERR_ALLOC);
+		handle_error(ERR_ALLOC, -1);
 	result->color = color;
 	result->dist = dist;
 	return (result);

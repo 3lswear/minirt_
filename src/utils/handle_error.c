@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-void handle_error(int code)
+void	handle_error(int code, int line)
 {
-	char *msg;
+	char	*msg;
 
 	msg = NULL;
 	if (code == ERR_ALLOC)
@@ -15,12 +15,13 @@ void handle_error(int code)
 		msg = "Vector provided is not normal!";
 	else
 		msg = "idk 🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔🤔";
-
 	ft_putstr_fd("😰😰😰😰 uh oh, something bad happened!!!!!!!! 😰😰😰😰\n", 2);
+	ft_putstr_fd("On line ", 2);
+	ft_putnbr_fd(line, 2);
+	ft_putendl_fd("", 2);
 	ft_putstr_fd("[x] Error code => ", 2);
 	ft_putnbr_fd(code, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(msg, 2);
-	
 	exit(code);
 }

@@ -2,7 +2,7 @@
 # define UTILS_H
 
 double	idiv(int a, int b);
-void	handle_error(int value);
+void	handle_error(int value, int line);
 void	parse_input(char *file, t_scene **scene, t_win *window);
 void	parse_res(char **line, t_scene *scene);
 

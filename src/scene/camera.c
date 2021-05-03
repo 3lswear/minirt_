@@ -6,7 +6,7 @@ t_cam	*new_cam(t_vec *origin, t_vec *dir, double fov)
 
 	result = malloc(sizeof(t_cam));
 	if (!result)
-		handle_error(-1);
+		handle_error(-1, -1);
 	result->origin = origin;
 	result->dir = dir;
 	result->fov = fov;

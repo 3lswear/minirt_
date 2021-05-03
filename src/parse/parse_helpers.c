@@ -31,7 +31,7 @@ t_vec	*parse_norm(char *string)
 		vec->z > 1 || vec->z < -1)
 	{
 		free(vec);
-		handle_error(ERR_SUBNORM);
+		handle_error(ERR_SUBNORM, -1);
 	}
 	v_norm_inplace(vec);
 	return (vec);
@@ -51,6 +51,6 @@ double	parse_flpos(char *string)
 
 	result = parse_doubles(string);
 	if (result < 0)
-		handle_error(ERR_NEG);
+		handle_error(ERR_NEG, -1);
 	return (result);
 }

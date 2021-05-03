@@ -6,7 +6,7 @@ t_light	*l_new(t_vec *coords, double brightess, t_color color)
 
 	light = ft_calloc(sizeof(t_light), 1);
 	if (!light)
-		handle_error(-1);
+		handle_error(-1, -1);
 	light->coords = coords;
 	light->brightess = brightess;
 	light->color = color;
