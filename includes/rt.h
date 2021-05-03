@@ -17,6 +17,15 @@ struct s_data
 	t_cam	*cam;
 };
 
+struct s_trace
+{
+	t_color	color;
+	int		mlx_x;
+	int		mlx_y;
+	double	ray_x;
+	double	ray_y;
+};
+
 t_view	*get_viewport(double width, double height, double fov);
 void	trace(t_win *window, t_scene *scene, t_cam *cam, int save_bmp);
 void	iter_cams(t_scene *scene, t_win *window, int save_bmp);
