@@ -21,7 +21,7 @@ t_vec	*parse_vec(char *string, int lc)
 {
 	t_vec	*result;
 
-	result =  parse_point(string, lc);
+	result = parse_point(string, lc);
 	if (v_len(result) < FLT_EPSILON)
 		handle_error(ERR_SUBNORM, lc);
 	return (result);

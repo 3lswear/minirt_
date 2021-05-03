@@ -12,17 +12,17 @@
 
 #include "minirt.h"
 
-void     pixel_put(t_win *window, int x, int y, int color)
+void	pixel_put(t_win *window, int x, int y, int color)
 {
-    char    *dst;
+	char	*dst;
 
-    dst = window->addr + (y * window->line_l + x * (window->bpp / 8));
-		*(unsigned int *)dst = color;
+	dst = window->addr + (y * window->line_l + x * (window->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
-int		check_save(int argc, char **argv)
+int	check_save(int argc, char **argv)
 {
-	if (argc == 3) 
+	if (argc == 3)
 	{
 		if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 		{
@@ -76,8 +76,8 @@ int	main(int argc, char **argv)
 
 	arg = get_filename(argv, argc);
 	save_bmp = check_save(argc, argv);
-	parse_input(arg, &scene, &window);
-    window.mlx = mlx_init();
+	parse_input(arg, &scene);
+	window.mlx = mlx_init();
 	iter_cams(scene, &window, save_bmp);
 	return (0);
-}      
+}

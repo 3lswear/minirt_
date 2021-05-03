@@ -8,11 +8,12 @@ typedef struct s_parse
 	int	valid;
 	int	lc;
 	int	ret;
+	int	fd;
 }	t_parse;
 
 double	idiv(int a, int b);
 void	handle_error(int value, int line);
-void	parse_input(char *file, t_scene **scene, t_win *window);
+void	parse_input(char *file, t_scene **scene);
 void	parse_res(char **line, t_scene *scene, t_parse *pa);
 int		split_len(char **data);
 

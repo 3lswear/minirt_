@@ -12,6 +12,8 @@ void 	parse_redirector(t_scene **scene, char **data, t_parse *pa)
 		parse_lights(*scene, data, pa);
 	else
 		parse_objects(*scene, data, pa);
+	pa->lc++;
+	liberator(data);
 }
 
 void	check_mandatory(t_parse *pa)
@@ -24,24 +26,27 @@ void	check_mandatory(t_parse *pa)
 		handle_error(ERR_AMBLINE, -1);
 }
 
-void	parse_input(char *file, t_scene **scene, t_win *window)
+void	init_parse(t_parse *parse, t_scene **scene)
 {
-	int		fd;
+	*scene = new_scene(NULL);
+	(*scene)->lights = NULL;
+	(*scene)->objects = NULL;
+	parse->lc = 1;
+	parse->res_count = 0;
+	parse->amb_count = 0;
+}
+
+void	parse_input(char *file, t_scene **scene)
+{
 	char	*line;
 	char	**data;
 	t_parse	parse;
 
-	fd = open(file, O_RDONLY);
-	(void)window;
-	*scene = new_scene(NULL);
-	(*scene)->lights = NULL;
-	(*scene)->objects = NULL;
-	parse.lc = 1;
-	parse.res_count = 0;
-	parse.amb_count = 0;
+	parse.fd = open(file, O_RDONLY);
+	init_parse(&parse, scene);
 	while (1)
 	{
-		parse.ret = get_next_line(fd, &line);
+		parse.ret = get_next_line(parse.fd, &line);
 		if (parse.ret != 1)
 			break ;
 		if (!ft_strlen(line))
@@ -53,11 +58,9 @@ void	parse_input(char *file, t_scene **scene, t_win *window)
 		data = split_ws(line);
 		parse_redirector(scene, data, &parse);
 		free(line);
-		liberator(data);
-		parse.lc++;
 	}
 	if (!parse.ret)
 		free(line);
 	check_mandatory(&parse);
-	close(fd);
+	close(parse.fd);
 }

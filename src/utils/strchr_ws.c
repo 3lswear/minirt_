@@ -10,15 +10,15 @@ int	iswhitespace(const char *chr)
 
 char	*strchr_ws(const char *s)
 {
-	size_t len;
-	size_t i;
+	size_t	len;
+	size_t	i;
 
 	len = ft_strlen(s);
 	i = 0;
 	while (i <= len)
 	{
 		if (iswhitespace(&s[i]))
-			return((char *)&s[i]);
+			return ((char *) &s[i]);
 		i++;
 	}
 	return (NULL);

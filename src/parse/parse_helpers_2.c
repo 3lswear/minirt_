@@ -23,9 +23,9 @@ t_color	parse_color(char *string, int lc)
 	return (result);
 }
 
-double parse_onlypos(char *string, int lc)
+double	parse_onlypos(char *string, int lc)
 {
-	double result;
+	double	result;
 
 	result = parse_flpos(string, lc);
 	if (result == 0)

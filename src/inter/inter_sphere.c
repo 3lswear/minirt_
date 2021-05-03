@@ -1,14 +1,13 @@
 #include "minirt.h"
 
-t_hit inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
+t_hit	inter_sphere(t_vec *origin, t_vec *ray, t_sphere *sphere)
 {
-	double b;
-	double c;
-	double discr;
-	t_vec *cam2sphere;
-	t_hit hit;
+	double	b;
+	double	c;
+	double	discr;
+	t_vec	*cam2sphere;
+	t_hit	hit;
 
-	/* printf("sphere->radius = %f\n", sphere->radius); */
 	cam2sphere = v_sub(origin, sphere->center);
 	b = 2 * v_dot_product(cam2sphere, ray);
 	c = v_dot_product(cam2sphere, cam2sphere) - (pow((sphere->diam / 2.0), 2));

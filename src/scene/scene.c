@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-t_scene *new_scene(t_cam *cam)
+t_scene	*new_scene(t_cam *cam)
 {
-	t_scene *result;
+	t_scene	*result;
 
 	result = malloc(sizeof(t_scene));
 	if (!result)
