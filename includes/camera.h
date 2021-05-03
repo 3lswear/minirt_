@@ -14,6 +14,7 @@ typedef struct s_cam
 }				t_cam;
 
 t_cam	*new_cam(t_vec *origin, t_vec *dir, double fov);
+void	get_cam_basis(t_cam *cam);
 
 /* t_color argb_color(int r, int g, int b); */
 int		argb_color(t_color color);

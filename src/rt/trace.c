@@ -10,29 +10,6 @@ void	print_progress(t_scene *scene, int y, t_win *win, char *string)
 		scene->height / 2, WHITE, string);
 }
 
-void	get_cam_basis(t_cam *cam)
-{
-	t_vec	*up;
-
-	up = v_new(0, 1, 0);
-	cam->rev_dir = v_mult(cam->dir, -1);
-	v_norm_inplace(cam->rev_dir);
-	cam->right = v_cross(up, cam->rev_dir);
-	if (v_len(cam->right) == 0)
-	{
-		free(up);
-		up = v_new(0, 0, -1);
-		free(cam->right);
-		cam->right = v_cross(up, cam->rev_dir);
-	}
-	print_vec(cam->right, "cam->right");
-	v_norm_inplace(cam->right);
-	cam->up = v_cross(cam->rev_dir, cam->right);
-	print_vec(cam->up, "cam->up");
-	v_norm_inplace(cam->up);
-	free(up);
-}
-
 t_vec	*get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 {
 	t_vec	*ray;
@@ -53,37 +30,46 @@ t_vec	*get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 	return (result);
 }
 
-void	trace(t_win *window, t_scene *scene, t_cam *cam, int save_bmp)
+void	trace_loop(t_win *window, t_scene *scene, t_cam *cam,
+		struct s_trace *tr)
 {
 	t_view	*view;
-	struct s_trace tr;
-	char	string[101];
 
-	ft_memset(string, '-', 100);
-	string[100] = 0;
 	view = get_viewport(scene->width, scene->height, cam->fov);
-	tr.mlx_y = 0;
-	get_cam_basis(cam);
-	while (tr.mlx_y <= scene->height)
+	while (tr->mlx_y <= scene->height)
 	{
-		tr.ray_y = (-tr.mlx_y + scene->height / 2) * view->y_pixel;
-		tr.mlx_x = 0;
-		while (tr.mlx_x <= scene->width)
+		tr->ray_y = (-tr->mlx_y + scene->height / 2) * view->y_pixel;
+		tr->mlx_x = 0;
+		while (tr->mlx_x <= scene->width)
 		{
-			tr.ray_x = (tr.mlx_x - scene->width / 2) * view->x_pixel;
-			cam->ray = get_cam_ray(cam, tr.ray_x, tr.ray_y);
-			tr.color = inter_objects(cam, scene);
-			if (tr.color.r * tr.color.g * tr.color.b < 0)
-				tr.color = c_mul_scalar(scene->ambient, scene->amb_intensity);
-			pixel_put(window, tr.mlx_x, tr.mlx_y, argb_color(tr.color));
+			tr->ray_x = (tr->mlx_x - scene->width / 2) * view->x_pixel;
+			cam->ray = get_cam_ray(cam, tr->ray_x, tr->ray_y);
+			tr->color = inter_objects(cam, scene);
+			if (tr->color.r * tr->color.g * tr->color.b < 0)
+				tr->color = c_mul_scalar(scene->ambient, scene->amb_intensity);
+			pixel_put(window, tr->mlx_x, tr->mlx_y, argb_color(tr->color));
 			free(cam->ray);
-			tr.mlx_x++;
+			tr->mlx_x++;
 		}
-		if (!save_bmp)
-			print_progress(scene, tr.mlx_y, window, string);
-		tr.mlx_y++;
+		if (!tr->save_bmp)
+			print_progress(scene, tr->mlx_y, window, tr->string);
+		tr->mlx_y++;
 	}
 	free(view);
+}
+
+void	trace(t_win *window, t_scene *scene, t_cam *cam, int save_bmp)
+{
+	struct s_trace	tr;
+	char			string[101];
+
+	tr.save_bmp = save_bmp;
+	ft_memset(string, '-', 100);
+	string[100] = 0;
+	tr.string = string;
+	tr.mlx_y = 0;
+	get_cam_basis(cam);
+	trace_loop(window, scene, cam, &tr);
 }
 
 t_view	*get_viewport(double width, double height, double fov)

@@ -24,6 +24,9 @@ struct s_trace
 	int		mlx_y;
 	double	ray_x;
 	double	ray_y;
+	char *string;
+	t_view *view;
+	int save_bmp;
 };
 
 t_view	*get_viewport(double width, double height, double fov);
