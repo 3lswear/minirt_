@@ -43,14 +43,14 @@ static int	just_intersect(t_point *start, t_vec *vec, t_list *objects,
 	return (0);
 }
 
-int	calc_shadow(t_vec *ray, double ray_len, t_point *light_pos,
+int	calc_shadow(double ray_len, t_point *light_pos,
 		t_scene *scene, t_cam *cam)
 {
 	t_point	*surface_point;
 	t_vec	*obj2light;
 	double	max_len;
 
-	surface_point = v_mult(ray, ray_len * (1 - FLT_EPSILON * 1));
+	surface_point = v_mult(cam->ray, ray_len * (1 - FLT_EPSILON * 1));
 	v_add_inplace(surface_point, cam->origin);
 	obj2light = v_sub(light_pos, surface_point);
 	max_len = v_len(obj2light);
@@ -74,7 +74,7 @@ t_color	calc_lights_2s(t_vec *norm, t_scene *scene, double ray_min, t_cam *cam)
 			norm_mod = v_mult(norm, -1);
 		else
 			norm_mod = v_new(norm->x, norm->y, norm->z);
-		if (!calc_shadow(cam->ray, ray_min, light->coords, scene, cam))
+		if (!calc_shadow(ray_min, light->coords, scene, cam))
 			result = c_add(result,
 					calc_light_matte(norm_mod, light, ray_min, cam));
 		free(norm_mod);
