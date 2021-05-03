@@ -15,10 +15,16 @@ char	*strchr_ws(const char *s);
 
 double	ft_strtof(const char *str);
 void	print_vec(t_vec *vec, char *label);
-void	graceful_exit(t_win *win, t_scene *scene);
+void	graceful_exit(t_win *win, t_scene *scene, int save_arg);
 void	exit_by_close(t_win *win, t_scene *scene);
 
-void write_file(t_win *win, t_scene *scene, int fd);
-void save_screen(t_win *win, t_scene *scene);
+void	write_file(t_win *win, t_scene *scene, int fd);
+void	save_screen(t_win *win, t_scene *scene);
+
+void	free_sphere(t_obj *obj);
+void	free_plane(t_obj *obj);
+void	free_triang(t_obj *obj);
+void	free_square(t_obj *obj);
+void	free_cylind(t_obj *obj);
 
 #endif

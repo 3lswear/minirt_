@@ -61,6 +61,23 @@ typedef struct s_cylind
 
 }	t_cylind;
 
+typedef union u_object
+{
+	t_sphere	sphere;
+	t_plane		plane;
+	t_square	square;
+	t_triang	triang;
+	t_cylind	cylind;
+}	t_object;
+
+typedef struct s_obj
+{
+	int			type;
+	t_color		color;
+	t_object	obj;
+
+}	t_obj;
+
 t_cylind	new_cylind(t_point *pos, t_vec *norm, double diam, double height);
 
 #endif

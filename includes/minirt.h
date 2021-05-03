@@ -54,8 +54,8 @@
 # include "geom.h"
 # include "camera.h"
 # include "scene.h"
-# include "utils.h"
 # include "objects.h"
+# include "utils.h"
 # include "rt.h"
 # include "inter.h"
 /* typedef int t_color; */
@@ -68,22 +68,6 @@
 
 /* typedef enum e_type {sphere, plane} t_type; */
 
-typedef union u_object
-{
-	t_sphere	sphere;
-	t_plane		plane;
-	t_square	square;
-	t_triang	triang;
-	t_cylind	cylind;
-}	t_object;
-
-typedef struct s_obj
-{
-	int			type;
-	t_color		color;
-	t_object	obj;
-
-}	t_obj;
 
 void	pixel_put(t_win *window, int x, int y, int color);
 

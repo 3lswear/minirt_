@@ -17,8 +17,8 @@ static void	write_header(t_win *win, t_scene *scene, int fd)
 {
 	unsigned char	bytes[4];
 	int				len;
-	int x;
-	int y;
+	int				x;
+	int				y;
 
 	x = scene->width;
 	y = scene->height;
@@ -41,36 +41,31 @@ static void	write_header(t_win *win, t_scene *scene, int fd)
 	write(fd, "\0\0\0\0\0\0\0\0", 8);
 }
 
-void write_file(t_win *win, t_scene *scene, int fd)
+void	write_file(t_win *win, t_scene *scene, int fd)
 {
-	int i;
-	int x;
+	int	i;
+	int	x;
 
 	write_header(win, scene, fd);
 	i = scene->height - 1;
 	x = scene->width;
-	/* printf("i %d\n", i); */
-	/* printf("x %d\n", x); */
 	while (i >= 0)
 	{
 		write(fd, win->addr + i * win->line_l, x * (win->bpp / 8));
 		i--;
-
 	}
 	close(fd);
-
-
 }
 
-void save_screen(t_win *win, t_scene *scene)
+void	save_screen(t_win *win, t_scene *scene)
 {
-	int fd;
+	int	fd;
 
 	fd = open("out.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (!fd)
 		handle_error(ERR_FILE);
 	write_file(win, scene, fd);
 	printf("File save successful!\n");
-	/* graceful_exit(win, scene); */
+	graceful_exit(win, scene, 1);
 	exit(0);
 }
