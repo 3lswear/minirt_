@@ -7,9 +7,9 @@ void	lst_cams(t_scene *scene, char **data, t_parse *pa)
 	if (split_len(data) != 4)
 		handle_error(ERR_TOKENS, pa->lc);
 	cam = new_cam(
-			parse_point(data[1]),
-			parse_vec(data[2]),
-			parse_flpos(data[3])
+			parse_point(data[1], pa->lc),
+			parse_vec(data[2], pa->lc),
+			parse_flpos(data[3], pa->lc)
 			);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
 	printf("cam->origin %lf %lf %lf\n", cam->origin->x, cam->origin->y,
@@ -42,9 +42,9 @@ void	parse_lights(t_scene *scene, char **data, t_parse *pa)
 	if (split_len(data) != 4)
 		handle_error(ERR_TOKENS, pa->lc);
 	light = l_new(
-			parse_point(data[1]),
-			parse_flpos(data[2]),
-			parse_color(data[3])
+			parse_point(data[1], pa->lc),
+			parse_flpos(data[2], pa->lc),
+			parse_color(data[3], pa->lc)
 			);
 	ft_lstadd_back(&(scene->lights), ft_lstnew(light));
 }
@@ -54,6 +54,6 @@ void	parse_ambient(t_scene *scene, char **data, t_parse *pa)
 	pa->amb_count++;
 	if (split_len(data) != 3)
 		handle_error(ERR_TOKENS, pa->lc);
-	scene->amb_intensity = parse_flpos(data[1]);
-	scene->ambient = parse_color(data[2]);
+	scene->amb_intensity = parse_flpos(data[1], pa->lc);
+	scene->ambient = parse_color(data[2], pa->lc);
 }

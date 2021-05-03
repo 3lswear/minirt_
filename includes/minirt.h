@@ -33,6 +33,9 @@
 # define ERR_NEG	-5
 # define ERR_FILE	-6
 # define ERR_TOKENS -7
+# define ERR_RLINE	-8
+# define ERR_AMBLINE -9
+# define ERR_COLOR	-10
 
 # define SHININESS	100
 

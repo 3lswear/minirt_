@@ -17,12 +17,12 @@ void	parse_input(char *file, t_scene **scene, t_win *window);
 void	parse_res(char **line, t_scene *scene, t_parse *pa);
 int	split_len(char **data);
 
-t_point	*parse_point(char *string);
-t_vec	*parse_vec(char *string);
-t_vec	*parse_norm(char *string);
-double	parse_doubles(char *string);
-double	parse_flpos(char *string);
-t_color	parse_color(char *string);
+t_point	*parse_point(char *string, int lc);
+t_vec	*parse_vec(char *string, int lc);
+t_vec	*parse_norm(char *string, int lc);
+double	parse_doubles(char *string, int lc);
+double	parse_flpos(char *string, int lc);
+t_color	parse_color(char *string, int lc);
 
 void	lst_cams(t_scene *scene, char **data, t_parse *pa);
 void	parse_objects(t_scene *scene, char **data, t_parse *pa);

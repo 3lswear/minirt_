@@ -12,10 +12,10 @@ void	lst_spheres(t_scene *scene, char **data, t_parse *pa)
 			handle_error(ERR_TOKENS, pa->lc);
 		}
 	sphere = new_sphere(
-			parse_point(data[1]),
-			parse_doubles(data[2])
+			parse_point(data[1], pa->lc),
+			parse_doubles(data[2], pa->lc)
 			);
-	sphere.color = parse_color(data[3]);
+	sphere.color = parse_color(data[3], pa->lc);
 	object = new_object(T_SPHERE, NULL);
 	object->obj.sphere = sphere;
 	object->color = sphere.color;
@@ -30,10 +30,10 @@ void	lst_planes(t_scene *scene, char **data, t_parse *pa)
 	if (split_len(data) != 4)
 		handle_error(ERR_TOKENS, pa->lc);
 	plane = new_plane(
-			parse_point(data[1]),
-			parse_vec(data[2]),
+			parse_point(data[1], pa->lc),
+			parse_vec(data[2], pa->lc),
 			/* parse_norm(data[2]), */
-			parse_color(data[3])
+			parse_color(data[3], pa->lc)
 			);
 	/* maybe remove */
 	v_norm_inplace(plane.norm);
@@ -51,11 +51,11 @@ void	lst_squares(t_scene *scene, char **data, t_parse *pa)
 		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_SQUARE, NULL);
 	object->obj.square = new_square(
-			parse_point(data[1]),
+			parse_point(data[1], pa->lc),
 			/* parse_norm(data[2]), */
-			parse_vec(data[2]),
-			parse_flpos(data[3]),
-			parse_color(data[4])
+			parse_vec(data[2], pa->lc),
+			parse_flpos(data[3], pa->lc),
+			parse_color(data[4], pa->lc)
 			);
 	v_norm_inplace(object->obj.square.norm);
 	object->obj.square.hside = object->obj.square.side / 2.0;
@@ -72,10 +72,10 @@ void	lst_triangs(t_scene *scene, char **data, t_parse *pa)
 		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_TRIANG, NULL);
 	object->obj.triang = new_triang(
-			parse_point(data[1]),
-			parse_point(data[2]),
-			parse_point(data[3]),
-			parse_color(data[4])
+			parse_point(data[1], pa->lc),
+			parse_point(data[2], pa->lc),
+			parse_point(data[3], pa->lc),
+			parse_color(data[4], pa->lc)
 			);
 	object->color = object->obj.triang.color;
 	object->obj.triang.norm = triang_get_norm(&object->obj.triang);
@@ -91,12 +91,12 @@ void	lst_cylinds(t_scene *scene, char **data, t_parse *pa)
 		handle_error(ERR_TOKENS, pa->lc);
 	object = new_object(T_CYLIND, NULL);
 	object->obj.cylind = new_cylind(
-			parse_point(data[1]),
-			parse_norm(data[2]),
-			parse_flpos(data[3]),
-			parse_flpos(data[4])
+			parse_point(data[1], pa->lc),
+			parse_norm(data[2], pa->lc),
+			parse_flpos(data[3], pa->lc),
+			parse_flpos(data[4], pa->lc)
 			);
-	object->obj.cylind.color = parse_color(data[5]);
+	object->obj.cylind.color = parse_color(data[5], pa->lc);
 	object->obj.cylind.rad = object->obj.cylind.diam / 2.0;
 	object->obj.cylind.cur_norm = NULL;
 	object->color = object->obj.cylind.color;

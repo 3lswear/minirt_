@@ -23,6 +23,8 @@ void	handle_error(int code, int line)
 		msg = "Incorrect amount of R lines.";
 	else if (code == ERR_AMBLINE)
 		msg = "Incorrect amount of A lines.";
+	else if (code == ERR_COLOR)
+		msg = "Invalid values for color.";
 	else
 		msg = "Undefined";
 	ft_putstr_fd("Error! 😰\n", 2);
