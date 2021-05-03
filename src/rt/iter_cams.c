@@ -55,20 +55,19 @@ int	key_press_hook(int keycode, struct s_data *data)
 void	iter_cams(t_scene *scene, t_win *window, int save_bmp)
 {
 	t_cam			*cam;
-	struct s_data	*data;
+	struct s_data	data;
 
-	data = malloc(sizeof(struct s_data));
 	cam = scene->cams->data;
-	data->win = window;
-	data->scene = scene;
-	data->current = scene->cams;
-	data->cam = cam;
+	data.win = window;
+	data.scene = scene;
+	data.current = scene->cams;
+	data.cam = cam;
 	if (!save_bmp)
 		window->win = mlx_new_window(window->mlx, scene->width,
 				scene->height, "🤠🤠🤠");
 	next_cam(scene, window, cam, save_bmp);
 	mlx_hook(window->win, 33, 3, close_button, (void *) scene);
-	mlx_hook(window->win, 2, 1L << 0, (void *) key_press_hook, (void *) data);
+	mlx_hook(window->win, 2, 1L << 0, (void *) key_press_hook, (void *) &data);
 	mlx_loop(window->mlx);
 	exit(0);
 }
