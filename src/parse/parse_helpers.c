@@ -19,7 +19,12 @@ t_point	*parse_point(char *string, int lc)
 
 t_vec	*parse_vec(char *string, int lc)
 {
-	return (parse_point(string, lc));
+	t_vec	*result;
+
+	result =  parse_point(string, lc);
+	if (v_len(result) < FLT_EPSILON)
+		handle_error(ERR_SUBNORM, lc);
+	return (result);
 }
 
 t_vec	*parse_norm(char *string, int lc)

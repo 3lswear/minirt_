@@ -22,3 +22,13 @@ t_color	parse_color(char *string, int lc)
 	liberator(data);
 	return (result);
 }
+
+double parse_onlypos(char *string, int lc)
+{
+	double result;
+
+	result = parse_flpos(string, lc);
+	if (result == 0)
+		handle_error(ERR_NEG, lc);
+	return (result);
+}

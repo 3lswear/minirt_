@@ -8,7 +8,7 @@ void	lst_cams(t_scene *scene, char **data, t_parse *pa)
 		handle_error(ERR_TOKENS, pa->lc);
 	cam = new_cam(
 			parse_point(data[1], pa->lc),
-			parse_vec(data[2], pa->lc),
+			parse_norm(data[2], pa->lc),
 			parse_flpos(data[3], pa->lc)
 			);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
@@ -37,7 +37,6 @@ void	parse_objects(t_scene *scene, char **data, t_parse *pa)
 void	parse_lights(t_scene *scene, char **data, t_parse *pa)
 {
 	t_light	*light;
-
 
 	if (split_len(data) != 4)
 		handle_error(ERR_TOKENS, pa->lc);

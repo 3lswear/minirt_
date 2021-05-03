@@ -11,4 +11,6 @@ void	parse_res(char **line, t_scene *scene, t_parse *pa)
 		scene->width = W_MAX;
 	if (scene->height > H_MAX)
 		scene->height = H_MAX;
+	if (scene->height <= 0 || scene->width <= 0)
+		handle_error(ERR_NEG, pa->lc);
 }
