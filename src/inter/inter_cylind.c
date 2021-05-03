@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 static t_vec	*calc_cam2cent(t_point *origin, t_cylind *cy)
 {
 	t_vec	*cam2cent;

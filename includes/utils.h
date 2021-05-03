@@ -6,6 +6,24 @@ void	handle_error(int value);
 void	parse_input(char *file, t_scene **scene, t_win *window);
 void	parse_res(char **line, t_scene *scene);
 
+t_point	*parse_point(char *string);
+t_vec	*parse_vec(char *string);
+t_vec	*parse_norm(char *string);
+double	parse_doubles(char *string);
+double	parse_flpos(char *string);
+t_color	parse_color(char *string);
+
+void	lst_cams(t_scene *scene, char **data);
+void	parse_objects(t_scene *scene, char **data);
+void	parse_lights(t_scene *scene, char **data);
+void	parse_ambient(t_scene *scene, char **data);
+
+void	lst_spheres(t_scene *scene, char **data);
+void	lst_planes(t_scene *scene, char **data);
+void	lst_squares(t_scene *scene, char **data);
+void	lst_triangs(t_scene *scene, char **data);
+void	lst_cylinds(t_scene *scene, char **data);
+
 int		free4(void *a, void *b, void *c, void *d);
 
 int		iswhitespace(const char *chr);
@@ -26,5 +44,10 @@ void	free_plane(t_obj *obj);
 void	free_triang(t_obj *obj);
 void	free_square(t_obj *obj);
 void	free_cylind(t_obj *obj);
+
+void	print_vec(t_vec *vec, char *label);
+void	lst_print(t_list *lst);
+void	print_str_array(char **data);
+void	obj_lst_print(t_list *lst);
 
 #endif

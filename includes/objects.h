@@ -79,5 +79,6 @@ typedef struct s_obj
 }	t_obj;
 
 t_cylind	new_cylind(t_point *pos, t_vec *norm, double diam, double height);
+t_obj	*new_object(int type, t_object *object);
 
 #endif
