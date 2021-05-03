@@ -59,7 +59,7 @@ t_vec *get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 	return (result);
 }
 
-void trace(t_win *window, t_scene *scene, t_cam *cam)
+void trace(t_win *window, t_scene *scene, t_cam *cam, int save_bmp)
 {
 	int mlx_x;
 	int mlx_y;
@@ -96,7 +96,8 @@ void trace(t_win *window, t_scene *scene, t_cam *cam)
 			x_ang++;
 			mlx_x++;
 		}
-		print_progress(scene, mlx_x, mlx_y, window, string);
+		if (!save_bmp)
+			print_progress(scene, mlx_x, mlx_y, window, string);
 		y_ang--;
 		mlx_y++;
 	}

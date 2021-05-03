@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:23:19 by sunderle          #+#    #+#             */
-/*   Updated: 2021/05/02 11:39:56 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/03 13:42:29 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,38 @@ void draw_circle(t_win window, int width, int height)
 	}
 }
 
-char *parse_args(int argc, char **argv)
+/* char *check_filename(char *name) */
+/* { */
+/* 	char **split; */
+/* 	/1* split_len *1/ */
+/* 	split = ft_split(name, '.'); */
+/* 	if (1) */
+
+/* } */
+
+int check_save(int argc, char **argv)
 {
-	if (argc == 2)
-		return(argv[1]);
+	if (argc == 3) 
+	{
+		if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
+		{
+			printf("OK GONNA SAVE NOW\n\n");
+			return (1);
+		}
+		else
+		{
+			handle_error(ERR_ARG);
+			return (0);
+		}
+	}
+	else
+		return (0);
+}
+
+char *get_filename(char **argv, int argc)
+{
+	if (argc == 2 || argc == 3)
+		return (argv[1]);
 	else
 	{
 		handle_error(ERR_ARG);
@@ -57,20 +85,21 @@ int	main(int argc, char **argv)
 	/* int offset; */
 	t_win window;
 	t_scene *scene;
+	int	save_bmp;
 
 	char *arg;
-	arg = parse_args(argc, argv);
+	arg = get_filename(argv, argc);
+	save_bmp = check_save(argc, argv);
 
 	parse_input(arg, &scene, &window);
 
     window.mlx = mlx_init();
-    window.win = mlx_new_window(window.mlx, scene->width, scene->height, "🤠🤠🤠");
+	iter_cams(scene, &window, save_bmp);
 	
 
 	/* draw_circle(window, width, height); */
 
 
-	iter_cams(scene, &window);
 	/* trace(&window, scene); */
 	//TODO: free scene
 

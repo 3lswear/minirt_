@@ -6,7 +6,7 @@
 /*   By: sunderle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 22:24:28 by sunderle          #+#    #+#             */
-/*   Updated: 2021/05/03 02:03:14 by sunderle         ###   ########.fr       */
+/*   Updated: 2021/05/03 13:05:20 by sunderle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@
 # define ERR_ARG	-3
 # define ERR_SUBNORM -4
 # define ERR_NEG	-5
+# define ERR_FILE	-6
 
 # define SHININESS	100
 
 # define KEY_Q 113
 # define KEY_ESC	0xFF1B
 # define KEY_SPC	0x20
+
+# define X_EVENT_KEY_PRESS 2
 
 # include "../mlx-linux/mlx.h"
 # include "../ext/gnl/get_next_line.h"

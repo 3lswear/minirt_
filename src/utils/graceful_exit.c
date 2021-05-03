@@ -103,3 +103,12 @@ void graceful_exit(t_win *win, t_scene *scene)
 	exit(0);
 }
 
+void exit_by_close(t_win *win, t_scene *scene)
+{
+	/* ft_lstclear(&scene->objects, clean_objects); */
+	/* ft_lstclear(&scene->cams, clean_cams); */
+	/* ft_lstclear(&scene->lights, clean_lights); */
+	(void)scene;
+	(void)win;
+	exit(0);
+}
