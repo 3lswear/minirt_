@@ -62,37 +62,45 @@ t_color	color_closest(t_scene *scene, t_cam *cam, t_obj *cl,
 	return (color);
 }
 
+double	i_objects(t_cam *cam, t_scene *scene, t_obj *cur_obj)
+{
+	double	ray_len;
+
+	(void)scene;
+	ray_len = 0;
+	if (cur_obj->type == T_SPHERE)
+		ray_len = get_positive(inter_sphere(cam->origin,
+					cam->ray, &cur_obj->obj.sphere));
+	else if (cur_obj->type == T_PLANE)
+		ray_len = inter_plane(cam->origin, cam->ray, &cur_obj->obj.plane);
+	else if (cur_obj->type == T_TRIANG)
+		ray_len = inter_triang(cam->origin, cam->ray, &cur_obj->obj.triang);
+	else if (cur_obj->type == T_SQUARE)
+		ray_len = inter_square(cam->origin, cam->ray, &cur_obj->obj.square);
+	else if (cur_obj->type == T_CYLIND)
+		ray_len = just_get(inter_cylind(cam->origin, cam->ray,
+					&cur_obj->obj.cylind, 1));
+	return (ray_len);
+}
+
 t_color	inter_objects(t_cam *cam, t_scene *scene)
 {
 	t_list	*current;
-	t_obj	*cur_obj;
-	double	ray_len;
 	double	ray_min;
 	t_obj	*closest;
 	t_color	ambient;
+	double	ray_len;
 
 	ray_min = INFINITY;
 	closest = NULL;
 	current = scene->objects;
 	while (current)
 	{
-		cur_obj = current->data;
-		if (cur_obj->type == T_SPHERE)
-			ray_len = get_positive(inter_sphere(cam->origin,
-						cam->ray, &cur_obj->obj.sphere));
-		else if (cur_obj->type == T_PLANE)
-			ray_len = inter_plane(cam->origin, cam->ray, &cur_obj->obj.plane);
-		else if (cur_obj->type == T_TRIANG)
-			ray_len = inter_triang(cam->origin, cam->ray, &cur_obj->obj.triang);
-		else if (cur_obj->type == T_SQUARE)
-			ray_len = inter_square(cam->origin, cam->ray, &cur_obj->obj.square);
-		else if (cur_obj->type == T_CYLIND)
-			ray_len = just_get(inter_cylind(cam->origin, cam->ray,
-						&cur_obj->obj.cylind, 1));
+		ray_len = i_objects(cam, scene, current->data);
 		if ((ray_len > 0) && (ray_len < ray_min))
 		{
 			ray_min = ray_len;
-			closest = cur_obj;
+			closest = current->data;
 		}
 		current = current->next;
 	}
