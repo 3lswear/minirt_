@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 static unsigned int	get_wc(const char *s)
 {
 	unsigned int	count;

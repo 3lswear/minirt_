@@ -1,10 +1,19 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+struct s_parse
+{
+	int	res_count;
+	int amb_count;
+	int valid;
+	
+};
+
 double	idiv(int a, int b);
 void	handle_error(int value, int line);
 void	parse_input(char *file, t_scene **scene, t_win *window);
-void	parse_res(char **line, t_scene *scene);
+void	parse_res(char **line, t_scene *scene, t_win *win);
+int	split_len(char **data);
 
 t_point	*parse_point(char *string);
 t_vec	*parse_vec(char *string);

@@ -23,6 +23,9 @@
 # define BLUE	0x000000FF
 # define BLACK	0x00000000
 
+# define W_MAX 1920
+# define H_MAX 1080
+
 # define ERR_ALLOC	-1
 # define ERR_LIST	-2
 # define ERR_ARG	-3
