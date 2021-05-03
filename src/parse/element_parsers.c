@@ -12,9 +12,6 @@ void	lst_cams(t_scene *scene, char **data, t_parse *pa)
 			parse_flpos(data[3], pa->lc)
 			);
 	ft_lstadd_back(&(scene->cams), ft_lstnew(cam));
-	printf("cam->origin %lf %lf %lf\n", cam->origin->x, cam->origin->y,
-		cam->origin->z);
-	print_str_array(data);
 }
 
 void	parse_objects(t_scene *scene, char **data, t_parse *pa)

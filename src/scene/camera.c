@@ -28,10 +28,8 @@ void	get_cam_basis(t_cam *cam)
 		free(cam->right);
 		cam->right = v_cross(up, cam->rev_dir);
 	}
-	print_vec(cam->right, "cam->right");
 	v_norm_inplace(cam->right);
 	cam->up = v_cross(cam->rev_dir, cam->right);
-	print_vec(cam->up, "cam->up");
 	v_norm_inplace(cam->up);
 	free(up);
 }

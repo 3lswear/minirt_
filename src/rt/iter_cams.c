@@ -47,7 +47,6 @@ int	key_press_hook(int keycode, struct s_data *data)
 	}
 	else
 	{
-		printf("keycode is 0x%X\n", keycode);
 		return (0);
 	}
 }
