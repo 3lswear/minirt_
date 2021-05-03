@@ -14,6 +14,16 @@ void 	parse_redirector(t_scene **scene, char **data, t_parse *pa)
 		parse_objects(*scene, data, pa);
 }
 
+void	check_mandatory(t_parse *pa)
+{
+	if (pa->ret == -1)
+		handle_error(ERR_FILE, -1);
+	if (pa->res_count != 1)
+		handle_error(ERR_RLINE, -1);
+	if (pa->amb_count != 1)
+		handle_error(ERR_AMBLINE, -1);
+}
+
 void	parse_input(char *file, t_scene **scene, t_win *window)
 {
 	int		fd;
@@ -48,7 +58,6 @@ void	parse_input(char *file, t_scene **scene, t_win *window)
 	}
 	if (!parse.ret)
 		free(line);
-	if (parse.ret == -1)
-		handle_error(ERR_FILE, -1);
+	check_mandatory(&parse);
 	close(fd);
 }
