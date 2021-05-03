@@ -1,8 +1,9 @@
 #include "minirt.h"
 
-t_cam *new_cam(t_vec *origin, t_vec *dir, double fov)
+t_cam	*new_cam(t_vec *origin, t_vec *dir, double fov)
 {
-	t_cam *result;
+	t_cam	*result;
+
 	result = malloc(sizeof(t_cam));
 	if (!result)
 		handle_error(-1);

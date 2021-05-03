@@ -68,7 +68,6 @@
 
 /* typedef enum e_type {sphere, plane} t_type; */
 
-
 void	pixel_put(t_win *window, int x, int y, int color);
 
 #endif
