@@ -1,4 +1,4 @@
-# MinirRT
+# MiniRT
 A simpe and compact raytracer for X Window System written in C
 
 ![Screenshot](https://i.imgur.com/pVBaF7V.png)
