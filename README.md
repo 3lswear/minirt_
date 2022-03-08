@@ -30,26 +30,18 @@ clone with submodules:
 git clone --recursive https://github.com/3lswear/minirt_
 ````
 
-build MLX:
-
 ```
-cd minirt_/mlx-linux
-sudo ./configure
-```
-
-build MiniRT:
-
-```
-cd ..
-make
+cd minirt_ && make
 ```
 
 ### Usage
 
 ---
 
+Pass a path to a scene file as an argument to the executable:
+
 ```
-./miniRT your_map_file.rt
+./miniRT maps/spheres_plane_color_lights.rt
 ```
 
 #### Keyboard bindings:
