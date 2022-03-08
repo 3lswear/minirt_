@@ -26,7 +26,9 @@ MiniLibX dependencies:
 
 clone with submodules:
 
-`git clone --recursive https://github.com/3lswear/minirt_`
+````
+git clone --recursive https://github.com/3lswear/minirt_
+````
 
 build MLX:
 
@@ -54,7 +56,7 @@ make
 
 `Q` /`ESC`to quit,
 
-`SPACE` to switch cameras if there are any.
+`SPACE` to switch cameras if there are more than one.
 
 **Some demo scenes are located in `maps` folder.**
 
@@ -64,22 +66,29 @@ make
 
 ```conf
 # Set window resolution
-R 1366 768
+R	1366 768
+
 # Set ambient lighting intensity and RGB color (only one)
-A 0.7 255,255,255
+A	0.7 255,255,255
+
 # Add one or more cameras by setting:
 # coords of a view point, normalized orientation vector, FOV
-c 0,0,0 0,0,1 90
+c	0,0,0 0,0,1 90
+
 # Set up shapes such as:
 # Sphere (coords of the center, diameter, color):
-sp -2,-2,-8 4 51,150,51
-# Plane (coords of any point on a plane, normalized orientation vector, color)
-pl 0,-15,0 0,1,0 50,50,255
-# Cylinder (center coords, normalized orientation vector, diameter, length, color)
-cy 0,-2,-10 0,0,1 3 14 200,200,200
-# Square (center coords, normalized orientation vector, side length, color)
-sq 0,-9.9,2 0,1,0 5 200,200,50
-# Triangle (coords of all three points, color)
-tr 1,-10,0 -1,-10,0 0,-10,-6 255,50,50
+sp	-2,-2,-8 4 51,150,51
+
+# Plane (coords of any point on a plane, normalized orientation vector, color):
+pl	0,-15,0 0,1,0 50,50,255
+
+# Cylinder (center coords, normalized orientation vector, diameter, length, color):
+cy	0,-2,-10 0,0,1 3 14 200,200,200
+
+# Square (center coords, normalized orientation vector, side length, color):
+sq	0,-9.9,2 0,1,0 5 200,200,50
+
+# Triangle (coords of all three points, color):
+tr	1,-10,0 -1,-10,0 0,-10,-6 255,50,50
 ```
 
