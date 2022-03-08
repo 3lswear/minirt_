@@ -3,11 +3,10 @@ A compact raytracer for X Window System written in C
 
 ![Screenshot](https://i.imgur.com/pVBaF7V.png)
 
-Requires MiniLibX for Linux to work.
 
 ### Requirements
-
 ---
+Requires MiniLibX for Linux to work (will install it by itself but you need the dependencies).
 
 MiniLibX dependencies:
 
