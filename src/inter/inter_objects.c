@@ -105,6 +105,7 @@ t_color	inter_objects(t_cam *cam, t_scene *scene)
 		current = current->next;
 	}
 	ambient = c_mul_scalar(scene->ambient, scene->amb_intensity);
+	(void)ambient;
 	if (closest)
 		return (color_closest(scene, cam, closest, ray_min));
 	else

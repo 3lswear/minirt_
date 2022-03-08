@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void 	parse_redirector(t_scene **scene, char **data, t_parse *pa)
+void	parse_redirector(t_scene **scene, char **data, t_parse *pa)
 {
 	if (!ft_strncmp(data[0], "R", ft_strlen(data[0])))
 		parse_res(data, *scene, pa);

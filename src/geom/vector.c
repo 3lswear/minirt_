@@ -38,7 +38,7 @@ void	v_sub_inplace(t_vec *a, t_vec *b)
 	a->z = a->z - b->z;
 }
 
-t_vec 	*v_add(t_vec *a, t_vec *b)
+t_vec	*v_add(t_vec *a, t_vec *b)
 {
 	t_vec	*result;
 

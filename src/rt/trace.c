@@ -19,11 +19,11 @@ t_vec	*get_cam_ray(t_cam *cam, double x_ray, double y_ray)
 	v_norm_inplace(ray);
 	result = v_new(
 			((ray->x * cam->right->x) + (ray->y * cam->up->x)
-				 + (ray->z * cam->rev_dir->x)),
+				+ (ray->z * cam->rev_dir->x)),
 			((ray->x * cam->right->y) + (ray->y * cam->up->y)
-				 + (ray->z * cam->rev_dir->y)),
+				+ (ray->z * cam->rev_dir->y)),
 			((ray->x * cam->right->z) + (ray->y * cam->up->z)
-				 + (ray->z * cam->rev_dir->z))
+				+ (ray->z * cam->rev_dir->z))
 			);
 	v_norm_inplace(result);
 	free(ray);
