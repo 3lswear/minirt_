@@ -120,9 +120,6 @@ LIBFT_SRC = ft_atoi.c \
 MLXFLAGS = -Lmlx-linux -lmlx -lXext -lX11
 MLX = ./mlx-linux/libmlx.a
 
-$(MLX): $(wildcard ./mlx-linux/*.c)
-	sudo make -C ./mlx-linux
-
 all: $(NAME)
 
 $(OBJ): %.o: %.c
@@ -133,6 +130,9 @@ $(GNL_OBJ): %.o: %.c $(GNL_HEADER)
 
 $(LIBFT):
 	$(MAKE) -C ./ext/libft
+
+$(MLX): $(wildcard ./mlx-linux/*.c)
+	sudo make -C ./mlx-linux
 
 $(NAME): $(LIBFT) $(GNL_OBJ) $(OBJ) $(MLX)
 	$(CC) $(OBJ) $(GNL_OBJ) $(MLXFLAGS) $(LIBFT_FLAGS) -lm -o $(NAME)
